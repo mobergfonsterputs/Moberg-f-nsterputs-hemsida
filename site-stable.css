@@ -1,0 +1,21 @@
+/* Minskar visuellt “hopp” vid omladdning och onödig rörelse vid klick */
+html {
+    scroll-behavior: auto;
+    /* Reserverar plats för scrollbar så headern inte flyttar vid sidbyte/kortare sida */
+    scrollbar-gutter: stable;
+}
+
+body {
+    font-synthesis: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+}

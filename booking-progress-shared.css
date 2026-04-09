@@ -1,0 +1,147 @@
+/* Booking flow: top-nav + tillbaka-länk + progress (samma layout som personuppgifter / paket-vald.html) */
+
+body.booking-flow-step-2 {
+    --booking-progress-fill: 33.333%;
+}
+
+body.booking-flow-step-3 {
+    --booking-progress-fill: 66.666%;
+}
+
+body.booking-flow-step-4 {
+    --booking-progress-fill: 100%;
+}
+
+.top-nav {
+    width: min(1320px, calc(100% - 2.5rem));
+    margin: 84px auto 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.back-link {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px 8px 6px;
+    border-radius: 999px;
+    color: #0f172a;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+    text-decoration-color: #113768;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+
+.back-link-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    border: 1px solid rgba(15, 23, 42, 0.2);
+    background: #fff;
+}
+
+.back-link-text {
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 1.1;
+}
+
+.booking-progress {
+    width: min(760px, 100%);
+    margin: 0;
+}
+
+.booking-progress-track {
+    position: relative;
+    width: 88%;
+    margin: 0 auto;
+    height: 6px;
+    border-radius: 999px;
+    background: #e9edf4;
+    overflow: visible;
+}
+
+.booking-progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--booking-progress-fill, 33.333%);
+    border-radius: 999px;
+    background: var(--tech-blue, #113768);
+}
+
+.booking-progress-dots {
+    position: absolute;
+    inset: 0;
+    pointer-events: auto;
+}
+
+.booking-progress-dot {
+    position: absolute;
+    top: 50%;
+    width: 22px;
+    height: 22px;
+    transform: translate(-50%, -50%);
+    border-radius: 999px;
+    border: 2px solid #94a3b8;
+    outline: 2px solid #fff;
+    box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.14);
+    background: #fff;
+    cursor: pointer;
+}
+
+.booking-progress-dot.is-complete {
+    border-color: var(--tech-blue, #113768);
+    background: var(--tech-blue, #113768);
+}
+
+.booking-progress-dot.is-active {
+    border-color: var(--tech-blue, #113768);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(17, 55, 104, 0.14);
+}
+
+.booking-progress-steps {
+    width: 88%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    position: relative;
+    height: 1.1rem;
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.booking-progress-step {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    text-align: center;
+    white-space: nowrap;
+}
+
+.booking-progress-step.is-active {
+    color: var(--primary-blue, #0f172a);
+    font-weight: 700;
+}
+
+.booking-progress-step.is-complete {
+    color: #0f766e;
+    font-weight: 600;
+}

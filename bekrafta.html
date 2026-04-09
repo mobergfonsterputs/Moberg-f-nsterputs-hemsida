@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bekräfta</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:ital@1&display=optional" rel="stylesheet">
+    <link rel="stylesheet" href="header-shared.css?v=14">
+    <link rel="stylesheet" href="site-stable.css?v=2">
+    <link rel="stylesheet" href="booking-progress-shared.css?v=3">
+    <link rel="stylesheet" href="footer-shared.css?v=24">
+    <style>
+        body {
+            margin: 0;
+            font-family: Inter, sans-serif;
+            color: #0f172a;
+            background: #fff;
+            padding: 0 0 48px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            padding: 1.2rem 0;
+        }
+        .header-inner {
+            width: min(1320px, calc(100% - 2.5rem));
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-fallback {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            text-decoration: none;
+            color: #000;
+            letter-spacing: -1px;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 2.8rem;
+        }
+        nav a {
+            color: #000;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        nav ul li > a:not(.btn-cta) {
+            position: relative;
+            display: inline-block;
+        }
+        nav ul li > a:not(.btn-cta)::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 100%;
+            height: 1px;
+            background: #113768;
+            border-radius: 999px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        nav ul li > a:not(.btn-cta):hover::after { opacity: 1; }
+        .nav-desktop { display: flex; align-items: center; }
+        .header-mobile { display: none; align-items: center; gap: 0.65rem; }
+        .nav-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            border: none;
+            background: transparent;
+            color: #000;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background 0.2s ease;
+        }
+        .nav-toggle:hover { background: rgba(0, 0, 0, 0.06); }
+        .nav-toggle svg { width: 24px; height: 24px; }
+        .mobile-menu-panel {
+            display: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid #e5e5e5;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+            z-index: 999;
+        }
+        .mobile-menu-panel.is-open { display: block; }
+        .mobile-menu-inner {
+            width: min(1320px, calc(100% - 2.5rem));
+            margin: 0 auto;
+            padding: 0.75rem 0 1.25rem;
+        }
+        .mobile-menu-panel ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .mobile-menu-panel li { text-align: center; border-bottom: 1px solid #000; }
+        .mobile-menu-panel li:last-child { border-bottom: none; }
+        .mobile-menu-panel a {
+            display: block;
+            padding: 1rem 0.75rem;
+            text-decoration: none;
+            text-align: center;
+            color: #0F172A;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1.4rem;
+            line-height: 1.3;
+        }
+        .mobile-menu-panel a:hover { background: rgba(0, 0, 0, 0.03); }
+        .btn-cta {
+            background: #113768;
+            color: #fff;
+            padding: 0.8rem 3.4rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+            display: inline-block;
+        }
+        .btn-cta:hover { background: #0d2c52; }
+        .content {
+            width: min(680px, calc(100% - 2.5rem));
+            margin: 2.75rem auto 0;
+            padding: 0 0 3.5rem;
+        }
+        .card {
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+        .title {
+            margin: 0 0 1rem;
+            font-size: clamp(1.75rem, 4.2vw, 2.125rem);
+            line-height: 1.12;
+            letter-spacing: -0.03em;
+            font-weight: 800;
+        }
+        .intro {
+            margin: 0 0 2.25rem;
+            color: #64748b;
+            font-size: 1.0625rem;
+            line-height: 1.65;
+            max-width: 36rem;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0;
+            margin: 0 0 2.5rem;
+            padding: 0.25rem 0 0;
+        }
+        .row {
+            display: grid;
+            grid-template-columns: minmax(140px, 200px) 1fr;
+            gap: 1rem 1.5rem;
+            align-items: baseline;
+            padding: 1.15rem 0;
+            border-bottom: 1px solid #e8eef5;
+        }
+        .row:last-child {
+            border-bottom: none;
+        }
+        .k {
+            color: #64748b;
+            font-weight: 600;
+            font-size: 0.8125rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .v {
+            color: #0f172a;
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.55;
+            word-break: break-word;
+        }
+        .address-value-btn {
+            border: none;
+            padding: 0;
+            margin: 0;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+            font-weight: inherit;
+            cursor: pointer;
+            text-align: left;
+            text-decoration: none;
+        }
+        .inline-value-wrap {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        .inline-edit-input {
+            width: 100%;
+            height: 38px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 0 0.7rem;
+            font: inherit;
+            color: #0f172a;
+            outline: none;
+            display: none;
+        }
+        .inline-edit-input.is-open {
+            display: block;
+        }
+        .inline-edit-input:focus {
+            border-color: #113768;
+            box-shadow: 0 0 0 3px rgba(17, 55, 104, 0.12);
+        }
+        .inline-edit-msg {
+            margin-top: 0.35rem;
+            font-size: 0.84rem;
+            color: #b91c1c;
+            min-height: 1.1rem;
+        }
+        .inline-edit-msg:empty {
+            min-height: 0;
+        }
+        .price-pulse {
+            display: inline-block;
+            transform-origin: left center;
+            transition: transform 0.18s ease, font-weight 0.18s ease;
+        }
+        .price-pulse.is-active {
+            transform: scale(1.045);
+            font-weight: 700;
+        }
+        .address-editor-row {
+            display: none;
+            border-bottom: 1px solid #f1f5f9;
+            padding-top: 0;
+        }
+        .address-editor-row.is-open {
+            display: grid;
+        }
+        .address-editor {
+            position: relative;
+        }
+        .address-edit-input {
+            width: 100%;
+            height: 44px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 0 0.85rem;
+            font: inherit;
+            color: #0f172a;
+            outline: none;
+        }
+        .address-edit-input:focus {
+            border-color: #113768;
+            box-shadow: 0 0 0 3px rgba(17, 55, 104, 0.12);
+        }
+        .address-edit-suggestions {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12);
+            overflow: hidden;
+            z-index: 30;
+            display: none;
+        }
+        .address-edit-suggestions.is-open {
+            display: block;
+        }
+        .address-edit-suggestion-btn {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #e2e8f0;
+            background: #fff;
+            text-align: left;
+            padding: 0.65rem 0.75rem;
+            font: inherit;
+            font-size: 0.92rem;
+            cursor: pointer;
+            color: #0f172a;
+        }
+        .address-edit-suggestion-btn:last-child {
+            border-bottom: none;
+        }
+        .address-edit-suggestion-btn:hover {
+            background: #f8fafc;
+        }
+        .address-edit-msg {
+            margin-top: 0.45rem;
+            font-size: 0.88rem;
+            color: #b91c1c;
+            min-height: 1.2rem;
+        }
+        .confirm-wrap {
+            margin-top: 0;
+        }
+        .confirm-input-group {
+            display: flex;
+            align-items: stretch;
+            width: 100%;
+            max-width: 420px;
+        }
+        .confirm-input {
+            flex: 1;
+            min-width: 0;
+            height: 50px;
+            box-sizing: border-box;
+            border: 1px solid #cbd5e1;
+            border-right: none;
+            border-radius: 14px 0 0 14px;
+            padding: 0 0.95rem;
+            font: inherit;
+            font-size: 15px;
+            font-weight: 500;
+            color: #0f172a;
+            background: #fff;
+        }
+        .confirm-input::placeholder {
+            color: #64748b;
+            font-weight: 400;
+        }
+        .confirm-input:focus {
+            outline: none;
+            border-color: #113768;
+            box-shadow: inset 0 0 0 1px #113768;
+            position: relative;
+            z-index: 1;
+        }
+        .booking-notes-block {
+            margin: 0 0 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+        .booking-note {
+            margin: 0;
+            color: #334155;
+            font-size: 0.98rem;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.55rem;
+            font-weight: 500;
+        }
+        .booking-note::before {
+            content: "✓";
+            color: #16a34a;
+            font-weight: 700;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .terms-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            margin: 0 0 1.75rem;
+            max-width: 36rem;
+            padding: 1.25rem 0 0;
+            border-top: 1px solid #e8eef5;
+        }
+        .terms-checkbox {
+            width: 1.15rem;
+            height: 1.15rem;
+            margin: 0.15rem 0 0;
+            flex-shrink: 0;
+            cursor: pointer;
+            accent-color: #113768;
+        }
+        .terms-label {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #0f172a;
+            cursor: pointer;
+            user-select: none;
+        }
+        .terms-link {
+            color: #113768;
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+        .terms-link:hover {
+            color: #0d2c52;
+        }
+        .confirm-btn {
+            height: 50px;
+            width: auto;
+            min-width: 118px;
+            padding: 0 1.2rem;
+            border: 1px solid #113768;
+            border-left: none;
+            border-radius: 0 14px 14px 0;
+            font: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            background: #113768;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            flex-shrink: 0;
+        }
+        .confirm-btn:hover {
+            background: #0d2c52;
+        }
+        .confirm-btn:focus-visible {
+            outline: 2px solid #113768;
+            outline-offset: 2px;
+            z-index: 1;
+        }
+        .confirm-btn:disabled {
+            background: #94a3b8;
+            border-color: #94a3b8;
+            cursor: not-allowed;
+            opacity: 0.92;
+        }
+        .confirm-btn:disabled:hover {
+            background: #94a3b8;
+        }
+        .confirm-flow-msg {
+            margin-top: 0.65rem;
+            max-width: 420px;
+            font-size: 0.875rem;
+            line-height: 1.4;
+            font-weight: 500;
+            color: #b91c1c;
+        }
+        .confirm-flow-msg:empty {
+            display: none;
+        }
+        .ok-msg {
+            margin-top: 1rem;
+            color: #15803d;
+            font-weight: 600;
+            display: none;
+        }
+        .ok-msg.is-visible {
+            display: block;
+        }
+        @media (max-width: 700px) {
+            .row {
+                grid-template-columns: 1fr;
+                gap: 0.2rem;
+            }
+            .confirm-input-group {
+                max-width: none;
+            }
+        }
+        @media (max-width: 900px) {
+            .nav-desktop { display: none; }
+            .header-mobile { display: flex; }
+        }
+    </style>
+</head>
+<body class="booking-flow-step-4">
+    <header>
+        <div class="header-inner">
+            <a href="#hem" class="logo-fallback">Moberg Fönsterputs</a>
+            <nav class="nav-desktop" aria-label="Huvudmeny">
+                <ul>
+                    <li><a href="putsad.html#hem">Hem</a></li>
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="berakna-pris.html" class="btn-cta">Boka puts</a></li>
+                </ul>
+            </nav>
+            <div class="header-mobile">
+                <a href="berakna-pris.html" class="btn-cta">Boka puts</a>
+                <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Öppna meny">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu-panel" id="mobile-menu-panel" role="navigation" aria-label="Mobilmeny">
+            <div class="mobile-menu-inner">
+                <ul>
+                    <li><a href="putsad.html#hem">Hem</a></li>
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="top-nav">
+        <a class="back-link" href="boka-tid.html" aria-label="Tillbaka">
+            <span class="back-link-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M14.5 6.5L9 12l5.5 5.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </span>
+            <span class="back-link-text">Tillbaka</span>
+        </a>
+        <section class="booking-progress" aria-label="Bokningssteg">
+            <div class="booking-progress-track" aria-hidden="true">
+                <div class="booking-progress-fill"></div>
+                <div class="booking-progress-dots">
+                    <span id="step-dot-1" class="booking-progress-dot is-complete" style="left: 0%;" title="Beräkna pris"></span>
+                    <span id="step-dot-2" class="booking-progress-dot is-complete" style="left: 33.333%;" title="Personuppgifter"></span>
+                    <span id="step-dot-3" class="booking-progress-dot is-complete" style="left: 66.666%;" title="Boka tid"></span>
+                    <span id="step-dot-4" class="booking-progress-dot is-active" style="left: 100%;" title="Bekräfta"></span>
+                </div>
+            </div>
+            <div class="booking-progress-steps">
+                <div class="booking-progress-step is-complete" style="left: 0%;">Beräkna pris</div>
+                <div class="booking-progress-step is-complete" style="left: 33.333%;">Personuppgifter</div>
+                <div class="booking-progress-step is-complete" style="left: 66.666%;">Boka tid</div>
+                <div class="booking-progress-step is-active" style="left: 100%;">Bekräfta</div>
+            </div>
+        </section>
+    </div>
+
+    <main class="content">
+        <section class="card">
+            <h1 class="title">Bekräfta din bokning</h1>
+            <p class="intro">Kontrollera att uppgifterna stämmer innan du bekräftar.</p>
+            <div id="summary-grid" class="summary-grid"></div>
+            <div class="booking-notes-block">
+                <p class="booking-note">Fri avbokning.</p>
+                <p class="booking-note">Betalning sker efter utfört arbete.</p>
+            </div>
+            <div class="terms-row">
+                <input type="checkbox" id="terms-checkbox" class="terms-checkbox" autocomplete="off">
+                <label for="terms-checkbox" class="terms-label">Jag godkänner <a href="villkor.html" class="terms-link">villkoren</a>.</label>
+            </div>
+            <div class="confirm-wrap">
+                <div class="confirm-input-group" role="group" aria-label="Bekräfta med personnummer">
+                    <input type="text" id="confirm-personnummer" class="confirm-input" placeholder="Personnummer" inputmode="numeric" autocomplete="off" maxlength="13" spellcheck="false" aria-label="Personnummer">
+                    <button id="confirm-btn" class="confirm-btn" type="button" aria-label="Bekräfta bokning" disabled>Bekräfta</button>
+                </div>
+                <div id="confirm-flow-msg" class="confirm-flow-msg" role="status" aria-live="polite"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="kontakt">
+        <div class="footer-inner">
+            <div class="footer-logo-slot">
+                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img">
+            </div>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-puts">
+                <h3 id="footer-nav-puts" class="footer-nav-heading">Fönsterputs</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="berakna-pris.html">Beräkna pris</a></li>
+                    <li><a href="putsad.html#vanliga-fragor">Vanliga frågor</a></li>
+                    <li><a href="viktig-information.html">Viktig information</a></li>
+                </ul>
+            </nav>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-company">
+                <h3 id="footer-nav-company" class="footer-nav-heading">Företag</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="om-oss.html">Om oss</a></li>
+                    <li><a href="villkor.html">Villkor</a></li>
+                    <li><a href="putsad.html#recensioner">Recensioner</a></li>
+                </ul>
+            </nav>
+                                    <nav class="footer-nav-col" aria-labelledby="footer-nav-sociala">
+                <h3 id="footer-nav-sociala" class="footer-nav-heading">Sociala</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+            </nav>
+            <div class="footer-legal">
+                <p>&copy; <span id="footer-year"></span> Moberg Fönsterputs. Alla rättigheter förbehållna.</p>
+            </div>
+        </div>
+        <a href="admin-login.html" class="footer-admin-secret" aria-hidden="true" tabindex="-1">&#8203;</a>
+    </footer>
+
+    <script>
+        (function () {
+            var toggle = document.getElementById("nav-toggle");
+            var panel = document.getElementById("mobile-menu-panel");
+            if (toggle && panel) {
+                function setOpen(open) {
+                    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+                    toggle.setAttribute("aria-label", open ? "Stäng meny" : "Öppna meny");
+                    panel.classList.toggle("is-open", open);
+                }
+                toggle.addEventListener("click", function () {
+                    setOpen(!panel.classList.contains("is-open"));
+                });
+                panel.querySelectorAll("a").forEach(function (link) {
+                    link.addEventListener("click", function () {
+                        setOpen(false);
+                    });
+                });
+            }
+
+            var PERSON_STORAGE_KEY = "putsad_personuppgifter_v1";
+            var PACKAGE_STORAGE_KEY = "putsad_selected_package";
+            var AREA_LABELS = {
+                "upplands vasby": "Upplands Väsby",
+                "sollentuna": "Sollentuna",
+                "taby": "Täby",
+                "vasteras": "Västerås",
+                "gaddeholm": "Gäddeholm",
+                "gaddeholm i vasteras": "Gäddeholm i Västerås",
+                "lidkoping": "Lidköping",
+                "kollandso": "Kållandsö",
+                "bjorkfors": "Björkfors",
+                "uppsala": "Uppsala"
+            };
+            var BOOKABLE_AREA_KEYS = Object.keys(AREA_LABELS);
+            var PACKAGE_LABELS = {
+                "standard": "Standard",
+                "deep-clean": "Deep Clean"
+            };
+            var MAPBOX_TOKEN = "DIN_MAPBOX_TOKEN";
+
+            function getRoundedHalfHoursFromPrice(price) {
+                if (!isFinite(price) || price <= 0) return null;
+                var hours = price / 500;
+                return Math.ceil(hours * 2) / 2;
+            }
+
+            function formatHoursValue(hours) {
+                if (!isFinite(hours) || hours <= 0) return null;
+                return Number.isInteger(hours) ? String(hours) : hours.toFixed(1);
+            }
+
+            function formatTimeRange(startTime, durationHours) {
+                var match = String(startTime || "").match(/^(\d{1,2}):(\d{2})$/);
+                if (!match || !isFinite(durationHours) || durationHours <= 0) return startTime || "Ej vald";
+                var startH = Number(match[1]);
+                var startM = Number(match[2]);
+                if (!isFinite(startH) || !isFinite(startM)) return startTime || "Ej vald";
+                var startTotal = startH * 60 + startM;
+                var endTotal = startTotal + Math.round(durationHours * 60);
+                var endH = Math.floor(endTotal / 60);
+                var endM = endTotal % 60;
+                var endText = String(endH).padStart(2, "0") + ":" + String(endM).padStart(2, "0");
+                return (startTime || "Ej vald") + " - " + endText;
+            }
+
+            function getParam(name) {
+                return new URLSearchParams(window.location.search).get(name) || "";
+            }
+
+            function formatDateText(dateKey) {
+                if (!dateKey) return "";
+                var parts = dateKey.split("-");
+                if (parts.length !== 3) return dateKey;
+                var y = Number(parts[0]);
+                var m = Number(parts[1]) - 1;
+                var d = Number(parts[2]);
+                if (!isFinite(y) || !isFinite(m) || !isFinite(d)) return dateKey;
+                var dt = new Date(y, m, d);
+                if (isNaN(dt.getTime())) return dateKey;
+                return dt.toLocaleDateString("sv-SE", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                });
+            }
+
+            function readPersonState() {
+                try {
+                    var raw = localStorage.getItem(PERSON_STORAGE_KEY);
+                    return raw ? JSON.parse(raw) : {};
+                } catch (e) {
+                    return {};
+                }
+            }
+
+            function savePersonState() {
+                try {
+                    localStorage.setItem(PERSON_STORAGE_KEY, JSON.stringify(person));
+                } catch (e) {}
+            }
+
+            function normalizePhoneDigits(raw) {
+                var digits = String(raw || "").replace(/\D/g, "");
+                if (digits.indexOf("0046") === 0) digits = "0" + digits.slice(4);
+                else if (digits.indexOf("46") === 0 && String(raw || "").trim().indexOf("+46") === 0) digits = "0" + digits.slice(2);
+                else if (digits.indexOf("46") === 0 && digits.length === 11) digits = "0" + digits.slice(2);
+                return digits.slice(0, 10);
+            }
+
+            function formatPhoneValue(raw) {
+                var digits = normalizePhoneDigits(raw);
+                var p1 = digits.slice(0, 3);
+                var p2 = digits.slice(3, 6);
+                var p3 = digits.slice(6, 8);
+                var p4 = digits.slice(8, 10);
+                return [p1, p2, p3, p4].filter(Boolean).join(" ");
+            }
+
+            function normalize(value) {
+                return String(value || "")
+                    .toLowerCase()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .replace(/\s+/g, " ")
+                    .trim();
+            }
+
+            function getContextValue(feature, prefix) {
+                var context = feature && feature.context ? feature.context : [];
+                var found = context.find(function (item) {
+                    return String(item.id || "").indexOf(prefix + ".") === 0;
+                });
+                return found ? (found.text_sv || found.text || "") : "";
+            }
+
+            function resolveAreaMatch(feature) {
+                var city =
+                    getContextValue(feature, "place") ||
+                    getContextValue(feature, "locality") ||
+                    getContextValue(feature, "district") ||
+                    "";
+                var sublocality =
+                    getContextValue(feature, "neighborhood") ||
+                    getContextValue(feature, "locality") ||
+                    "";
+                var route = (feature && (feature.text_sv || feature.text)) || "";
+                var cityKey = normalize(city);
+                var subKey = normalize(sublocality);
+                var routeKey = normalize(route);
+                var combinedKey = normalize(sublocality + " i " + city);
+                var routeCombinedKey = normalize(route + " i " + city);
+                var candidates = [cityKey, subKey, routeKey, combinedKey, routeCombinedKey].filter(Boolean);
+                return candidates.find(function (k) { return BOOKABLE_AREA_KEYS.indexOf(k) !== -1; }) || "";
+            }
+
+            var person = readPersonState();
+            var date = getParam("date");
+            var dateText = formatDateText(date);
+            var time = getParam("time");
+            var area = getParam("area") || person.areaKey || "";
+            var pkg = getParam("paket") || "";
+            if (!pkg) {
+                try { pkg = localStorage.getItem(PACKAGE_STORAGE_KEY) || ""; } catch (e) {}
+            }
+            var priceRaw = Number(getParam("price"));
+            if (!isFinite(priceRaw) || priceRaw <= 0) {
+                try { priceRaw = Number(localStorage.getItem("putsad_latest_total")); } catch (e) { priceRaw = NaN; }
+            }
+            var roundedHours = getRoundedHalfHoursFromPrice(priceRaw);
+            var est = formatHoursValue(roundedHours);
+            var timeRange = formatTimeRange(time, roundedHours);
+            var fullName = [person.firstName || "", person.lastName || ""].join(" ").replace(/\s+/g, " ").trim();
+            var hasValidPrice = isFinite(priceRaw) && priceRaw > 0;
+            var priceDisplay = hasValidPrice
+                ? priceRaw.toLocaleString("sv-SE") + " kr efter rutavdrag"
+                : "Ej tillgängligt";
+
+            var rows = [
+                ["Adress", person.address || "Ej angiven"],
+                ["Namn", fullName || "Ej angivet"],
+                ["Telefon", person.phone || "Ej angivet"],
+                ["Datum", dateText || "Ej valt"],
+                ["Tid", timeRange || "Ej vald"],
+                ["Beräknat pris", priceDisplay]
+            ];
+
+            var grid = document.getElementById("summary-grid");
+            rows.forEach(function (r) {
+                var row = document.createElement("div");
+                row.className = "row";
+                if (r[0] === "Adress") {
+                    row.id = "address-row";
+                    row.innerHTML =
+                        "<div class='k'>" + r[0] + "</div>" +
+                        "<div class='v'><button id='address-value-btn' class='address-value-btn' type='button'>" + r[1] + "</button></div>";
+                } else if (r[0] === "Namn") {
+                    row.id = "name-row";
+                    row.innerHTML =
+                        "<div class='k'>" + r[0] + "</div>" +
+                        "<div class='v'>" +
+                        "<div class='inline-value-wrap'>" +
+                        "<button id='name-value-btn' class='address-value-btn' type='button'>" + r[1] + "</button>" +
+                        "<input id='name-edit-input' class='inline-edit-input' type='text' autocomplete='name'>" +
+                        "</div>" +
+                        "<div id='name-edit-msg' class='inline-edit-msg'></div>" +
+                        "</div>";
+                } else if (r[0] === "Telefon") {
+                    row.id = "phone-row";
+                    row.innerHTML =
+                        "<div class='k'>" + r[0] + "</div>" +
+                        "<div class='v'>" +
+                        "<div class='inline-value-wrap'>" +
+                        "<button id='phone-value-btn' class='address-value-btn' type='button'>" + r[1] + "</button>" +
+                        "<input id='phone-edit-input' class='inline-edit-input' type='tel' autocomplete='tel' inputmode='tel'>" +
+                        "</div>" +
+                        "<div id='phone-edit-msg' class='inline-edit-msg'></div>" +
+                        "</div>";
+                } else if (r[0] === "Datum") {
+                    row.id = "date-row";
+                    row.innerHTML =
+                        "<div class='k'>" + r[0] + "</div>" +
+                        "<div class='v'><button id='date-value-btn' class='address-value-btn' type='button'>" + r[1] + "</button></div>";
+                } else if (r[0] === "Tid") {
+                    row.id = "time-row";
+                    row.innerHTML =
+                        "<div class='k'>" + r[0] + "</div>" +
+                        "<div class='v'><button id='time-value-btn' class='address-value-btn' type='button'>" + r[1] + "</button></div>";
+                } else if (r[0] === "Beräknat pris") {
+                    row.id = "price-row";
+                    row.innerHTML =
+                        "<div class='k'>" + r[0] + "</div>" +
+                        "<div class='v'><button id='price-value-btn' class='address-value-btn price-pulse' type='button'>" + r[1] + "</button></div>";
+                } else {
+                    row.innerHTML = "<div class='k'>" + r[0] + "</div><div class='v'>" + r[1] + "</div>";
+                }
+                grid.appendChild(row);
+                if (r[0] === "Adress") {
+                    var editorRow = document.createElement("div");
+                    editorRow.className = "row address-editor-row";
+                    editorRow.id = "address-editor-row";
+                    editorRow.innerHTML =
+                        "<div></div>" +
+                        "<div class='address-editor'>" +
+                        "<input id='address-edit-input' class='address-edit-input' type='text' autocomplete='off' spellcheck='false'>" +
+                        "<div id='address-edit-suggestions' class='address-edit-suggestions'></div>" +
+                        "<div id='address-edit-msg' class='address-edit-msg'></div>" +
+                        "</div>";
+                    grid.appendChild(editorRow);
+                }
+            });
+
+            var addressBtn = document.getElementById("address-value-btn");
+            var addressEditorRow = document.getElementById("address-editor-row");
+            var addressEditInput = document.getElementById("address-edit-input");
+            var addressEditSuggestions = document.getElementById("address-edit-suggestions");
+            var addressEditMsg = document.getElementById("address-edit-msg");
+            var addressDebounce = null;
+            var addressReqId = 0;
+            var nameBtn = document.getElementById("name-value-btn");
+            var nameInput = document.getElementById("name-edit-input");
+            var nameMsg = document.getElementById("name-edit-msg");
+            var phoneBtn = document.getElementById("phone-value-btn");
+            var phoneInput = document.getElementById("phone-edit-input");
+            var phoneMsg = document.getElementById("phone-edit-msg");
+            var dateBtn = document.getElementById("date-value-btn");
+            var timeBtn = document.getElementById("time-value-btn");
+            var priceBtn = document.getElementById("price-value-btn");
+            var pricePulseTimer = null;
+
+            function splitFullName(fullNameText) {
+                var clean = String(fullNameText || "").replace(/\s+/g, " ").trim();
+                if (!clean) return { firstName: "", lastName: "" };
+                var parts = clean.split(" ");
+                return {
+                    firstName: parts.shift() || "",
+                    lastName: parts.join(" ")
+                };
+            }
+
+            function openInlineEditor(btn, input, value) {
+                if (!btn || !input) return;
+                btn.style.display = "none";
+                input.classList.add("is-open");
+                input.value = value || "";
+                input.focus();
+                input.select();
+            }
+
+            function closeInlineEditor(btn, input) {
+                if (!btn || !input) return;
+                input.classList.remove("is-open");
+                btn.style.display = "";
+            }
+
+            function setAddressEditorOpen(open) {
+                if (!addressEditorRow) return;
+                addressEditorRow.classList.toggle("is-open", !!open);
+                if (open && addressEditInput) {
+                    addressEditInput.value = person.address || "";
+                    addressEditInput.focus();
+                    addressEditInput.select();
+                }
+                if (!open) {
+                    addressEditSuggestions.innerHTML = "";
+                    addressEditSuggestions.classList.remove("is-open");
+                    if (addressEditMsg) addressEditMsg.textContent = "";
+                }
+            }
+
+            function renderAddressSuggestions(features) {
+                addressEditSuggestions.innerHTML = "";
+                if (!features || !features.length) {
+                    addressEditSuggestions.classList.remove("is-open");
+                    return;
+                }
+                features.forEach(function (feature) {
+                    var btn = document.createElement("button");
+                    btn.type = "button";
+                    btn.className = "address-edit-suggestion-btn";
+                    btn.textContent = feature.place_name_sv || feature.place_name || "";
+                    btn.addEventListener("click", function () {
+                        var areaMatch = resolveAreaMatch(feature);
+                        if (!areaMatch) {
+                            addressEditMsg.textContent = "Adressen ligger utanför bokningsbara områden.";
+                            return;
+                        }
+                        person.address = feature.place_name_sv || feature.place_name || "";
+                        person.areaKey = areaMatch;
+                        area = areaMatch;
+                        if (addressBtn) addressBtn.textContent = person.address;
+                        savePersonState();
+                        setAddressEditorOpen(false);
+                    });
+                    addressEditSuggestions.appendChild(btn);
+                });
+                addressEditSuggestions.classList.add("is-open");
+            }
+
+            function requestAddressSuggestions(query) {
+                var requestId = ++addressReqId;
+                var fallbackUrl =
+                    "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+                    encodeURIComponent(query) +
+                    ".json?access_token=" + encodeURIComponent(MAPBOX_TOKEN) +
+                    "&autocomplete=true&country=se&language=sv&types=address,place,locality,postcode&limit=6";
+                fetch("/api/address-suggest?q=" + encodeURIComponent(query))
+                    .then(function (res) {
+                        if (res && res.ok) return res.json();
+                        throw new Error("api route failed");
+                    })
+                    .then(function (data) {
+                        if (requestId !== addressReqId) return;
+                        var fromApi = data && data.features ? data.features : [];
+                        if (fromApi.length) {
+                            renderAddressSuggestions(fromApi);
+                            return;
+                        }
+                        return fetch(fallbackUrl)
+                            .then(function (res) { return res.ok ? res.json() : null; })
+                            .then(function (fallbackData) {
+                                if (requestId !== addressReqId) return;
+                                renderAddressSuggestions(fallbackData && fallbackData.features ? fallbackData.features : []);
+                            });
+                    })
+                    .catch(function () {
+                        return fetch(fallbackUrl)
+                            .then(function (res) { return res.ok ? res.json() : null; })
+                            .then(function (fallbackData) {
+                                if (requestId !== addressReqId) return;
+                                renderAddressSuggestions(fallbackData && fallbackData.features ? fallbackData.features : []);
+                            })
+                            .catch(function () {
+                                if (requestId !== addressReqId) return;
+                                addressEditSuggestions.classList.remove("is-open");
+                            });
+                    });
+            }
+
+            if (addressBtn) {
+                addressBtn.addEventListener("click", function () {
+                    setAddressEditorOpen(!addressEditorRow.classList.contains("is-open"));
+                });
+            }
+            if (nameBtn && nameInput) {
+                nameBtn.addEventListener("click", function () {
+                    if (nameMsg) nameMsg.textContent = "";
+                    openInlineEditor(nameBtn, nameInput, nameBtn.textContent === "Ej angivet" ? "" : nameBtn.textContent);
+                });
+                nameInput.addEventListener("keydown", function (e) {
+                    if (e.key === "Enter") {
+                        e.preventDefault();
+                        nameInput.blur();
+                    }
+                    if (e.key === "Escape") {
+                        e.preventDefault();
+                        closeInlineEditor(nameBtn, nameInput);
+                    }
+                });
+                nameInput.addEventListener("blur", function () {
+                    var clean = nameInput.value.replace(/\s+/g, " ").trim();
+                    var split = splitFullName(clean);
+                    person.firstName = split.firstName;
+                    person.lastName = split.lastName;
+                    nameBtn.textContent = clean || "Ej angivet";
+                    savePersonState();
+                    closeInlineEditor(nameBtn, nameInput);
+                });
+            }
+            if (phoneBtn && phoneInput) {
+                phoneBtn.addEventListener("click", function () {
+                    if (phoneMsg) phoneMsg.textContent = "";
+                    openInlineEditor(phoneBtn, phoneInput, phoneBtn.textContent === "Ej angivet" ? "" : phoneBtn.textContent);
+                });
+                phoneInput.addEventListener("input", function () {
+                    if (phoneMsg) phoneMsg.textContent = "";
+                    phoneInput.value = formatPhoneValue(phoneInput.value);
+                });
+                phoneInput.addEventListener("keydown", function (e) {
+                    if (e.key === "Enter") {
+                        e.preventDefault();
+                        phoneInput.blur();
+                    }
+                    if (e.key === "Escape") {
+                        e.preventDefault();
+                        closeInlineEditor(phoneBtn, phoneInput);
+                    }
+                });
+                phoneInput.addEventListener("blur", function () {
+                    var formatted = formatPhoneValue(phoneInput.value);
+                    var digits = normalizePhoneDigits(formatted);
+                    phoneInput.value = formatted;
+                    person.phone = formatted;
+                    phoneBtn.textContent = formatted || "Ej angivet";
+                    savePersonState();
+                    if (phoneMsg) {
+                        phoneMsg.textContent = digits && digits.length !== 10 ? "Telefon ska innehålla 10 siffror." : "";
+                    }
+                    closeInlineEditor(phoneBtn, phoneInput);
+                });
+            }
+            if (addressEditInput) {
+                addressEditInput.addEventListener("input", function () {
+                    if (addressEditMsg) addressEditMsg.textContent = "";
+                    clearTimeout(addressDebounce);
+                    var q = addressEditInput.value.trim();
+                    if (q.length < 1) {
+                        addressEditSuggestions.classList.remove("is-open");
+                        addressEditSuggestions.innerHTML = "";
+                        return;
+                    }
+                    addressDebounce = setTimeout(function () {
+                        requestAddressSuggestions(q);
+                    }, 400);
+                });
+                addressEditInput.addEventListener("keydown", function (e) {
+                    if (e.key === "Escape") setAddressEditorOpen(false);
+                });
+            }
+            document.addEventListener("click", function (e) {
+                if (!addressEditorRow || !addressEditorRow.classList.contains("is-open")) return;
+                if (addressEditorRow.contains(e.target) || (addressBtn && addressBtn.contains(e.target))) return;
+                setAddressEditorOpen(false);
+            });
+            if (dateBtn) {
+                dateBtn.addEventListener("click", function () {
+                    window.location.href = buildStepUrl(3);
+                });
+            }
+            if (timeBtn) {
+                timeBtn.addEventListener("click", function () {
+                    window.location.href = buildStepUrl(3);
+                });
+            }
+            if (priceBtn) {
+                priceBtn.addEventListener("click", function () {
+                    if (pricePulseTimer) clearTimeout(pricePulseTimer);
+                    priceBtn.classList.remove("is-active");
+                    void priceBtn.offsetWidth;
+                    priceBtn.classList.add("is-active");
+                    pricePulseTimer = setTimeout(function () {
+                        priceBtn.classList.remove("is-active");
+                        pricePulseTimer = null;
+                    }, 260);
+                });
+            }
+
+            var confirmBtn = document.getElementById("confirm-btn");
+            var personnummerInput = document.getElementById("confirm-personnummer");
+            var termsCheckbox = document.getElementById("terms-checkbox");
+            var confirmFlowMsg = document.getElementById("confirm-flow-msg");
+
+            function normalizePhoneDigitsFlow(raw) {
+                var digits = String(raw || "").replace(/\D/g, "");
+                if (digits.indexOf("0046") === 0) {
+                    digits = "0" + digits.slice(4);
+                } else if (digits.indexOf("46") === 0 && String(raw || "").trim().indexOf("+46") === 0) {
+                    digits = "0" + digits.slice(2);
+                } else if (digits.indexOf("46") === 0 && digits.length === 11) {
+                    digits = "0" + digits.slice(2);
+                }
+                return digits.slice(0, 10);
+            }
+
+            function isBookingFlowComplete() {
+                if (!hasValidPrice) return false;
+                if (!(pkg && String(pkg).trim())) return false;
+                if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return false;
+                if (!time || !/^\d{1,2}:\d{2}$/.test(String(time).trim())) return false;
+                if (!(area && String(area).trim())) return false;
+                var addr = String(person.address || "").trim();
+                if (!addr || addr === "Ej angiven") return false;
+                if (!fullName || fullName === "Ej angivet") return false;
+                if (normalizePhoneDigitsFlow(person.phone).length !== 10) return false;
+                return true;
+            }
+
+            if (termsCheckbox && confirmBtn) {
+                function syncTermsButton() {
+                    confirmBtn.disabled = !termsCheckbox.checked;
+                }
+                termsCheckbox.addEventListener("change", function () {
+                    if (confirmFlowMsg) confirmFlowMsg.textContent = "";
+                    syncTermsButton();
+                });
+                syncTermsButton();
+            }
+            if (confirmBtn) {
+                confirmBtn.addEventListener("click", function () {
+                    if (confirmFlowMsg) confirmFlowMsg.textContent = "";
+                    if (termsCheckbox && !termsCheckbox.checked) return;
+                    if (!isBookingFlowComplete()) {
+                        if (confirmFlowMsg) {
+                            confirmFlowMsg.textContent = "Gör klart på de andra sidorna innan du bekräftar.";
+                        }
+                        return;
+                    }
+                    window.location.href = buildCompleteUrl();
+                });
+            }
+            if (personnummerInput && confirmBtn) {
+                personnummerInput.addEventListener("keydown", function (e) {
+                    if (e.key === "Enter") {
+                        e.preventDefault();
+                        if (!confirmBtn.disabled) confirmBtn.click();
+                    }
+                });
+            }
+
+            function buildStepUrl(step) {
+                if (step === 1) return "putsad.html#pris-kalkylator";
+                if (step === 2) {
+                    var p2 = new URLSearchParams();
+                    if (pkg) p2.set("paket", pkg);
+                    var q2 = p2.toString();
+                    return "paket-vald.html" + (q2 ? "?" + q2 : "");
+                }
+                if (step === 3) {
+                    var p3 = new URLSearchParams();
+                    if (isFinite(priceRaw) && priceRaw > 0) p3.set("price", String(priceRaw));
+                    if (area) p3.set("area", area);
+                    if (pkg) p3.set("paket", pkg);
+                    if (date) p3.set("date", date);
+                    if (time) p3.set("time", time);
+                    var q3 = p3.toString();
+                    return "boka-tid.html" + (q3 ? "?" + q3 : "");
+                }
+                if (step === 4) return window.location.pathname + window.location.search;
+                return "bekrafta.html";
+            }
+
+            function buildCompleteUrl() {
+                var params = new URLSearchParams();
+                if (isFinite(priceRaw) && priceRaw > 0) params.set("price", String(priceRaw));
+                if (area) params.set("area", area);
+                if (pkg) params.set("paket", pkg);
+                if (date) params.set("date", date);
+                if (time) params.set("time", time);
+                var query = params.toString();
+                return "bokat.html" + (query ? "?" + query : "");
+            }
+
+            [
+                [1, "step-dot-1"],
+                [2, "step-dot-2"],
+                [3, "step-dot-3"],
+                [4, "step-dot-4"]
+            ].forEach(function (pair) {
+                var step = pair[0];
+                var el = document.getElementById(pair[1]);
+                if (!el) return;
+                el.addEventListener("click", function () {
+                    window.location.href = buildStepUrl(step);
+                });
+            });
+
+            var yearEl = document.getElementById("footer-year");
+            if (yearEl) {
+                yearEl.textContent = String(new Date().getFullYear());
+            }
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

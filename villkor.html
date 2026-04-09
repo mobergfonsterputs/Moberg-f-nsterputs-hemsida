@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Villkor | Moberg Fönsterputs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital@1&display=optional" rel="stylesheet">
+    <link rel="stylesheet" href="header-shared.css?v=14">
+    <link rel="stylesheet" href="site-stable.css?v=2">
+    <link rel="stylesheet" href="footer-shared.css?v=24">
+    <style>
+        :root {
+            --primary-blue: #0f172a;
+            --tech-blue: #113768;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --page-gutter: clamp(1.25rem, 5vw, 3rem);
+            --content-max: min(920px, 100%);
+        }
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            color: var(--primary-blue);
+            -webkit-font-smoothing: antialiased;
+            background: #fff;
+        }
+        .terms-page {
+            min-height: 50vh;
+            padding: clamp(2rem, 5vw, 3rem) var(--page-gutter) clamp(3.5rem, 9vw, 5.5rem);
+            max-width: var(--content-max);
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        .terms-hero {
+            margin-bottom: 1.25rem;
+        }
+        .terms-hero h1 {
+            font-size: clamp(2rem, 4.6vw, 2.85rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin: 0 0 0.45rem;
+            line-height: 1.1;
+        }
+        .terms-hero .lead {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.65;
+            font-size: 1rem;
+            max-width: 42rem;
+        }
+        .terms-section {
+            margin-top: 1.1rem;
+        }
+        .terms-section-head {
+            padding: 0;
+            border-bottom: none;
+            background: transparent;
+        }
+        .terms-section-head h2 {
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-transform: none;
+            letter-spacing: 0;
+            color: var(--primary-blue);
+        }
+        .terms-items {
+            padding: 0.35rem 0 0.1rem;
+        }
+        .term-item {
+            padding: 0.65rem 0;
+            border-bottom: none;
+        }
+        .term-item:last-child {
+            border-bottom: none;
+        }
+        .term-item h3 {
+            margin: 0 0 0.4rem;
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.35;
+            color: var(--primary-blue);
+        }
+        .term-item p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.62;
+            color: #334155;
+        }
+        .term-item p + p {
+            margin-top: 0.55rem;
+        }
+        .term-item ul {
+            margin: 0.55rem 0 0;
+            padding-left: 1.1rem;
+        }
+        .term-item li {
+            margin: 0.2rem 0;
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #334155;
+        }
+        .terms-footnote {
+            margin-top: 1.15rem;
+            padding: 0;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            color: #475569;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .terms-footnote p {
+            margin: 0;
+        }
+        .terms-footnote p + p {
+            margin-top: 0.4rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="putsad.html#hem" class="logo-fallback">Moberg Fönsterputs</a>
+            <nav class="nav-desktop" aria-label="Huvudmeny">
+                <ul>
+                    <li><a href="putsad.html#hem">Hem</a></li>
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="berakna-pris.html" class="btn-cta">Boka puts</a></li>
+                </ul>
+            </nav>
+            <div class="header-mobile">
+                <a href="berakna-pris.html" class="btn-cta">Boka puts</a>
+                <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Öppna meny">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu-panel" id="mobile-menu-panel" role="navigation" aria-label="Mobilmeny">
+            <div class="mobile-menu-inner">
+                <ul>
+                    <li><a href="putsad.html#hem">Hem</a></li>
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="terms-page">
+        <header class="terms-hero">
+            <h1>Allmänna villkor - Moberg fönsterputs</h1>
+            <p class="lead">Dessa villkor beskriver hur tjänsten fungerar, vad som gäller för pris och betalning samt ansvar för både kund och utförare.</p>
+        </header>
+
+        <section class="terms-section" aria-labelledby="section-1">
+            <div class="terms-section-head"><h2 id="section-1">1. Tjänsten</h2></div>
+            <div class="terms-items">
+                <article class="term-item">
+                    <h3>1.1 Vad vi gör</h3>
+                    <p>Moberg Fönsterputs erbjuder professionell rengöring av fönster och närliggande ytor. Vi arbetar inom de områden vi aktivt erbjuder tjänster i enligt bokningskalendern och kan vid behov justera vårt arbetsområde eller schema.</p>
+                </article>
+                <article class="term-item">
+                    <h3>1.2 Abonnemang</h3>
+                    <p>Vid återkommande fönsterputs sker arbetet enligt ett planerat schema som vi tillsammans kommit överens om.</p>
+                    <p>Om något ändras informerar vi dig i förväg.</p>
+                </article>
+                <article class="term-item">
+                    <h3>1.3 Tidsbokning</h3>
+                    <p>Vid bokade tider gäller tiden som riktlinje. Mindre avvikelser kan förekomma.</p>
+                    <p>Om vi blir kraftigt försenade kontaktar vi dig. Kan arbetet inte utföras enligt plan, bokar vi om till en ny tid.</p>
+                    <p>Du ansvarar för att vi får tillgång till fastigheten enligt överenskommelse.</p>
+                </article>
+                <article class="term-item">
+                    <h3>1.4 Kommunikation</h3>
+                    <p>Efter utfört arbete får du ett kvitto via SMS eller e-post, undantag kan förekomma.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="terms-section" aria-labelledby="section-2">
+            <div class="terms-section-head"><h2 id="section-2">2. Pris och betalning</h2></div>
+            <div class="terms-items">
+                <article class="term-item">
+                    <h3>2.1 Prissättning</h3>
+                    <p>Pris baseras på ett fast pris per fönster. De priser som gäller i prisberäknaren är de priser som gäller.</p>
+                    <p>Det pris du angett vid bokning är inte bindande, det betyder att det kan behöva korrigeras på plats. Vid korrigering uppåt med mer än 20% kontaktas du innan arbetet fortsätter.</p>
+                </article>
+                <article class="term-item">
+                    <h3>2.2 Prisändringar</h3>
+                    <p>Vi kan justera våra priser över tid.</p>
+                </article>
+                <article class="term-item">
+                    <h3>2.3 Fakturering</h3>
+                    <p>Faktura skickas efter utfört arbete om inget annat avtalats.</p>
+                </article>
+                <article class="term-item">
+                    <h3>2.4 Betalning</h3>
+                    <p>Privatpersoner: 15 dagar</p>
+                    <p>Företag: 30 dagar</p>
+                    <p>Vid sen betalning tillkommer lagstadgad påminnelseavgift och ränta.</p>
+                </article>
+                <article class="term-item">
+                    <h3>2.5 RUT-avdrag</h3>
+                    <p>Vi hanterar RUT-avdrag direkt med Skatteverket.</p>
+                    <p>Om avdraget inte godkänns är du som kund betalningsskyldig för resterande belopp.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="terms-section" aria-labelledby="section-3">
+            <div class="terms-section-head"><h2 id="section-3">3. Bokning och avbokning</h2></div>
+            <div class="terms-items">
+                <article class="term-item">
+                    <h3>3.1 Avbokning</h3>
+                    <p>Du kan avboka utan kostnad fram till en timme innan planerat utförande.</p>
+                    <p>Vid sena avbokningar eller om vi inte får tillgång till fastigheten kan vi debitera för den timmen.</p>
+                </article>
+                <article class="term-item">
+                    <h3>3.2 Återkommande tjänster</h3>
+                    <p>Abonnemang kan pausas eller avslutas när som helst.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="terms-section" aria-labelledby="section-4">
+            <div class="terms-section-head"><h2 id="section-4">4. Kundens ansvar</h2></div>
+            <div class="terms-items">
+                <article class="term-item">
+                    <h3>4.1 Tillgång och framkomlighet</h3>
+                    <p>Du ansvarar för att:</p>
+                    <ul>
+                        <li>vi kommer åt fönstren utan att behöva stå i sängar eller soffor</li>
+                        <li>grindar/larm är öppna</li>
+                    </ul>
+                    <p>Om vi hindras i vårt arbete kan extra kostnader tillkomma.</p>
+                </article>
+                <article class="term-item">
+                    <h3>4.2 Föremål i vägen</h3>
+                    <p>Vi flyttar inte möbler. Krukor, dekorationer eller annan egendom kan vi ta hand om men, om en stor möbel står i vägen ansvarar vi inte för att fönster bakom putsas – och vi tar heller inget ansvar för skador på föremål som är i vägen för arbetet.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="terms-section" aria-labelledby="section-5">
+            <div class="terms-section-head"><h2 id="section-5">5. Begränsningar och ansvar</h2></div>
+            <div class="terms-items">
+                <article class="term-item">
+                    <h3>5.1 Arbetsmiljö</h3>
+                    <p>Vi genomför alltid en säkerhetsbedömning. Om arbetet innebär risk kan vi avstå delar av uppdraget.</p>
+                </article>
+                <article class="term-item">
+                    <h3>5.2 Känsliga material</h3>
+                    <p>Fönster eller fasader som kräver särskild hantering (t.ex. solfilm, plexiglas eller liknande) ska meddelas i förväg.</p>
+                    <p>Annars ansvarar vi inte för eventuella skador.</p>
+                </article>
+                <article class="term-item">
+                    <h3>5.3 Kraftig smuts</h3>
+                    <p>Vanlig fönsterputs omfattar inte borttagning av:</p>
+                    <ul>
+                        <li>färg</li>
+                        <li>cement</li>
+                        <li>hårt sittande partiklar</li>
+                    </ul>
+                    <p>Sådant kan kräva specialbehandling.</p>
+                </article>
+                <article class="term-item">
+                    <h3>5.4 Befintliga skador</h3>
+                    <p>Om fönster redan är repiga eller skadade ska detta meddelas innan arbetet.</p>
+                    <p>Vi ansvarar inte för befintliga skador.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="terms-section" aria-labelledby="section-6">
+            <div class="terms-section-head"><h2 id="section-6">6. Reklamation - Nöjdhetsgaranti</h2></div>
+            <div class="terms-items">
+                <article class="term-item">
+                    <p>Om du inte är nöjd vill vi att du hör av dig inom 3 dagar.</p>
+                    <p>Vi åtgärdar felet så snabbt som möjligt.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="terms-section" aria-labelledby="section-7">
+            <div class="terms-section-head"><h2 id="section-7">7. Force majeure</h2></div>
+            <div class="terms-items">
+                <article class="term-item">
+                    <p>Vi ansvarar inte för förseningar eller uteblivet arbete vid händelser utanför vår kontroll (t.ex. väder, olyckor eller liknande).</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="terms-section" aria-labelledby="section-8">
+            <div class="terms-section-head"><h2 id="section-8">8. Personuppgifter</h2></div>
+            <div class="terms-items">
+                <article class="term-item">
+                    <p>Vi behandlar dina uppgifter för att kunna utföra tjänsten och kommunicera med dig.</p>
+                    <p>Du har rätt att begära utdrag, rättelse eller radering enligt GDPR.</p>
+                </article>
+            </div>
+        </section>
+
+        <div class="terms-footnote">
+            <p>Uppdaterade och gäller från och med 2026.04.09</p>
+            <p>För uppdraget gäller konsumenttjänstlagen (1985:716) och dessa Allmänna villkor.</p>
+            <p>Personuppgiftsansvarig är: Theo Erik Moberg</p>
+        </div>
+    </main>
+
+    <footer id="kontakt">
+        <div class="footer-inner">
+            <div class="footer-logo-slot">
+                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img">
+            </div>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-puts">
+                <h3 id="footer-nav-puts" class="footer-nav-heading">Fönsterputs</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="berakna-pris.html">Beräkna pris</a></li>
+                    <li><a href="putsad.html#vanliga-fragor">Vanliga frågor</a></li>                </ul>
+            </nav>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-company">
+                <h3 id="footer-nav-company" class="footer-nav-heading">Företag</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="om-oss.html">Om oss</a></li>
+                    <li><a href="villkor.html" aria-current="page">Villkor</a></li>
+                    <li><a href="putsad.html#recensioner">Recensioner</a></li>
+                </ul>
+            </nav>
+                                    <nav class="footer-nav-col" aria-labelledby="footer-nav-sociala">
+                <h3 id="footer-nav-sociala" class="footer-nav-heading">Sociala</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+            </nav>
+            <div class="footer-legal">
+                <p>&copy; <span id="footer-year"></span> Moberg Fönsterputs. Alla rättigheter förbehållna.</p>
+            </div>
+        </div>
+        <a href="admin-login.html" class="footer-admin-secret" aria-hidden="true" tabindex="-1">&#8203;</a>
+    </footer>
+
+    <script>
+        (function () {
+            var yearEl = document.getElementById("footer-year");
+            if (!yearEl) return;
+            yearEl.textContent = String(new Date().getFullYear());
+        })();
+        (function () {
+            var toggle = document.getElementById("nav-toggle");
+            var panel = document.getElementById("mobile-menu-panel");
+            if (!toggle || !panel) return;
+            function setOpen(open) {
+                toggle.setAttribute("aria-expanded", open ? "true" : "false");
+                toggle.setAttribute("aria-label", open ? "Stäng meny" : "Öppna meny");
+                panel.classList.toggle("is-open", open);
+            }
+            toggle.addEventListener("click", function () {
+                setOpen(!panel.classList.contains("is-open"));
+            });
+            panel.querySelectorAll("a").forEach(function (link) {
+                link.addEventListener("click", function () {
+                    setOpen(false);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Om oss | Moberg Fönsterputs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=optional" rel="stylesheet">
+    <link rel="stylesheet" href="header-shared.css?v=14">
+    <link rel="stylesheet" href="site-stable.css?v=2">
+    <link rel="stylesheet" href="footer-shared.css?v=24">
+    <style>
+        :root {
+            --primary-blue: #0f172a;
+            --page-gutter: clamp(1.25rem, 5vw, 3rem);
+        }
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            color: var(--primary-blue);
+            -webkit-font-smoothing: antialiased;
+        }
+        .simple-page {
+            min-height: 45vh;
+            padding: clamp(2.5rem, 6vw, 4rem) var(--page-gutter) clamp(3rem, 8vw, 5rem);
+            max-width: min(720px, 100%);
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        .simple-page h1 {
+            font-size: clamp(1.85rem, 4vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin: 0 0 1rem;
+            line-height: 1.15;
+        }
+        .simple-page p {
+            margin: 0;
+            line-height: 1.62;
+            color: rgba(15, 23, 42, 0.88);
+            font-size: 1.05rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="putsad.html#hem" class="logo-fallback">Moberg Fönsterputs</a>
+            <nav class="nav-desktop" aria-label="Huvudmeny">
+                <ul>
+                    <li><a href="putsad.html#hem">Hem</a></li>
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="berakna-pris.html" class="btn-cta">Boka puts</a></li>
+                </ul>
+            </nav>
+            <div class="header-mobile">
+                <a href="berakna-pris.html" class="btn-cta">Boka puts</a>
+                <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Öppna meny">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu-panel" id="mobile-menu-panel" role="navigation" aria-label="Mobilmeny">
+            <div class="mobile-menu-inner">
+                <ul>
+                    <li><a href="putsad.html#hem">Hem</a></li>
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="simple-page">
+        <h1>Om oss</h1>
+        <p>Innehåll kommer snart.</p>
+    </main>
+
+    <footer id="kontakt">
+        <div class="footer-inner">
+            <div class="footer-logo-slot">
+                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img">
+            </div>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-puts">
+                <h3 id="footer-nav-puts" class="footer-nav-heading">Fönsterputs</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="berakna-pris.html">Beräkna pris</a></li>
+                    <li><a href="putsad.html#vanliga-fragor">Vanliga frågor</a></li>                </ul>
+            </nav>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-company">
+                <h3 id="footer-nav-company" class="footer-nav-heading">Företag</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="om-oss.html" aria-current="page">Om oss</a></li>
+                    <li><a href="villkor.html">Villkor</a></li>
+                    <li><a href="putsad.html#recensioner">Recensioner</a></li>
+                </ul>
+            </nav>
+                                    <nav class="footer-nav-col" aria-labelledby="footer-nav-sociala">
+                <h3 id="footer-nav-sociala" class="footer-nav-heading">Sociala</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+            </nav>
+            <div class="footer-legal">
+                <p>&copy; <span id="footer-year"></span> Moberg Fönsterputs. Alla rättigheter förbehållna.</p>
+            </div>
+        </div>
+        <a href="admin-login.html" class="footer-admin-secret" aria-hidden="true" tabindex="-1">&#8203;</a>
+    </footer>
+
+    <script>
+        (function () {
+            var yearEl = document.getElementById("footer-year");
+            if (!yearEl) return;
+            yearEl.textContent = String(new Date().getFullYear());
+        })();
+        (function () {
+            var toggle = document.getElementById("nav-toggle");
+            var panel = document.getElementById("mobile-menu-panel");
+            if (!toggle || !panel) return;
+            function setOpen(open) {
+                toggle.setAttribute("aria-expanded", open ? "true" : "false");
+                toggle.setAttribute("aria-label", open ? "Stäng meny" : "Öppna meny");
+                panel.classList.toggle("is-open", open);
+            }
+            toggle.addEventListener("click", function () {
+                setOpen(!panel.classList.contains("is-open"));
+            });
+            panel.querySelectorAll("a").forEach(function (link) {
+                link.addEventListener("click", function () {
+                    setOpen(false);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

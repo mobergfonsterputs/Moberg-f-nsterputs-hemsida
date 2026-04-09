@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fönsterputs - Släpp in våren</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0A2540; /* En djup, modern mörkblå */
+            --text-gray: #334E68;
+            --light-gray: #F0F4F8;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-gray);
+            line-height: 1.6;
+            background-color: var(--white);
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: sticky;
+            top: 0;
+            background: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-gray);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-blue);
+        }
+
+        .btn-book {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .btn-book:hover {
+            transform: translateY(-2px);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            display: flex;
+            min-height: 90vh;
+            padding: 0 5%;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            line-height: 1.1;
+            margin-bottom: 2rem;
+        }
+
+        .trustpilot-bar {
+            background: #f9f9f9;
+            padding: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+        }
+
+        /* --- KALKYLATOR PLACEHOLDER --- */
+        .calculator-container {
+            flex: 1;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid #eee;
+        }
+
+        /* --- MOBILANPASSNING --- */
+        @media (max-width: 968px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 4rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+
+            nav ul {
+                display: none; /* Här lägger vi hamburgarmenyn sen */
+            }
+
+            .calculator-container {
+                width: 100%;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">LOGO</a>
+        <nav>
+            <ul>
+                <li><a href="#hem">Hem</a></li>
+                <li><a href="#pris">Pris</a></li>
+                <li><a href="#recensioner">Recensioner</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+                <li><a href="#boka" class="btn-book">Boka puts</a></li>
+            </ul>
+        </nav>
+        </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Släpp in våren</h1>
+                <div class="trustpilot-bar">
+                    <span style="color: #00b67a; font-size: 1.2rem;">★★★★★</span>
+                    <span>4.8/5 på Trustpilot</span>
+                </div>
+            </div>
+
+            <div class="calculator-container" id="pris">
+                <h2 style="margin-bottom: 1.5rem;">Få prisförslag direkt</h2>
+                <p style="color: #666;">[Kalkylatorn byggs här i nästa steg]</p>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

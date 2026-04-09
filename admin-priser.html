@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin – priser</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            min-height: 100dvh;
+            font-family: "Inter", sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+            line-height: 1.55;
+        }
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 1.25rem;
+        }
+        .header-inner {
+            max-width: 52rem;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .header-title {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+        h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        .back-link {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #113768;
+            text-decoration: none;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-ghost {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #64748b;
+            background: none;
+            border: 1px solid #e2e8f0;
+            border-radius: 999px;
+            padding: 0.45rem 1rem;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .btn-ghost:hover {
+            background: #f8fafc;
+            color: #0f172a;
+        }
+        main {
+            max-width: 52rem;
+            margin: 0 auto;
+            padding: 1.5rem 1.25rem 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 1.35rem 1.35rem 1.45rem;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+        }
+        .card h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #0f172a;
+        }
+        .rules-list {
+            list-style: none;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+        .rules-list li {
+            padding: 0.45rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .rules-list li:last-child { border-bottom: none; }
+        .rules-list strong { color: #0f172a; font-weight: 600; }
+        .formula {
+            margin-top: 1rem;
+            padding: 0.9rem 1rem;
+            background: #f8fafc;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            color: #334155;
+            font-family: ui-monospace, monospace;
+            line-height: 1.65;
+            overflow-x: auto;
+        }
+        .price-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        @media (min-width: 640px) {
+            .price-grid { grid-template-columns: 1fr 1fr; }
+        }
+        .field label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 0.35rem;
+        }
+        .field .hint {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: #94a3b8;
+            margin-top: 0.25rem;
+        }
+        .field input {
+            width: 100%;
+            height: 44px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 0 0.85rem;
+            font: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #0f172a;
+        }
+        .field input:focus {
+            outline: 2px solid #113768;
+            outline-offset: 2px;
+            border-color: #113768;
+        }
+        .save-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 1.35rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid #f1f5f9;
+        }
+        .btn-save {
+            height: 46px;
+            padding: 0 1.75rem;
+            border: none;
+            border-radius: 999px;
+            background: #113768;
+            color: #fff;
+            font: inherit;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .btn-save:hover { background: #0d2c52; }
+        .toast {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #166534;
+            min-height: 1.25rem;
+        }
+        .toast.is-error { color: #b91c1c; }
+        .example-box {
+            margin-top: 0.85rem;
+            font-size: 0.88rem;
+            color: #64748b;
+        }
+        .example-box code {
+            font-size: 0.8rem;
+            background: #f1f5f9;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+        }
+    </style>
+    <script>
+        (function () {
+            try {
+                if (sessionStorage.getItem("putsad_admin_auth") !== "1") {
+                    window.location.replace("admin-login.html");
+                }
+            } catch (e) {
+                window.location.replace("admin-login.html");
+            }
+        })();
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="header-title">
+                <h1>Priser – kalkylator</h1>
+                <a class="back-link" href="admin-oversikt.html">← Till adminöversikt</a>
+            </div>
+            <div class="header-actions">
+                <button type="button" class="btn-ghost" id="admin-logout">Logga ut</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="card" aria-labelledby="rules-heading">
+            <h2 id="rules-heading">Regler och beräkning</h2>
+            <ul class="rules-list">
+                <li><strong>Grundpris</strong> beräknas som summan av (antal × styckpris) för varje fönstertyp. Fem rader: utan spröjs enkel/dubbel, med spröjs enkel/dubbel, extra stora.</li>
+                <li><strong>Startsidan (hero)</strong> har en RUT-växel. När den är <strong>på</strong> (standard) visas priset efter RUT = <strong>grundpriset</strong>. När den är <strong>av</strong> visas pris <strong>utan</strong> RUT = grundpriset × 2.</li>
+                <li>Sidan <strong>Beräkna pris</strong> visar alltid pris efter RUT (samma grundpris som ovan, utan växel).</li>
+                <li>Slutpriset sparas i webbläsaren som <code>putsad_latest_total</code> och används i bokningsflödet (paket-vald, boka tid, m.m.).</li>
+                <li>Antal fönster per rad sparas i <code>sessionStorage</code> (<code>putsad_price_calc_state_v1</code>) så kalkylatorn kan återställas mellan sidor i samma flik.</li>
+                <li>Styckpriserna du redigerar nedan lagras i <code>localStorage</code> (<code id="storage-key-label"></code>) och gäller <strong>båda</strong> kalkylatorerna.</li>
+            </ul>
+            <div class="formula" id="formula-block" aria-label="Formel"></div>
+            <p class="example-box" id="example-line"></p>
+        </section>
+
+        <section class="card" aria-labelledby="edit-heading">
+            <h2 id="edit-heading">Styckpriser (kr efter RUT per enhet)</h2>
+            <form id="price-form" novalidate>
+                <div class="price-grid">
+                    <div class="field">
+                        <label for="p-vanligt-enkel">Utan spröjs – enkelsidiga (2 sidor)</label>
+                        <input type="number" id="p-vanligt-enkel" name="vanligt_enkel" min="0" max="999999" step="1" required inputmode="numeric">
+                        <p class="hint">ID i kod: <code>vanligt_enkel</code></p>
+                    </div>
+                    <div class="field">
+                        <label for="p-vanligt-dubbel">Utan spröjs – dubbelsidiga (4 sidor)</label>
+                        <input type="number" id="p-vanligt-dubbel" name="vanligt_dubbel" min="0" max="999999" step="1" required inputmode="numeric">
+                        <p class="hint">ID: <code>vanligt_dubbel</code></p>
+                    </div>
+                    <div class="field">
+                        <label for="p-sprojs-enkel">Med spröjs – enkelsidiga (2 sidor)</label>
+                        <input type="number" id="p-sprojs-enkel" name="sprojs_enkel" min="0" max="999999" step="1" required inputmode="numeric">
+                        <p class="hint">ID: <code>sprojs_enkel</code></p>
+                    </div>
+                    <div class="field">
+                        <label for="p-sprojs-dubbel">Med spröjs – dubbelsidiga (4 sidor)</label>
+                        <input type="number" id="p-sprojs-dubbel" name="sprojs_dubbel" min="0" max="999999" step="1" required inputmode="numeric">
+                        <p class="hint">ID: <code>sprojs_dubbel</code></p>
+                    </div>
+                    <div class="field" style="grid-column: 1 / -1;">
+                        <label for="p-extra-stor">Extra stora – från golv till tak</label>
+                        <input type="number" id="p-extra-stor" name="extra_stor" min="0" max="999999" step="1" required inputmode="numeric">
+                        <p class="hint">ID: <code>extra_stor</code></p>
+                    </div>
+                </div>
+                <div class="save-row">
+                    <button type="submit" class="btn-save">Spara priser</button>
+                    <span class="toast" id="save-toast" role="status" aria-live="polite"></span>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script src="price-calc-prices.js"></script>
+    <script>
+        (function () {
+            var logoutBtn = document.getElementById("admin-logout");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function () {
+                    try { sessionStorage.removeItem("putsad_admin_auth"); } catch (e) {}
+                    window.location.href = "putsad.html";
+                });
+            }
+
+            if (typeof putsadPriceCalcPricesKey === "string") {
+                var el = document.getElementById("storage-key-label");
+                if (el) el.textContent = putsadPriceCalcPricesKey;
+            }
+
+            var form = document.getElementById("price-form");
+            var toast = document.getElementById("save-toast");
+            var formulaEl = document.getElementById("formula-block");
+            var exampleEl = document.getElementById("example-line");
+
+            function fillFormFromStorage() {
+                var t = typeof putsadGetPriceTable === "function" ? putsadGetPriceTable() : {};
+                document.getElementById("p-vanligt-enkel").value = String(t.vanligt_enkel != null ? t.vanligt_enkel : 38);
+                document.getElementById("p-vanligt-dubbel").value = String(t.vanligt_dubbel != null ? t.vanligt_dubbel : 68);
+                document.getElementById("p-sprojs-enkel").value = String(t.sprojs_enkel != null ? t.sprojs_enkel : 56);
+                document.getElementById("p-sprojs-dubbel").value = String(t.sprojs_dubbel != null ? t.sprojs_dubbel : 86);
+                document.getElementById("p-extra-stor").value = String(t.extra_stor != null ? t.extra_stor : 76);
+                refreshFormula();
+            }
+
+            function refreshFormula() {
+                var t = {};
+                if (typeof putsadGetPriceTable === "function") {
+                    t = putsadGetPriceTable();
+                }
+                var a = t.vanligt_enkel != null ? t.vanligt_enkel : 38;
+                var b = t.vanligt_dubbel != null ? t.vanligt_dubbel : 68;
+                var c = t.sprojs_enkel != null ? t.sprojs_enkel : 56;
+                var d = t.sprojs_dubbel != null ? t.sprojs_dubbel : 86;
+                var e = t.extra_stor != null ? t.extra_stor : 76;
+                if (formulaEl) {
+                    formulaEl.innerHTML =
+                        "grund = (Utan_enkel × " + a + ") + (Utan_dubbel × " + b + ") + (Spröjs_enkel × " + c + ") + (Spröjs_dubbel × " + d + ") + (Extra × " + e + ")<br>" +
+                        "• Hero med RUT på: visa grund<br>" +
+                        "• Hero med RUT av: visa grund × 2<br>" +
+                        "• Beräkna pris: visa grund";
+                }
+                if (exampleEl) {
+                    var ex = a + b;
+                    exampleEl.innerHTML =
+                        "Exempel: 1 st enkelsidig utan spröjs + 1 st dubbelsidig utan spröjs ger grundpris <strong>" + ex + " kr</strong> (efter RUT).";
+                }
+            }
+
+            function readFormTable() {
+                function num(id) {
+                    var v = parseInt(document.getElementById(id).value, 10);
+                    return isNaN(v) || v < 0 ? 0 : v;
+                }
+                return {
+                    vanligt_enkel: num("p-vanligt-enkel"),
+                    vanligt_dubbel: num("p-vanligt-dubbel"),
+                    sprojs_enkel: num("p-sprojs-enkel"),
+                    sprojs_dubbel: num("p-sprojs-dubbel"),
+                    extra_stor: num("p-extra-stor")
+                };
+            }
+
+            if (form) {
+                form.addEventListener("submit", function (ev) {
+                    ev.preventDefault();
+                    if (toast) {
+                        toast.textContent = "";
+                        toast.classList.remove("is-error");
+                    }
+                    var table = readFormTable();
+                    if (typeof putsadSavePriceTable === "function") {
+                        putsadSavePriceTable(table);
+                    }
+                    if (toast) toast.textContent = "Sparat. Uppdatera kalkylatorsidorna om de redan är öppna (eller byt sida) för att se nya priser.";
+                    refreshFormula();
+                });
+
+                ["p-vanligt-enkel", "p-vanligt-dubbel", "p-sprojs-enkel", "p-sprojs-dubbel", "p-extra-stor"].forEach(function (id) {
+                    var inp = document.getElementById(id);
+                    if (inp) {
+                        inp.addEventListener("input", function () {
+                            var t = readFormTable();
+                            if (formulaEl) {
+                                formulaEl.innerHTML =
+                                    "grund = (Utan_enkel × " + t.vanligt_enkel + ") + (Utan_dubbel × " + t.vanligt_dubbel + ") + (Spröjs_enkel × " + t.sprojs_enkel + ") + (Spröjs_dubbel × " + t.sprojs_dubbel + ") + (Extra × " + t.extra_stor + ")<br>" +
+                                    "• Hero med RUT på: visa grund<br>" +
+                                    "• Hero med RUT av: visa grund × 2<br>" +
+                                    "• Beräkna pris: visa grund";
+                            }
+                            if (exampleEl) {
+                                var ex = t.vanligt_enkel + t.vanligt_dubbel;
+                                exampleEl.innerHTML =
+                                    "Exempel: 1 st enkelsidig utan spröjs + 1 st dubbelsidig utan spröjs ger grundpris <strong>" + ex + " kr</strong> (efter RUT).";
+                            }
+                        });
+                    }
+                });
+            }
+
+            window.addEventListener("storage", function (e) {
+                if (e.key === putsadPriceCalcPricesKey && e.newValue) {
+                    fillFormFromStorage();
+                    if (toast) {
+                        toast.textContent = "Priser uppdaterades från en annan flik.";
+                        toast.classList.remove("is-error");
+                    }
+                }
+            });
+
+            fillFormFromStorage();
+        })();
+    </script>
+</body>
+</html>

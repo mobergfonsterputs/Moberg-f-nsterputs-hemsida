@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Putsad - Släpp in våren</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Caveat:wght@500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #0066FF; /* Ljusare, krispig blå */
+            --black: #000000;
+            --white: #ffffff;
+            --light-gray: #f5f5f7;
+            --border: #e5e5e5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--black);
+            background-color: var(--white);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.4rem;
+            text-decoration: none;
+            color: var(--black);
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--black);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
+        }
+
+        nav a:hover { opacity: 0.6; }
+
+        .btn-cta {
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 0.8rem 1.6rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-cta:hover { transform: scale(1.05); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 100px 5%;
+            align-items: center;
+            gap: 4rem;
+            min-height: 80vh;
+        }
+
+        .hero-text h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .script-sub {
+            font-family: 'Caveat', cursive;
+            font-size: 3rem;
+            color: var(--primary-blue);
+            display: block;
+        }
+
+        /* --- KALKYLATOR --- */
+        .calc-box {
+            background: var(--white);
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        .calc-placeholder {
+            height: 250px;
+            background: var(--light-gray);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1.5rem 0;
+            border: 2px dashed #ccc;
+            color: #666;
+        }
+
+        /* --- REVIEWS --- */
+        .google-strip {
+            padding: 40px 5%;
+            background: var(--light-gray);
+            text-align: center;
+        }
+
+        .review-stars { color: #FAB005; margin-right: 10px; }
+
+        /* --- PACKAGES --- */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 80px 0 40px;
+        }
+
+        .package-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 0 5% 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .package-card {
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 24px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .package-card:hover {
+            border-color: var(--primary-blue);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .package-card h3 { font-size: 1.8rem; margin-bottom: 1.5rem; }
+
+        .feature-list { list-style: none; }
+        .feature-list li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .feature-list li::before {
+            content: "→";
+            margin-right: 10px;
+            color: var(--primary-blue);
+        }
+
+        .expandable-info {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            font-size: 0.9rem;
+            color: #444;
+            margin-top: 0;
+        }
+
+        .package-card:hover .expandable-info {
+            max-height: 150px;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .price-tag {
+            display: block;
+            margin-top: 2rem;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .price-from { font-size: 0.8rem; font-weight: 400; color: #666; }
+
+        /* --- COMPARISON SECTION --- */
+        .comparison-section {
+            background: var(--black);
+            color: var(--white);
+            padding: 100px 5%;
+            text-align: center;
+        }
+
+        .comp-box {
+            max-width: 800px;
+            margin: 50px auto 0;
+            text-align: left;
+        }
+
+        .comp-bar-container {
+            margin-bottom: 2rem;
+        }
+
+        .bar-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
+
+        .bar-bg {
+            width: 100%;
+            height: 12px;
+            background: #333;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: var(--primary-blue);
+            border-radius: 6px;
+            transition: width 1s ease;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 80px 5% 40px;
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .footer-logo { font-weight: 800; font-size: 1.2rem; margin-bottom: 1rem; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 0.5rem; font-size: 0.9rem; color: #666; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 60px; }
+            .hero-text h1 { font-size: 3rem; }
+            .script-sub { font-size: 2.2rem; }
+            .package-container { grid-template-columns: 1fr; }
+            nav ul { display: none; } /* Enkelhet för nu, kan lägga till hamburgare senare */
+            footer { grid-template-columns: 1fr; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">PUTSAD.</a>
+        <nav>
+            <ul>
+                <li><a href="#hem">Hem</a></li>
+                <li><a href="#pris">Pris</a></li>
+                <li><a href="#paket">Paket</a></li>
+                <li><a href="#recensioner">Recensioner</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+                <li><a href="#boka" class="btn-cta">Boka puts</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="hem">
+            <div class="hero-text">
+                <h1>Släpp in våren <span class="script-sub">med rena fönster</span></h1>
+                <div style="margin-top: 2rem; display: flex; align-items: center; justify-content: flex-start;">
+                    <span class="review-stars">★★★★★</span>
+                    <span style="font-weight: 600; font-size: 0.9rem;">4.9/5 på Google Reviews</span>
+                </div>
+            </div>
+
+            <div class="calc-box" id="pris">
+                <h2 style="font-weight: 800;">Beräkna ditt pris</h2>
+                <div class="calc-placeholder">
+                    [ Kalkylator-logik här ]
+                </div>
+                <button class="btn-cta" style="width: 100%; border: none; cursor: pointer; padding: 1.2rem;">Se mitt pris direkt</button>
+            </div>
+        </section>
+
+        <section class="google-strip" id="recensioner">
+            <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;">
+                <div><strong>"Bästa jag testat!"</strong> – Johan V.</div>
+                <div><strong>"Sjukt smidigt."</strong> – Maria K.</div>
+                <div><strong>"Bokade på mobilen."</strong> – Ahmed L.</div>
+            </div>
+        </section>
+
+        <h2 class="section-title" id="paket">Våra Paket</h2>
+        <div class="package-container">
+            
+            <div class="package-card">
+                <h3>Standard</h3>
+                <ul class="feature-list">
+                    <li>Synligt rena fönster</li>
+                    <li>Rena fönsterkarmar</li>
+                    <li>Rena fönsterbrädor</li>
+                </ul>
+                <div class="expandable-info">
+                    Perfekt för den regelbundna underhållsputsen. Vi fokuserar på glasets klarhet och torkar av de närmsta ytorna för ett fräscht helhetsintryck.
+                </div>
+                <div class="price-tag">
+                    <span class="price-from">pris från</span> 495 kr
+                </div>
+            </div>
+
+            <div class="package-card" style="border-color: #eee;">
+                <div style="position: absolute; top: 20px; right: 20px; background: var(--primary-blue); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800;">REKOMMENDERAS</div>
+                <h3>Deep Clean</h3>
+                <ul class="feature-list">
+                    <li>Allt i Standard</li>
+                    <li>Hård smuts försvinner helt</li>
+                    <li>Färgstänk försvinner helt</li>
+                </ul>
+                <div class="expandable-info">
+                    För fönster som inte putsats på länge eller efter renovering. Vi använder specialskrapor för att ta bort färgrester, silikon och ingrodd smuts utan att skada glaset.
+                </div>
+                <div class="price-tag">
+                    <span class="price-from">pris från</span> 895 kr
+                </div>
+            </div>
+
+        </div>
+
+        <section class="comparison-section">
+            <h2 style="font-size: 2.5rem; font-weight: 800;">Samma resultat, bättre pris.</h2>
+            <p style="opacity: 0.7; margin-top: 1rem;">Vi har kapat de onödiga kostnaderna genom modern teknik.</p>
+            
+            <div class="comp-box">
+                <div class="comp-bar-container">
+                    <div class="bar-label"><span>Vårt pris</span> <span>Marknadens snitt</span></div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 55%;"></div>
+                    </div>
+                </div>
+                <p style="font-size: 0.8rem; opacity: 0.5; text-align: center;">Vi är i snitt 30-40% billigare än traditionella fönsterputsbolag.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer id="kontakt">
+        <div>
+            <div class="footer-logo">PUTSAD.</div>
+            <p style="color: #666; font-size: 0.9rem;">Modern fönsterputs för en ny generation husägare. Enkelhet i varje drag.</p>
+        </div>
+        <div>
+            <h4 style="margin-bottom: 1rem;">Meny</h4>
+            <ul class="footer-links">
+                <li>Hem</li>
+                <li>Paket</li>
+                <li>Villkor</li>
+            </ul>
+        </div>
+        <div>
+            <h4 style="margin-bottom: 1rem;">Kontakt</h4>
+            <ul class="footer-links">
+                <li>Email: hej@putsad.se</li>
+                <li>Tel: 010-XXX XX XX</li>
+            </ul>
+        </div>
+    </footer>
+
+</body>
+</html>

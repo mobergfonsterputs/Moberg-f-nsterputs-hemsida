@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Välj paket</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:ital@1&display=optional" rel="stylesheet">
+    <link rel="stylesheet" href="header-shared.css?v=13">
+    <link rel="stylesheet" href="site-stable.css?v=2">
+    <link rel="stylesheet" href="footer-shared.css?v=24">
+    <style>
+        :root {
+            --primary-blue: #0F172A;
+            --tech-blue: #113768;
+            --border: #e5e5e5;
+            --green-check: #008000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--primary-blue);
+            background: #fff;
+            padding-bottom: 40px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1.2rem 0;
+        }
+        .header-inner {
+            width: min(1320px, calc(100% - 2.5rem));
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-fallback {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            text-decoration: none;
+            color: #000;
+            letter-spacing: -1px;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.8rem;
+            align-items: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: #000;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        nav ul li > a:not(.btn-cta) {
+            position: relative;
+            display: inline-block;
+        }
+        nav ul li > a:not(.btn-cta)::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 100%;
+            height: 1px;
+            background: var(--tech-blue);
+            border-radius: 999px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        nav ul li > a:not(.btn-cta):hover::after { opacity: 1; }
+        .nav-desktop { display: flex; align-items: center; }
+        .header-mobile { display: none; align-items: center; gap: 0.65rem; }
+        .nav-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            border: none;
+            background: transparent;
+            color: #000;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background 0.2s ease;
+        }
+        .nav-toggle:hover { background: rgba(0, 0, 0, 0.06); }
+        .nav-toggle svg { width: 24px; height: 24px; }
+        .mobile-menu-panel {
+            display: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+            z-index: 999;
+        }
+        .mobile-menu-panel.is-open { display: block; }
+        .mobile-menu-inner {
+            width: min(1320px, calc(100% - 2.5rem));
+            margin: 0 auto;
+            padding: 0.75rem 0 1.25rem;
+        }
+        .mobile-menu-panel ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .mobile-menu-panel li { text-align: center; border-bottom: 1px solid #000; }
+        .mobile-menu-panel li:last-child { border-bottom: none; }
+        .mobile-menu-panel a {
+            display: block;
+            padding: 1rem 0.75rem;
+            text-decoration: none;
+            text-align: center;
+            color: var(--primary-blue);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1.4rem;
+            line-height: 1.3;
+        }
+        .mobile-menu-panel a:hover { background: rgba(0, 0, 0, 0.03); }
+        .btn-cta {
+            background: var(--tech-blue);
+            color: #fff;
+            padding: 0.8rem 3.4rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+            display: inline-block;
+        }
+        .btn-cta:hover { background: #0d2c52; }
+
+        .back-link {
+            position: fixed;
+            top: 22px;
+            left: 22px;
+            z-index: 10;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px 8px 6px;
+            border-radius: 999px;
+            color: #0F172A;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(15, 23, 42, 0.06);
+        }
+
+        .back-link-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            border: 1px solid rgba(15, 23, 42, 0.2);
+            background: #fff;
+        }
+
+        .back-link-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.35rem;
+            line-height: 1;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 160px 0 0.5rem;
+        }
+
+        .section-intro {
+            text-align: center;
+            color: #666;
+            font-size: 1rem;
+            max-width: 36rem;
+            margin: 0 auto 2.5rem;
+            line-height: 1.5;
+            padding: 0 1rem;
+        }
+
+        .package-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 0 5% 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .package-card {
+            border: 1px solid var(--border);
+            padding: 2.5rem;
+            border-radius: 24px;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .package-card:hover {
+            border-color: var(--primary-blue);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .package-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            padding: 0.75rem 0.5rem;
+            border-bottom: 1px solid #1a1a1a20;
+            cursor: pointer;
+            transition: background 0.15s ease;
+            border-radius: 6px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .feature-list li:first-child {
+            border-top: 1px solid #1a1a1a20;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: var(--green-check);
+            font-weight: 800;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .feature-detail {
+            display: none;
+            width: 100%;
+            font-size: 0.82rem;
+            font-weight: 400;
+            color: #555;
+            margin-top: 0.4rem;
+            padding-left: 1.4rem;
+            line-height: 1.5;
+        }
+
+        .feature-list li:hover,
+        .feature-list li.open {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .feature-list li.open .feature-detail {
+            display: block;
+        }
+
+        .price-tag {
+            display: block;
+            margin-top: 2rem;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .price-note {
+            margin-top: 0.3rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            line-height: 1.25;
+            color: #1a1a1a;
+            color: color-mix(in srgb, black 90%, white 10%);
+        }
+
+        .price-from {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #666;
+        }
+
+        @media (max-width: 900px) {
+            .nav-desktop { display: none; }
+            .header-mobile { display: flex; }
+            .package-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="#hem" class="logo-fallback">Moberg Fönsterputs</a>
+            <nav class="nav-desktop" aria-label="Huvudmeny">
+                <ul>
+                    <li><a href="putsad.html#hem">Hem</a></li>
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="berakna-pris.html" class="btn-cta">Boka puts</a></li>
+                </ul>
+            </nav>
+            <div class="header-mobile">
+                <a href="berakna-pris.html" class="btn-cta">Boka puts</a>
+                <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Öppna meny">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu-panel" id="mobile-menu-panel" role="navigation" aria-label="Mobilmeny">
+            <div class="mobile-menu-inner">
+                <ul>
+                    <li><a href="putsad.html#hem">Hem</a></li>
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <a class="back-link" href="putsad.html" aria-label="Tillbaka">
+        <span class="back-link-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M14.5 6.5L9 12l5.5 5.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </span>
+        <span class="back-link-text">Tillbaka</span>
+    </a>
+
+    <h2 class="section-title" id="paket">Välj paket</h2>
+    <p class="section-intro">Välj det paket som passar dig. Tryck på texten för mer info.</p>
+
+    <div class="package-container">
+        <div class="package-card" data-package="standard" tabindex="0" role="button" aria-label="Välj paket Standard">
+            <h3>Standard</h3>
+            <ul class="feature-list">
+                <li onclick="this.classList.toggle('open')">
+                    <span>Synligt rena fönster</span>
+                    <span class="feature-detail">Vi putsar alla glasrutor inifrån och utifrån för kristallklar sikt och ett fräscht intryck.</span>
+                </li>
+                <li onclick="this.classList.toggle('open')">
+                    <span>Rena fönsterkarmar</span>
+                    <span class="feature-detail">Fönsterkarmarna avtorkas noggrant från damm, smuts och fläckar.</span>
+                </li>
+                <li onclick="this.classList.toggle('open')">
+                    <span>Rena fönsterbrädor</span>
+                    <span class="feature-detail">Fönsterbrädorna sopas och torkas av för ett komplett helhetsintryck.</span>
+                </li>
+            </ul>
+            <div class="price-tag">
+                <span id="standard-price">495</span> kr
+            </div>
+            <p class="price-note">Efter rutavdrag</p>
+        </div>
+
+        <div class="package-card" data-package="deep-clean" tabindex="0" role="button" aria-label="Välj paket Deep Clean">
+            <div style="position: absolute; top: 20px; right: 20px; background: var(--tech-blue); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800;">Rekommenderas 1:a gången</div>
+            <h3>Deep Clean</h3>
+            <ul class="feature-list">
+                <li onclick="this.classList.toggle('open')">
+                    <span>Allt i Standard</span>
+                    <span class="feature-detail">Inkluderar all service från Standard-paketet: glas, karmar och fönsterbrädor.</span>
+                </li>
+                <li onclick="this.classList.toggle('open')">
+                    <span>Hård smuts försvinner helt</span>
+                    <span class="feature-detail">Med specialverktyg och professionella medel tar vi bort ingrodd smuts som vanlig puts inte klarar.</span>
+                </li>
+                <li onclick="this.classList.toggle('open')">
+                    <span>Färgstänk försvinner helt</span>
+                    <span class="feature-detail">Vi använder specialskrapor för att försiktigt ta bort färgrester och silikonrester utan att skada glaset.</span>
+                </li>
+            </ul>
+            <div class="price-tag">
+                <span id="deep-clean-price">895</span> kr
+            </div>
+            <p class="price-note">Efter rutavdrag</p>
+        </div>
+    </div>
+
+    <footer id="kontakt">
+        <div class="footer-inner">
+            <div class="footer-logo-slot">
+                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img">
+            </div>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-puts">
+                <h3 id="footer-nav-puts" class="footer-nav-heading">Fönsterputs</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="berakna-pris.html">Beräkna pris</a></li>
+                    <li><a href="putsad.html#vanliga-fragor">Vanliga frågor</a></li>
+                    <li><a href="viktig-information.html">Viktig information</a></li>
+                </ul>
+            </nav>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-company">
+                <h3 id="footer-nav-company" class="footer-nav-heading">Företag</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="om-oss.html">Om oss</a></li>
+                    <li><a href="villkor.html">Villkor</a></li>
+                    <li><a href="putsad.html#recensioner">Recensioner</a></li>
+                </ul>
+            </nav>
+                                    <nav class="footer-nav-col" aria-labelledby="footer-nav-sociala">
+                <h3 id="footer-nav-sociala" class="footer-nav-heading">Sociala</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+            </nav>
+            <div class="footer-legal">
+                <p>&copy; <span id="footer-year"></span> Moberg Fönsterputs. Alla rättigheter förbehållna.</p>
+            </div>
+        </div>
+        <a href="admin-login.html" class="footer-admin-secret" aria-hidden="true" tabindex="-1">&#8203;</a>
+    </footer>
+
+    <script>
+        (function () {
+            var yearEl = document.getElementById("footer-year");
+            if (!yearEl) return;
+            yearEl.textContent = String(new Date().getFullYear());
+        })();
+
+        (function () {
+            var toggle = document.getElementById("nav-toggle");
+            var panel = document.getElementById("mobile-menu-panel");
+            if (!toggle || !panel) return;
+            function setOpen(open) {
+                toggle.setAttribute("aria-expanded", open ? "true" : "false");
+                toggle.setAttribute("aria-label", open ? "Stäng meny" : "Öppna meny");
+                panel.classList.toggle("is-open", open);
+            }
+            toggle.addEventListener("click", function () {
+                setOpen(!panel.classList.contains("is-open"));
+            });
+            panel.querySelectorAll("a").forEach(function (link) {
+                link.addEventListener("click", function () {
+                    setOpen(false);
+                });
+            });
+        })();
+
+        (function () {
+            var params = new URLSearchParams(window.location.search);
+            var rawStandard = params.get("standard");
+            var standard = parseInt(rawStandard, 10);
+            if (isNaN(standard) || standard < 0) return;
+
+            var deepClean = Math.round(standard * 1.3);
+            var standardEl = document.getElementById("standard-price");
+            var deepEl = document.getElementById("deep-clean-price");
+            if (standardEl) standardEl.textContent = standard.toLocaleString("sv-SE");
+            if (deepEl) deepEl.textContent = deepClean.toLocaleString("sv-SE");
+        })();
+
+        (function () {
+            var targetPage = "paket-vald.html";
+            var cards = document.querySelectorAll(".package-card[data-package]");
+            var featureRows = document.querySelectorAll(".feature-list li");
+
+            featureRows.forEach(function (row) {
+                row.addEventListener("click", function (e) {
+                    e.stopPropagation();
+                });
+            });
+
+            function openPackage(card) {
+                var key = card.getAttribute("data-package") || "";
+                window.location.href = targetPage + "?paket=" + encodeURIComponent(key);
+            }
+
+            cards.forEach(function (card) {
+                card.addEventListener("click", function () {
+                    openPackage(card);
+                });
+                card.addEventListener("keydown", function (e) {
+                    if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        openPackage(card);
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

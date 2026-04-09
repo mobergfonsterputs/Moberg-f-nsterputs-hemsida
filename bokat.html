@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bokat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=optional" rel="stylesheet">
+    <link rel="stylesheet" href="header-shared.css?v=14">
+    <link rel="stylesheet" href="site-stable.css?v=2">
+    <link rel="stylesheet" href="footer-shared.css?v=24">
+    <style>
+        :root {
+            --tech-blue: #113768;
+            --text: #0f172a;
+            --muted: #475569;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, sans-serif;
+            color: var(--text);
+            background: #fff;
+        }
+
+        .booking-complete {
+            width: min(760px, calc(100% - 2.5rem));
+            margin: clamp(7rem, 12vw, 10rem) auto clamp(5rem, 10vw, 7rem);
+            text-align: center;
+        }
+
+        .booking-complete-icons {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .booking-complete-check,
+        .booking-complete-heart {
+            width: clamp(54px, 8vw, 68px);
+            height: clamp(54px, 8vw, 68px);
+        }
+
+        .booking-complete-title {
+            margin: 0 0 1.5rem;
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+        }
+
+        .booking-complete-lines {
+            display: grid;
+            gap: 0.85rem;
+            justify-items: center;
+            margin: 0 0 2.25rem;
+        }
+
+        .booking-complete-line {
+            margin: 0;
+            max-width: 36rem;
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            line-height: 1.65;
+            color: var(--muted);
+        }
+
+        .booking-complete-line.is-date {
+            color: var(--text);
+            font-weight: 700;
+            font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+        }
+
+        .calendar-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            padding: 0.95rem 1.75rem;
+            border-radius: 999px;
+            background: var(--tech-blue);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.98rem;
+            letter-spacing: 0.01em;
+        }
+
+        .calendar-btn:hover {
+            background: #0d2c52;
+        }
+
+        .calendar-btn.is-disabled {
+            pointer-events: none;
+            opacity: 0.55;
+        }
+
+        @media (max-width: 700px) {
+            .booking-complete {
+                margin-top: 6.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="putsad.html#hem" class="logo-fallback">Moberg Fönsterputs</a>
+            <nav class="nav-desktop" aria-label="Huvudmeny">
+                <ul>
+                    <li><a href="putsad.html#hem">Hem</a></li>
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="berakna-pris.html" class="btn-cta">Boka puts</a></li>
+                </ul>
+            </nav>
+            <div class="header-mobile">
+                <a href="berakna-pris.html" class="btn-cta">Boka puts</a>
+                <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Öppna meny">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu-panel" id="mobile-menu-panel" role="navigation" aria-label="Mobilmeny">
+            <div class="mobile-menu-inner">
+                <ul>
+                    <li><a href="putsad.html#hem">Hem</a></li>
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="booking-complete">
+        <div class="booking-complete-icons" aria-hidden="true">
+            <svg class="booking-complete-check" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="32" cy="32" r="30" fill="#16A34A" fill-opacity="0.12"/>
+                <path d="M20 33.5L28 41.5L45 24.5" stroke="#16A34A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <svg class="booking-complete-heart" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M32 53C18 43.8 10 35.8 10 24.5C10 17.2 15.7 12 22.8 12C27.4 12 30.9 14.4 32 18C33.1 14.4 36.6 12 41.2 12C48.3 12 54 17.2 54 24.5C54 35.8 46 43.8 32 53Z" fill="#113768"/>
+            </svg>
+        </div>
+
+        <h1 class="booking-complete-title">Bokat!</h1>
+
+        <div class="booking-complete-lines">
+            <p class="booking-complete-line is-date" id="booking-date-line">Datum saknas</p>
+            <p class="booking-complete-line">Om du inte är hemma så behöver du lämna över nyckel, vänligen kontakta 072 942 14 05.</p>
+        </div>
+
+        <a id="calendar-btn" class="calendar-btn is-disabled" href="#" download="moberg-bokning.ics">Lägg till i kalendern</a>
+    </main>
+
+    <footer id="kontakt">
+        <div class="footer-inner">
+            <div class="footer-logo-slot">
+                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img">
+            </div>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-puts">
+                <h3 id="footer-nav-puts" class="footer-nav-heading">Fönsterputs</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="berakna-pris.html">Beräkna pris</a></li>
+                    <li><a href="putsad.html#vanliga-fragor">Vanliga frågor</a></li>
+                    <li><a href="viktig-information.html">Viktig information</a></li>
+                </ul>
+            </nav>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-company">
+                <h3 id="footer-nav-company" class="footer-nav-heading">Företag</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="om-oss.html">Om oss</a></li>
+                    <li><a href="villkor.html">Villkor</a></li>
+                    <li><a href="putsad.html#recensioner">Recensioner</a></li>
+                </ul>
+            </nav>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-sociala">
+                <h3 id="footer-nav-sociala" class="footer-nav-heading">Sociala</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+            </nav>
+            <div class="footer-legal">
+                <p>&copy; <span id="footer-year"></span> Moberg Fönsterputs. Alla rättigheter förbehållna.</p>
+            </div>
+        </div>
+        <a href="admin-login.html" class="footer-admin-secret" aria-hidden="true" tabindex="-1">&#8203;</a>
+    </footer>
+
+    <script>
+        (function () {
+            var toggle = document.getElementById("nav-toggle");
+            var panel = document.getElementById("mobile-menu-panel");
+            if (toggle && panel) {
+                function setOpen(open) {
+                    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+                    toggle.setAttribute("aria-label", open ? "Stäng meny" : "Öppna meny");
+                    panel.classList.toggle("is-open", open);
+                }
+                toggle.addEventListener("click", function () {
+                    setOpen(!panel.classList.contains("is-open"));
+                });
+                panel.querySelectorAll("a").forEach(function (link) {
+                    link.addEventListener("click", function () {
+                        setOpen(false);
+                    });
+                });
+            }
+
+            function getParam(name) {
+                return new URLSearchParams(window.location.search).get(name) || "";
+            }
+
+            function formatDateText(dateKey) {
+                if (!dateKey) return "";
+                var parts = dateKey.split("-");
+                if (parts.length !== 3) return dateKey;
+                var y = Number(parts[0]);
+                var m = Number(parts[1]) - 1;
+                var d = Number(parts[2]);
+                if (!isFinite(y) || !isFinite(m) || !isFinite(d)) return dateKey;
+                var dt = new Date(y, m, d);
+                if (isNaN(dt.getTime())) return dateKey;
+                return dt.toLocaleDateString("sv-SE", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                });
+            }
+
+            function pad(n) {
+                return String(n).padStart(2, "0");
+            }
+
+            function toIcsDate(dateObj) {
+                return dateObj.getUTCFullYear() +
+                    pad(dateObj.getUTCMonth() + 1) +
+                    pad(dateObj.getUTCDate()) + "T" +
+                    pad(dateObj.getUTCHours()) +
+                    pad(dateObj.getUTCMinutes()) +
+                    pad(dateObj.getUTCSeconds()) + "Z";
+            }
+
+            function getRoundedHalfHoursFromPrice(price) {
+                if (!isFinite(price) || price <= 0) return null;
+                var hours = price / 500;
+                return Math.ceil(hours * 2) / 2;
+            }
+
+            function buildIcsContent(dateKey, timeValue, priceValue) {
+                var createdAt = new Date();
+                var uid = "moberg-" + Date.now() + "@mobergfonsterputs";
+                var dateParts = String(dateKey || "").split("-");
+                if (dateParts.length !== 3) return "";
+
+                var year = Number(dateParts[0]);
+                var monthIndex = Number(dateParts[1]) - 1;
+                var day = Number(dateParts[2]);
+                if (!isFinite(year) || !isFinite(monthIndex) || !isFinite(day)) return "";
+
+                var timeMatch = String(timeValue || "").match(/^(\d{1,2}):(\d{2})$/);
+                var durationHours = getRoundedHalfHoursFromPrice(Number(priceValue));
+                if (timeMatch) {
+                    var start = new Date(year, monthIndex, day, Number(timeMatch[1]), Number(timeMatch[2]), 0);
+                    var durationMinutes = Math.round((durationHours || 2) * 60);
+                    var end = new Date(start.getTime() + durationMinutes * 60000);
+                    return [
+                        "BEGIN:VCALENDAR",
+                        "VERSION:2.0",
+                        "PRODID:-//Moberg Fonsterputs//Bokning//SV",
+                        "BEGIN:VEVENT",
+                        "UID:" + uid,
+                        "DTSTAMP:" + toIcsDate(createdAt),
+                        "DTSTART:" + toIcsDate(start),
+                        "DTEND:" + toIcsDate(end),
+                        "SUMMARY:Moberg Fonsterputs",
+                        "DESCRIPTION:Om du inte ar hemma sa behover du lamna over nyckel. Vanligen kontakta 072 942 14 05.",
+                        "END:VEVENT",
+                        "END:VCALENDAR"
+                    ].join("\r\n");
+                }
+
+                var allDayStart = String(year) + pad(monthIndex + 1) + pad(day);
+                var nextDay = new Date(year, monthIndex, day + 1);
+                var allDayEnd = String(nextDay.getFullYear()) + pad(nextDay.getMonth() + 1) + pad(nextDay.getDate());
+                return [
+                    "BEGIN:VCALENDAR",
+                    "VERSION:2.0",
+                    "PRODID:-//Moberg Fonsterputs//Bokning//SV",
+                    "BEGIN:VEVENT",
+                    "UID:" + uid,
+                    "DTSTAMP:" + toIcsDate(createdAt),
+                    "DTSTART;VALUE=DATE:" + allDayStart,
+                    "DTEND;VALUE=DATE:" + allDayEnd,
+                    "SUMMARY:Moberg Fonsterputs",
+                    "DESCRIPTION:Om du inte ar hemma sa behover du lamna over nyckel. Vanligen kontakta 072 942 14 05.",
+                    "END:VEVENT",
+                    "END:VCALENDAR"
+                ].join("\r\n");
+            }
+
+            var date = getParam("date");
+            var time = getParam("time");
+            var price = getParam("price");
+            var dateLine = document.getElementById("booking-date-line");
+            var calendarBtn = document.getElementById("calendar-btn");
+            var formattedDate = formatDateText(date);
+
+            if (dateLine) {
+                dateLine.textContent = formattedDate || "Datum saknas";
+            }
+
+            if (calendarBtn && date) {
+                var ics = buildIcsContent(date, time, price);
+                if (ics) {
+                    var blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+                    var url = URL.createObjectURL(blob);
+                    calendarBtn.href = url;
+                    calendarBtn.classList.remove("is-disabled");
+                }
+            }
+
+            var yearEl = document.getElementById("footer-year");
+            if (yearEl) {
+                yearEl.textContent = String(new Date().getFullYear());
+            }
+        })();
+    </script>
+</body>
+</html>

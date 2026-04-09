@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viktig information | Moberg Fönsterputs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital@1&display=optional" rel="stylesheet">
+    <link rel="stylesheet" href="header-shared.css?v=14">
+    <link rel="stylesheet" href="site-stable.css?v=2">
+    <link rel="stylesheet" href="footer-shared.css?v=24">
+    <style>
+        :root {
+            --primary-blue: #0f172a;
+            --tech-blue: #113768;
+            --tech-blue-hover: #0d2c52;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --surface: #ffffff;
+            --page-gutter: clamp(1.25rem, 5vw, 3rem);
+            --content-max: min(800px, 100%);
+        }
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            color: var(--primary-blue);
+            -webkit-font-smoothing: antialiased;
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 45%, #f8fafc 100%);
+        }
+        .info-page {
+            min-height: 50vh;
+            padding: clamp(2rem, 5vw, 3.25rem) var(--page-gutter) clamp(3.5rem, 9vw, 5.5rem);
+            max-width: var(--content-max);
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        .info-hero {
+            margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+        }
+        .info-hero h1 {
+            font-size: clamp(2rem, 4.5vw, 2.65rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin: 0 0 0.5rem;
+            line-height: 1.12;
+            color: var(--primary-blue);
+        }
+        .info-hero .script-accent {
+            font-family: "Playfair Display", serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+            color: var(--tech-blue);
+            display: block;
+            margin-bottom: 0.85rem;
+            line-height: 1.3;
+        }
+        .info-hero .lead {
+            margin: 0;
+            max-width: 38rem;
+            line-height: 1.65;
+            color: var(--muted);
+            font-size: 1.0625rem;
+            font-weight: 400;
+        }
+        .info-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        @media (min-width: 640px) {
+            .info-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 1.15rem;
+            }
+        }
+        .info-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.35rem 1.4rem 1.45rem;
+            box-shadow: 0 4px 24px rgba(15, 23, 42, 0.04);
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .info-card:hover {
+            box-shadow: 0 12px 40px rgba(15, 23, 42, 0.07);
+            border-color: #cbd5e1;
+        }
+        .info-card h2 {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--tech-blue);
+            margin: 0 0 0.65rem;
+        }
+        .info-card p {
+            margin: 0;
+            font-size: 0.98rem;
+            line-height: 1.62;
+            color: #334155;
+        }
+        .info-card p + p {
+            margin-top: 0.75rem;
+        }
+        .info-card a {
+            color: var(--tech-blue);
+            font-weight: 600;
+            text-underline-offset: 3px;
+        }
+        .info-card a:hover {
+            color: var(--tech-blue-hover);
+        }
+        .info-card--wide {
+            grid-column: 1 / -1;
+        }
+        .info-callout {
+            margin-top: 1.15rem;
+            grid-column: 1 / -1;
+            background: var(--surface);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--tech-blue);
+            padding: 1.35rem 1.4rem 1.45rem 1.5rem;
+            box-shadow: 0 8px 30px rgba(17, 55, 104, 0.08);
+        }
+        .info-callout h2 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            text-transform: none;
+            color: var(--primary-blue);
+            margin: 0 0 0.65rem;
+        }
+        .info-callout p {
+            margin: 0;
+            font-size: 0.98rem;
+            line-height: 1.65;
+            color: #334155;
+        }
+        .info-callout p + p {
+            margin-top: 0.75rem;
+        }
+        .contact-line {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+            margin-top: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 0.95rem;
+        }
+        .contact-line span {
+            color: var(--muted);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="putsad.html#hem" class="logo-fallback">Moberg Fönsterputs</a>
+            <nav class="nav-desktop" aria-label="Huvudmeny">
+                <ul>
+                    <li><a href="putsad.html#hem">Hem</a></li>
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="berakna-pris.html" class="btn-cta">Boka puts</a></li>
+                </ul>
+            </nav>
+            <div class="header-mobile">
+                <a href="berakna-pris.html" class="btn-cta">Boka puts</a>
+                <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Öppna meny">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="mobile-menu-panel" id="mobile-menu-panel" role="navigation" aria-label="Mobilmeny">
+            <div class="mobile-menu-inner">
+                <ul>
+                    <li><a href="putsad.html#hem">Hem</a></li>
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="info-page" id="innehall">
+        <header class="info-hero">
+            <h1>Viktig information</h1>
+            <span class="script-accent">Det du behöver veta innan och efter bokning</span>
+            <p class="lead">Här samlar vi praktiska punkter om priser, ditt hem inför besök, bokning och betalning.</p>
+        </header>
+
+        <div class="info-grid">
+            <article class="info-card">
+                <h2>Priser</h2>
+                <p>Vi anger priser efter RUT där det gäller. Det pris du ser vid bokning är det som gäller för din beställning.</p>
+            </article>
+
+            <article class="info-card">
+                <h2>Bokning</h2>
+                <p>Avbokning och ombokning sker enligt villkoren i bokningsflödet. När du bokar godkänner du <a href="villkor.html">våra villkor</a> och att vi behandlar dina personuppgifter för att kunna utföra tjänsten.</p>
+            </article>
+
+            <article class="info-card info-card--wide">
+                <h2>Betalning</h2>
+                <p>Betalning sker när arbetet är utfört.</p>
+                <div class="contact-line">
+                    <span>Frågor?</span>
+                    <a href="tel:+46729421405">072 942 14 05</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="mailto:mobergfonsterputs@gmail.com">mobergfonsterputs@gmail.com</a>
+                </div>
+            </article>
+
+            <div class="info-callout" role="region" aria-labelledby="callout-fragile-heading">
+                <h2 id="callout-fragile-heading">Föremål du är rädd om</h2>
+                <p>Har du något som du är extra rädd om eller som är särskilt ömtåligt får du gärna plocka undan det innan jag kommer. Då minskar risken att något kommer i kläm eller stör vid fönsterputsningen.</p>
+                <p>Jag tar inget ansvar för saker som går sönder om de står i vägen för mitt arbete eller om de inte har plockats undan i förväg.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer id="kontakt">
+        <div class="footer-inner">
+            <div class="footer-logo-slot">
+                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img">
+            </div>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-puts">
+                <h3 id="footer-nav-puts" class="footer-nav-heading">Fönsterputs</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="berakna-pris.html">Beräkna pris</a></li>
+                    <li><a href="putsad.html#vanliga-fragor">Vanliga frågor</a></li>
+                    <li><a href="viktig-information.html" aria-current="page">Viktig information</a></li>
+                </ul>
+            </nav>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-company">
+                <h3 id="footer-nav-company" class="footer-nav-heading">Företag</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="om-oss.html">Om oss</a></li>
+                    <li><a href="villkor.html">Villkor</a></li>
+                    <li><a href="putsad.html#recensioner">Recensioner</a></li>
+                </ul>
+            </nav>
+                                    <nav class="footer-nav-col" aria-labelledby="footer-nav-sociala">
+                <h3 id="footer-nav-sociala" class="footer-nav-heading">Sociala</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+            </nav>
+            <div class="footer-legal">
+                <p>&copy; <span id="footer-year"></span> Moberg Fönsterputs. Alla rättigheter förbehållna.</p>
+            </div>
+        </div>
+        <a href="admin-login.html" class="footer-admin-secret" aria-hidden="true" tabindex="-1">&#8203;</a>
+    </footer>
+
+    <script>
+        (function () {
+            var yearEl = document.getElementById("footer-year");
+            if (!yearEl) return;
+            yearEl.textContent = String(new Date().getFullYear());
+        })();
+        (function () {
+            var toggle = document.getElementById("nav-toggle");
+            var panel = document.getElementById("mobile-menu-panel");
+            if (!toggle || !panel) return;
+            function setOpen(open) {
+                toggle.setAttribute("aria-expanded", open ? "true" : "false");
+                toggle.setAttribute("aria-label", open ? "Stäng meny" : "Öppna meny");
+                panel.classList.toggle("is-open", open);
+            }
+            toggle.addEventListener("click", function () {
+                setOpen(!panel.classList.contains("is-open"));
+            });
+            panel.querySelectorAll("a").forEach(function (link) {
+                link.addEventListener("click", function () {
+                    setOpen(false);
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

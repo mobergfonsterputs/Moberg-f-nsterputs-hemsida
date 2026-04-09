@@ -1,0 +1,244 @@
+/* Sidfot: logotyp + tre nav-kolumner + juridisk text */
+
+body > footer {
+    margin-top: clamp(3rem, 8vw, 6rem);
+    padding: max(0px, calc(clamp(2.6rem, 6vw, 3.7rem) - 70px)) var(--page-gutter, 5%) clamp(1.9rem, 4vw, 2.7rem);
+    border-top: 1px solid #111;
+    background: #000;
+    position: relative;
+}
+
+.footer-inner {
+    max-width: min(1200px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(220px, 440px) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.9rem 3rem;
+    align-items: start;
+}
+
+.footer-nav-col {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-width: 0;
+    width: 100%;
+    margin-top: 140px;
+}
+
+/* Fönsterputs-kolumnen lite mer åt höger */
+.footer-inner > nav.footer-nav-col:first-of-type {
+    margin-left: clamp(1.25rem, 4vw, 3rem);
+}
+
+.footer-inner > nav.footer-nav-col[aria-labelledby="footer-nav-company"] {
+    margin-left: 30px;
+}
+
+.footer-inner > nav.footer-nav-col[aria-labelledby="footer-nav-sociala"] {
+    margin-left: -15px;
+}
+
+.footer-logo-slot {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 420px;
+    z-index: 1;
+}
+
+.footer-logo-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: brightness(0) invert(1);
+}
+
+.footer-nav-heading {
+    font-family: "Inter", sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 0.65rem;
+    padding-left: 0.85rem;
+    letter-spacing: 0.03em;
+    text-transform: none;
+    box-sizing: border-box;
+}
+
+/* Lodrät tabell: en kolumn, en rad per länk */
+.footer-nav-list {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.footer-nav-list li {
+    display: table-row;
+}
+
+.footer-nav-list a {
+    display: table-cell;
+    padding: 0.55rem 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-family: "Inter", sans-serif;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    vertical-align: middle;
+    position: relative;
+    background: transparent;
+}
+
+/* Blockera gamla globala nav-hover-regler från andra sidor */
+.footer-nav-list a::after,
+.footer-nav-list a:hover::after,
+.footer-nav-list a:focus::after,
+.footer-nav-list a:active::after,
+.footer-legal a::after,
+.footer-legal a:hover::after,
+.footer-legal a:focus::after,
+.footer-legal a:active::after {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+}
+
+.footer-nav-list a:hover,
+.footer-nav-list a:focus,
+.footer-nav-list a:active,
+.footer-legal a:hover,
+.footer-legal a:focus,
+.footer-legal a:active {
+    color: rgba(255, 255, 255, 0.9) !important;
+    background: transparent !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+    font-weight: 500 !important;
+}
+
+.footer-nav-list a[aria-current="page"] {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.footer-legal {
+    grid-column: 1 / -1;
+    margin-top: calc(0.2rem - 80px);
+    padding-top: 1.4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    width: 100%;
+    max-width: none;
+    position: static;
+    transform: none;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.74rem;
+    line-height: 1.65;
+    letter-spacing: 0.01em;
+}
+
+.footer-legal > p {
+    margin: 0;
+}
+
+.footer-legal a {
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    font-weight: 400;
+}
+
+@media (max-width: 900px) {
+    .footer-inner {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer-logo-slot {
+        grid-column: 1 / -1;
+        justify-self: center;
+        max-width: 500px;
+        margin-bottom: 0.25rem;
+    }
+
+    .footer-legal {
+        text-align: left;
+    }
+}
+
+@media (max-width: 520px) {
+    .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .footer-inner > nav.footer-nav-col:first-of-type {
+        margin-left: 0;
+    }
+
+    /* Annars dubbel luft mellan Fönsterputs och Företag */
+    .footer-inner > nav.footer-nav-col:last-of-type {
+        margin-top: 140px;
+    }
+}
+
+.footer-nav-list a::after,
+.footer-legal a::after {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 1px !important;
+    background: #fff !important;
+    border-radius: 999px !important;
+    opacity: 0 !important;
+}
+
+.footer-nav-list a:hover::after,
+.footer-nav-list a:focus::after,
+.footer-nav-list a:active::after,
+.footer-legal a:hover::after,
+.footer-legal a:focus::after,
+.footer-legal a:active::after {
+    opacity: 1 !important;
+}
+
+.footer-legal a {
+    position: relative;
+    display: inline-block;
+}
+
+/* Hemlig ingång: svart text på svart footer (nästan osynlig), klickbar yta */
+.footer-admin-secret {
+    position: absolute;
+    right: max(var(--page-gutter, 5%), 0.75rem);
+    bottom: 0.5rem;
+    z-index: 3;
+    box-sizing: border-box;
+    min-width: 2.25rem;
+    min-height: 2.25rem;
+    padding: 0.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-size: 1px;
+    line-height: 0;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.footer-admin-secret:hover,
+.footer-admin-secret:focus {
+    outline: none;
+    color: #000;
+}

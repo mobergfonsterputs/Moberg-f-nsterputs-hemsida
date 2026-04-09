@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin – inloggning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            min-height: 100dvh;
+            font-family: "Inter", sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+        .panel {
+            width: min(22rem, 100%);
+            background: #fff;
+            color: #0f172a;
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+        }
+        h1 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+        .lead {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
+        }
+        label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+            color: #334155;
+        }
+        input[type="password"] {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 0 0.9rem;
+            font: inherit;
+            font-size: 1rem;
+        }
+        input[type="password"]:focus {
+            outline: 2px solid #113768;
+            outline-offset: 2px;
+            border-color: #113768;
+        }
+        .actions {
+            margin-top: 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+        button[type="submit"] {
+            height: 46px;
+            border: none;
+            border-radius: 999px;
+            background: #113768;
+            color: #fff;
+            font: inherit;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background: #0d2c52;
+        }
+        .err {
+            min-height: 1.25rem;
+            margin-top: 0.65rem;
+            font-size: 0.85rem;
+            color: #b91c1c;
+        }
+        .back {
+            text-align: center;
+        }
+        .back a {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <h1>Admin</h1>
+        <p class="lead">Ange lösenord för att öppna adminöversikten.</p>
+        <form id="admin-login-form" novalidate>
+            <label for="admin-password">Lösenord</label>
+            <input id="admin-password" type="password" name="password" autocomplete="current-password" required>
+            <div id="admin-login-err" class="err" role="alert" aria-live="polite"></div>
+            <div class="actions">
+                <button type="submit">Fortsätt</button>
+                <p class="back"><a href="putsad.html">Tillbaka till webbplatsen</a></p>
+            </div>
+        </form>
+    </div>
+    <script>
+        (function () {
+            var AUTH_KEY = "putsad_admin_auth";
+            var PASSWORD = "123!";
+            try {
+                if (sessionStorage.getItem(AUTH_KEY) === "1") {
+                    window.location.replace("admin-oversikt.html");
+                    return;
+                }
+            } catch (e) {}
+
+            var form = document.getElementById("admin-login-form");
+            var input = document.getElementById("admin-password");
+            var err = document.getElementById("admin-login-err");
+            if (!form || !input) return;
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                err.textContent = "";
+                var v = input.value;
+                if (v === PASSWORD) {
+                    try {
+                        sessionStorage.setItem(AUTH_KEY, "1");
+                    } catch (ex) {}
+                    window.location.href = "admin-oversikt.html";
+                    return;
+                }
+                err.textContent = "Fel lösenord.";
+                input.select();
+            });
+        })();
+    </script>
+</body>
+</html>
