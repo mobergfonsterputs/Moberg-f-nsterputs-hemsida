@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prisberäknare Mobil | Moberg Fönsterputs</title>
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --line: #e2e8f0;
+            --brand: #113768;
+            --brand-hover: #0d2c52;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Inter, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .wrap {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 1rem;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+        }
+
+        h1 {
+            margin: 0 0 0.4rem;
+            font-size: 1.45rem;
+            line-height: 1.2;
+        }
+
+        .lead {
+            margin: 0 0 1rem;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .group {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .group h2 {
+            margin: 0 0 0.5rem;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.75rem;
+            align-items: center;
+            padding: 0.55rem 0;
+        }
+
+        .row + .row { border-top: 1px solid #f1f5f9; }
+
+        .label {
+            font-size: 0.93rem;
+            line-height: 1.3;
+        }
+
+        .stepper {
+            display: grid;
+            grid-template-columns: 36px 52px 36px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .btn {
+            border: 0;
+            background: #fff;
+            color: var(--text);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .btn:active { background: #f1f5f9; }
+
+        .qty {
+            border: 0;
+            border-left: 1px solid var(--line);
+            border-right: 1px solid var(--line);
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text);
+            width: 100%;
+            outline: none;
+        }
+
+        .total-box {
+            margin-top: 0.8rem;
+            border-top: 1px solid var(--line);
+            padding-top: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .total-label {
+            font-size: 0.86rem;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        .total-value {
+            margin: 0;
+            font-size: 1.55rem;
+            font-weight: 800;
+            color: var(--brand);
+        }
+
+        .foot {
+            margin: 0.2rem 0 0;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .cta {
+            margin-top: 1rem;
+            width: 100%;
+            min-height: 46px;
+            border: 0;
+            border-radius: 999px;
+            background: var(--brand);
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .cta:active { background: var(--brand-hover); }
+    </style>
+</head>
+<body>
+    <main class="wrap">
+        <section class="card" aria-labelledby="calc-title">
+            <h1 id="calc-title">Mobil prisberäknare</h1>
+            <p class="lead">Fyll i antal fönster så räknar vi ut ett pris direkt.</p>
+
+            <div class="group" aria-label="Utan spröjs">
+                <h2>Utan spröjs</h2>
+                <div class="row">
+                    <div class="label">Enkelsidiga - 2 sidor</div>
+                    <div class="stepper">
+                        <button class="btn minus" data-input="qty-vanligt" type="button">-</button>
+                        <input id="qty-vanligt" class="qty" value="0" inputmode="numeric" pattern="[0-9]*">
+                        <button class="btn plus" data-input="qty-vanligt" type="button">+</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="label">Dubbelsidiga - 4 sidor</div>
+                    <div class="stepper">
+                        <button class="btn minus" data-input="qty-vanligt-dubbel" type="button">-</button>
+                        <input id="qty-vanligt-dubbel" class="qty" value="0" inputmode="numeric" pattern="[0-9]*">
+                        <button class="btn plus" data-input="qty-vanligt-dubbel" type="button">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group" aria-label="Med spröjs">
+                <h2>Med spröjs</h2>
+                <div class="row">
+                    <div class="label">Enkelsidiga - 2 sidor</div>
+                    <div class="stepper">
+                        <button class="btn minus" data-input="qty-sprojs" type="button">-</button>
+                        <input id="qty-sprojs" class="qty" value="0" inputmode="numeric" pattern="[0-9]*">
+                        <button class="btn plus" data-input="qty-sprojs" type="button">+</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="label">Dubbelsidiga - 4 sidor</div>
+                    <div class="stepper">
+                        <button class="btn minus" data-input="qty-sprojs-dubbel" type="button">-</button>
+                        <input id="qty-sprojs-dubbel" class="qty" value="0" inputmode="numeric" pattern="[0-9]*">
+                        <button class="btn plus" data-input="qty-sprojs-dubbel" type="button">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group" aria-label="Extra stora">
+                <h2>Extra stora</h2>
+                <div class="row">
+                    <div class="label">Extra stort fönster</div>
+                    <div class="stepper">
+                        <button class="btn minus" data-input="qty-extra" type="button">-</button>
+                        <input id="qty-extra" class="qty" value="0" inputmode="numeric" pattern="[0-9]*">
+                        <button class="btn plus" data-input="qty-extra" type="button">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="total-box">
+                <p class="total-label">Ditt pris</p>
+                <p class="total-value" id="total">0 kr</p>
+            </div>
+            <p class="foot">Efter rutavdrag</p>
+            <button class="cta" type="button" onclick="window.location.href='berakna-pris.html'">Öppna full bokning</button>
+        </section>
+    </main>
+
+    <script>
+        (function () {
+            var prices = {
+                vanligt_enkel: 38,
+                vanligt_dubbel: 68,
+                sprojs_enkel: 56,
+                sprojs_dubbel: 86,
+                extra_stor: 76
+            };
+
+            var ids = [
+                "qty-vanligt",
+                "qty-vanligt-dubbel",
+                "qty-sprojs",
+                "qty-sprojs-dubbel",
+                "qty-extra"
+            ];
+
+            function clamp(n) {
+                if (!Number.isFinite(n) || n < 0) return 0;
+                return Math.floor(n);
+            }
+
+            function digitsOnly(v) {
+                return String(v || "").replace(/\D/g, "");
+            }
+
+            function read(id) {
+                var el = document.getElementById(id);
+                if (!el) return 0;
+                var v = digitsOnly(el.value);
+                return v ? clamp(parseInt(v, 10)) : 0;
+            }
+
+            function write(id, n) {
+                var el = document.getElementById(id);
+                if (!el) return;
+                el.value = String(clamp(n));
+            }
+
+            function update() {
+                var total =
+                    read("qty-vanligt") * prices.vanligt_enkel +
+                    read("qty-vanligt-dubbel") * prices.vanligt_dubbel +
+                    read("qty-sprojs") * prices.sprojs_enkel +
+                    read("qty-sprojs-dubbel") * prices.sprojs_dubbel +
+                    read("qty-extra") * prices.extra_stor;
+                var out = document.getElementById("total");
+                if (out) out.textContent = total.toLocaleString("sv-SE") + " kr";
+            }
+
+            ids.forEach(function (id) {
+                var input = document.getElementById(id);
+                if (!input) return;
+                input.addEventListener("input", function () {
+                    input.value = digitsOnly(input.value);
+                    update();
+                });
+                input.addEventListener("blur", function () {
+                    write(id, read(id));
+                    update();
+                });
+            });
+
+            document.querySelectorAll(".minus").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    var id = btn.getAttribute("data-input");
+                    write(id, read(id) - 1);
+                    update();
+                });
+            });
+
+            document.querySelectorAll(".plus").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    var id = btn.getAttribute("data-input");
+                    write(id, read(id) + 1);
+                    update();
+                });
+            });
+
+            update();
+        })();
+    </script>
+</body>
+</html>
