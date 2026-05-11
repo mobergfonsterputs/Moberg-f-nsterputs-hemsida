@@ -6,10 +6,9 @@
     <title>Paket vald</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:ital@1&display=optional" rel="stylesheet">
-    <link rel="stylesheet" href="header-shared.css?v=14">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=optional" rel="stylesheet">
     <link rel="stylesheet" href="site-stable.css?v=2">
-    <link rel="stylesheet" href="booking-progress-shared.css?v=3">
+    <link rel="stylesheet" href="booking-progress-shared.css?v=4">
     <link rel="stylesheet" href="footer-shared.css?v=24">
     <style>
         :root {
@@ -28,8 +27,6 @@
             line-height: 1.5;
             overflow-x: hidden;
         }
-
-        /* Header styles are centralized in header-shared.css */
 
         .address-step {
             width: min(680px, 100%);
@@ -75,89 +72,15 @@
             box-shadow: 0 0 0 3px rgba(17, 55, 104, 0.12);
         }
 
-        #address-input {
-            width: 100%;
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            height: 52px;
-            padding: 0 1rem;
-            font: inherit;
-            font-size: 1rem;
-            color: var(--primary-blue);
-            outline: none;
-            transition: border-color 0.15s ease, box-shadow 0.15s ease;
-        }
-
-        #address-input:focus {
-            border-color: var(--tech-blue);
-            box-shadow: 0 0 0 3px rgba(17, 55, 104, 0.12);
-        }
-
-        .address-suggestions {
-            position: absolute;
-            top: calc(100% + 6px);
-            left: 0;
-            right: 0;
-            z-index: 20;
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
-            overflow: hidden;
-            display: none;
-        }
-
-        .address-suggestions.is-open {
-            display: block;
-        }
-
-        .address-suggestion-btn {
-            width: 100%;
-            border: none;
-            border-bottom: 1px solid var(--border);
-            background: #fff;
-            color: var(--primary-blue);
-            text-align: left;
-            font: inherit;
-            font-size: 0.92rem;
-            line-height: 1.4;
-            padding: 0.65rem 0.8rem;
-            cursor: pointer;
-        }
-
-        .address-suggestion-btn:last-child {
-            border-bottom: none;
-        }
-
-        .address-suggestion-btn:hover,
-        .address-suggestion-btn:focus-visible,
-        .address-suggestion-btn.is-active {
-            background: rgba(15, 23, 42, 0.05);
-            outline: none;
-        }
-
-        .address-meta {
-            min-height: 1.2rem;
-            margin-top: 0.65rem;
-            font-size: 0.9rem;
-            color: #334155;
-        }
-
-        .address-meta:empty {
-            display: none;
-        }
-
-        .service-message {
-            margin-top: 0.2rem;
-            padding-left: 1rem;
-            font-size: 1rem;
-            font-weight: 600;
-            line-height: 1.35;
-            color: #B91C1C;
-        }
-
-        .service-message:empty {
-            display: none;
+        .person-field:-webkit-autofill,
+        .person-field:-webkit-autofill:hover,
+        .person-field:-webkit-autofill:focus,
+        .person-field:-webkit-autofill:active {
+            -webkit-text-fill-color: var(--primary-blue);
+            -webkit-box-shadow: 0 0 0 1000px #fff inset;
+            box-shadow: 0 0 0 1000px #fff inset;
+            transition: background-color 9999s ease-out 0s;
+            caret-color: var(--primary-blue);
         }
 
         .submit-message {
@@ -185,49 +108,36 @@
             background: var(--tech-blue-hover);
         }
 
-        @media (max-width: 900px) {
+        /* ── Tablet (max-width: 1040px) ─────────────────────────────────── */
+        @media (max-width: 1040px) {
             .continue-btn {
-                width: 100%;
+                min-height: 44px;
             }
         }
+
+        /* ── Mobil (max-width: 680px) ─────────────────────────────────── */
+        @media (max-width: 680px) {
+            .continue-btn {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+
+        /* ── Liten mobil (max-width: 480px) ─────────────────────────────── */
+        @media (max-width: 480px) {
+            .address-step h1 {
+                font-size: clamp(1.45rem, 5vw, 1.8rem);
+            }
+        }
+
     </style>
 </head>
-<body class="booking-flow-step-2">
-    <header>
-        <div class="header-inner">
-            <a href="#hem" class="logo-fallback">Moberg Fönsterputs</a>
-            <nav class="nav-desktop" aria-label="Huvudmeny">
-                <ul>
-                    <li><a href="putsad.html#hem">Hem</a></li>
-                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
-                    <li><a href="detta-ingar.html">Detta ingår</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                    <li><a href="berakna-pris.html" class="btn-cta">Boka puts</a></li>
-                </ul>
-            </nav>
-            <div class="header-mobile">
-                <a href="berakna-pris.html" class="btn-cta">Boka puts</a>
-                <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Öppna meny">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div class="mobile-menu-panel" id="mobile-menu-panel" role="navigation" aria-label="Mobilmeny">
-            <div class="mobile-menu-inner">
-                <ul>
-                    <li><a href="putsad.html#hem">Hem</a></li>
-                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
-                    <li><a href="detta-ingar.html">Detta ingår</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                </ul>
-            </div>
-        </div>
-    </header>
+<body class="booking-flow-step-4">
+    <div data-site-header></div>
+    <script src="js/site-header.js"></script>
 
-    <div class="top-nav">
-        <a class="back-link" href="putsad.html#hem" aria-label="Tillbaka">
+<div class="top-nav">
+        <a class="back-link" id="paket-vald-back-link" href="boka-tid.html" aria-label="Tillbaka">
             <span class="back-link-icon" aria-hidden="true">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M14.5 6.5L9 12l5.5 5.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -240,38 +150,34 @@
             <div class="booking-progress-track" aria-hidden="true">
                 <div class="booking-progress-fill"></div>
                 <div class="booking-progress-dots">
-                    <span class="booking-progress-dot is-complete" style="left: 0%;" data-step-target="putsad.html#pris-kalkylator" title="Beräkna pris"></span>
-                    <span class="booking-progress-dot is-active" style="left: 33.333%;" data-step-target="paket-vald.html" title="Personuppgifter"></span>
-                    <span class="booking-progress-dot" style="left: 66.666%;" data-step-target="boka-tid.html" title="Boka tid"></span>
-                    <span class="booking-progress-dot" style="left: 100%;" data-step-target="bekrafta.html" title="Bekräfta"></span>
+                    <span class="booking-progress-dot is-complete" style="left: 0%;" data-step-index="1" title="Beräkna pris"></span>
+                    <span class="booking-progress-dot is-complete" style="left: 25%;" data-step-index="2" title="Adress"></span>
+                    <span class="booking-progress-dot is-complete" style="left: 50%;" data-step-index="3" title="Boka tid"></span>
+                    <span class="booking-progress-dot is-active" style="left: 75%;" data-step-index="4" title="Personuppgifter"></span>
+                    <span class="booking-progress-dot" style="left: 100%;" data-step-index="5" title="Bekräfta"></span>
                 </div>
             </div>
             <div class="booking-progress-steps">
                 <div class="booking-progress-step is-complete" style="left: 0%;">Beräkna pris</div>
-                <div class="booking-progress-step is-active" style="left: 33.333%;">Personuppgifter</div>
-                <div class="booking-progress-step" style="left: 66.666%;">Boka tid</div>
+                <div class="booking-progress-step is-complete" style="left: 25%;">Adress</div>
+                <div class="booking-progress-step is-complete" style="left: 50%;">Boka tid</div>
+                <div class="booking-progress-step is-active" style="left: 75%;">Personuppgifter</div>
                 <div class="booking-progress-step" style="left: 100%;">Bekräfta</div>
             </div>
         </section>
     </div>
 
-    <main class="address-step">
+    <main class="address-step" id="innehall">
         <h1>Personuppgifter</h1>
-        <p>Välj adress från listan så kontrollerar vi automatiskt om vi är i ditt område.</p>
+        <p>Fyll i ditt namn och telefonnummer så vi kan nå dig.</p>
         <div class="input-wrap">
-            <input id="address-input" type="text" placeholder="Adressen som ska putsas" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-            <div id="address-suggestions" class="address-suggestions" role="listbox" aria-label="Adressförslag"></div>
-        </div>
-        <div id="address-meta" class="address-meta" aria-live="polite"></div>
-        <div id="service-message" class="service-message" aria-live="polite"></div>
-        <div class="input-wrap">
-            <input id="first-name-input" class="person-field" type="text" placeholder="Förnamn" autocomplete="given-name">
+            <input id="name-input" class="person-field" type="text" placeholder="Namn" autocomplete="name" name="name">
         </div>
         <div class="input-wrap">
-            <input id="last-name-input" class="person-field" type="text" placeholder="Efternamn" autocomplete="family-name">
+            <input id="phone-input" class="person-field" type="tel" placeholder="Telefonnummer" autocomplete="tel-national" inputmode="tel" name="phone">
         </div>
         <div class="input-wrap">
-            <input id="phone-input" class="person-field" type="tel" placeholder="Telefonnummer" autocomplete="tel">
+            <input id="email-input" class="person-field" type="email" placeholder="Mailadress" autocomplete="email" inputmode="email" name="email">
         </div>
         <div id="submit-message" class="submit-message" aria-live="polite"></div>
         <button id="continue-btn" class="continue-btn" type="button">Nästa</button>
@@ -280,7 +186,7 @@
     <footer id="kontakt">
         <div class="footer-inner">
             <div class="footer-logo-slot">
-                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img">
+                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img" loading="lazy" decoding="async">
             </div>
             <nav class="footer-nav-col" aria-labelledby="footer-nav-puts">
                 <h3 id="footer-nav-puts" class="footer-nav-heading">Fönsterputs</h3>
@@ -304,7 +210,7 @@
                                     <nav class="footer-nav-col" aria-labelledby="footer-nav-sociala">
                 <h3 id="footer-nav-sociala" class="footer-nav-heading">Sociala</h3>
                 <ul class="footer-nav-list">
-                    <li><a href="#">Instagram</a></li>
+                    <li><a href="https://www.instagram.com/mobergsfonsterputs/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
                     <li><a href="#">Facebook</a></li>
                     <li><a href="#">LinkedIn</a></li>
                     <li><a href="#">TikTok</a></li>
@@ -323,90 +229,90 @@
             if (!yearEl) return;
             yearEl.textContent = String(new Date().getFullYear());
         })();
-
-        (function () {
-            var toggle = document.getElementById("nav-toggle");
-            var panel = document.getElementById("mobile-menu-panel");
-            if (!toggle || !panel) return;
-            function setOpen(open) {
-                toggle.setAttribute("aria-expanded", open ? "true" : "false");
-                toggle.setAttribute("aria-label", open ? "Stäng meny" : "Öppna meny");
-                panel.classList.toggle("is-open", open);
-            }
-            toggle.addEventListener("click", function () {
-                setOpen(!panel.classList.contains("is-open"));
-            });
-            panel.querySelectorAll("a").forEach(function (link) {
-                link.addEventListener("click", function () {
-                    setOpen(false);
-                });
-            });
-        })();
-
-        (function () {
+(function () {
             var pageParams = new URLSearchParams(window.location.search);
-            var addressInput = document.getElementById("address-input");
-            var suggestionsEl = document.getElementById("address-suggestions");
-            var addressMeta = document.getElementById("address-meta");
-            var message = document.getElementById("service-message");
             var submitMessage = document.getElementById("submit-message");
             var continueBtn = document.getElementById("continue-btn");
-            var firstNameInput = document.getElementById("first-name-input");
-            var lastNameInput = document.getElementById("last-name-input");
+            var nameInput = document.getElementById("name-input");
             var phoneInput = document.getElementById("phone-input");
-            var PUBLIC_MAPBOX_TOKEN = "DIN_MAPBOX_TOKEN";
+            var emailInput = document.getElementById("email-input");
             var STORAGE_KEY = "putsad_personuppgifter_v1";
-            var PACKAGE_STORAGE_KEY = "putsad_selected_package";
-            var debounceTimer = null;
-            var lastRequestId = 0;
-            var selectedFeature = null;
-            var autocompleteDisabledUntil = 0;
-            var inServiceArea = false;
             var selectedAreaKey = "";
-            var selectedPackage = "";
-            var activeSuggestionIndex = -1;
-            var SERVICE_AREA_KEYS = [
-                "upplands vasby",
-                "sollentuna",
-                "taby",
-                "vasteras",
-                "gaddeholm",
-                "gaddeholm i vasteras",
-                "lidkoping",
-                "kollandso",
-                "bjorkfors",
-                "uppsala"
-            ];
-            var serviceAreas = new Set(SERVICE_AREA_KEYS);
-            (function initSelectedPackage() {
-                var urlPkg = (pageParams.get("paket") || "").trim();
-                try {
-                    if (urlPkg) {
-                        selectedPackage = urlPkg;
-                        localStorage.setItem(PACKAGE_STORAGE_KEY, urlPkg);
-                    } else {
-                        selectedPackage = (localStorage.getItem(PACKAGE_STORAGE_KEY) || "").trim();
-                    }
-                } catch (e) {
-                    selectedPackage = urlPkg;
+
+            var flowDate = (pageParams.get("date") || "").trim();
+            var flowTime = (pageParams.get("time") || "").trim();
+            var flowPriceParam = (pageParams.get("price") || "").trim();
+            var flowAreaParam = (pageParams.get("area") || "").trim();
+
+            function buildFiveStepUrl(step) {
+                if (step === 1) return "putsad.html#pris-kalkylator";
+                if (step === 2) {
+                    return "adress.html";
                 }
-            })();
-
-            function normalize(value) {
-                return String(value || "")
-                    .toLowerCase()
-                    .normalize("NFD")
-                    .replace(/[\u0300-\u036f]/g, "")
-                    .replace(/\s+/g, " ")
-                    .trim();
+                if (step === 3) {
+                    var p3 = new URLSearchParams();
+                    var pr3 = flowPriceParam;
+                    if (!pr3 || !/^\d+$/.test(pr3)) {
+                        try {
+                            pr3 = localStorage.getItem("putsad_latest_total") || "";
+                        } catch (e) {
+                            pr3 = "";
+                        }
+                    }
+                    if (pr3 && /^\d+$/.test(pr3)) p3.set("price", pr3);
+                    var ar3 = flowAreaParam || selectedAreaKey;
+                    if (ar3) p3.set("area", ar3);
+                    if (flowDate) p3.set("date", flowDate);
+                    if (flowTime) p3.set("time", flowTime);
+                    var q3 = p3.toString();
+                    return "boka-tid.html" + (q3 ? "?" + q3 : "");
+                }
+                if (step === 4) {
+                    var p4 = new URLSearchParams();
+                    if (flowDate) p4.set("date", flowDate);
+                    if (flowTime) p4.set("time", flowTime);
+                    var pr4 = flowPriceParam;
+                    if (!pr4 || !/^\d+$/.test(pr4)) {
+                        try {
+                            pr4 = localStorage.getItem("putsad_latest_total") || "";
+                        } catch (e) {
+                            pr4 = "";
+                        }
+                    }
+                    if (pr4 && /^\d+$/.test(pr4)) p4.set("price", pr4);
+                    var ar4 = flowAreaParam || selectedAreaKey;
+                    if (ar4) p4.set("area", ar4);
+                    var q4 = p4.toString();
+                    return "paket-vald.html" + (q4 ? "?" + q4 : "");
+                }
+                if (step === 5) {
+                    var p5 = new URLSearchParams();
+                    if (flowDate) p5.set("date", flowDate);
+                    if (flowTime) p5.set("time", flowTime);
+                    var pr5 = flowPriceParam;
+                    if (!pr5 || !/^\d+$/.test(pr5)) {
+                        try {
+                            pr5 = localStorage.getItem("putsad_latest_total") || "";
+                        } catch (e) {
+                            pr5 = "";
+                        }
+                    }
+                    if (pr5 && /^\d+$/.test(pr5)) p5.set("price", pr5);
+                    var ar5 = flowAreaParam || selectedAreaKey;
+                    if (ar5) p5.set("area", ar5);
+                    var q5 = p5.toString();
+                    return "bekrafta.html" + (q5 ? "?" + q5 : "");
+                }
+                return "paket-vald.html";
             }
 
-            function clearServiceMessage() {
-                message.textContent = "";
-            }
-
-            function setAutocompleteMessage(text) {
-                addressMeta.textContent = text || "";
+            function readSavedPerson() {
+                try {
+                    var raw = localStorage.getItem(STORAGE_KEY);
+                    return raw ? JSON.parse(raw) : {};
+                } catch (e) {
+                    return {};
+                }
             }
 
             function setSubmitMessage(text) {
@@ -440,101 +346,24 @@
                 return normalizePhoneDigits(raw).length === 10;
             }
 
-            function getContextValue(feature, prefix) {
-                var context = feature && feature.context ? feature.context : [];
-                var found = context.find(function (item) {
-                    return String(item.id || "").indexOf(prefix + ".") === 0;
-                });
-                return found ? (found.text_sv || found.text || "") : "";
+            function isEmailValid(raw) {
+                var email = String(raw || "").trim();
+                if (!email) return false;
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
             }
 
-            function setSuggestionsOpen(open) {
-                suggestionsEl.classList.toggle("is-open", !!open);
-            }
-
-            function clearSuggestions() {
-                suggestionsEl.innerHTML = "";
-                setSuggestionsOpen(false);
-                activeSuggestionIndex = -1;
-            }
-
-            function handleFeature(feature) {
-                var city =
-                    getContextValue(feature, "place") ||
-                    getContextValue(feature, "locality") ||
-                    getContextValue(feature, "district") ||
-                    "";
-                var sublocality =
-                    getContextValue(feature, "neighborhood") ||
-                    getContextValue(feature, "locality") ||
-                    "";
-                var route = (feature && (feature.text_sv || feature.text)) || "";
-
-                addressMeta.textContent = "";
-
-                var cityKey = normalize(city);
-                var subKey = normalize(sublocality);
-                var routeKey = normalize(route);
-                var combinedKey = normalize(sublocality + " i " + city);
-                var routeCombinedKey = normalize(route + " i " + city);
-                var candidates = [cityKey, subKey, routeKey, combinedKey, routeCombinedKey].filter(Boolean);
-                var matchedArea = candidates.find(function (k) { return serviceAreas.has(k); }) || "";
-                var isInServiceArea = !!matchedArea;
-
-                inServiceArea = isInServiceArea;
-                selectedAreaKey = matchedArea;
-                clearServiceMessage();
-            }
-
-            function renderSuggestions(features) {
-                suggestionsEl.innerHTML = "";
-                activeSuggestionIndex = -1;
-                if (!features || !features.length) {
-                    setSuggestionsOpen(false);
-                    return;
-                }
-                features.forEach(function (feature) {
-                    var btn = document.createElement("button");
-                    btn.type = "button";
-                    btn.className = "address-suggestion-btn";
-                    btn.textContent = feature.place_name_sv || feature.place_name || "";
-                    btn.addEventListener("click", function () {
-                        selectedFeature = feature;
-                        addressInput.value = feature.place_name_sv || feature.place_name || "";
-                        clearSuggestions();
-                        handleFeature(feature);
-                        saveFormState();
-                        firstNameInput.focus();
-                    });
-                    suggestionsEl.appendChild(btn);
-                });
-                setSuggestionsOpen(true);
-            }
-
-            function getSuggestionButtons() {
-                return Array.prototype.slice.call(
-                    suggestionsEl.querySelectorAll(".address-suggestion-btn")
-                );
-            }
-
-            function setActiveSuggestion(index) {
-                var buttons = getSuggestionButtons();
-                if (!buttons.length) {
-                    activeSuggestionIndex = -1;
-                    return;
-                }
-                if (index < 0) index = buttons.length - 1;
-                if (index >= buttons.length) index = 0;
-                activeSuggestionIndex = index;
-                buttons.forEach(function (btn, i) {
-                    var isActive = i === activeSuggestionIndex;
-                    btn.classList.toggle("is-active", isActive);
-                    btn.setAttribute("aria-selected", isActive ? "true" : "false");
-                });
+            function splitFullName(fullName) {
+                var clean = String(fullName || "").replace(/\s+/g, " ").trim();
+                if (!clean) return { firstName: "", lastName: "" };
+                var parts = clean.split(" ");
+                return {
+                    firstName: parts.shift() || "",
+                    lastName: parts.join(" ")
+                };
             }
 
             function focusFieldByOffset(field, offset) {
-                var order = [addressInput, firstNameInput, lastNameInput, phoneInput, continueBtn];
+                var order = [nameInput, phoneInput, emailInput, continueBtn];
                 var idx = order.indexOf(field);
                 if (idx === -1) return;
                 var nextIdx = idx + offset;
@@ -542,137 +371,7 @@
                 order[nextIdx].focus();
             }
 
-            function requestSuggestions(query) {
-                var requestId = ++lastRequestId;
-                var url = "/api/address-suggest?q=" + encodeURIComponent(query);
-
-                function fetchMapboxFallback() {
-                    if (!PUBLIC_MAPBOX_TOKEN) {
-                        setAutocompleteMessage("Adressförslag är inte tillgängligt just nu.");
-                        clearSuggestions();
-                        return Promise.resolve();
-                    }
-                    var fallbackUrl =
-                        "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-                        encodeURIComponent(query) +
-                        ".json?access_token=" + encodeURIComponent(PUBLIC_MAPBOX_TOKEN) +
-                        "&autocomplete=true&country=se&language=sv&types=address,place,locality,postcode&limit=6";
-
-                    return fetch(fallbackUrl)
-                        .then(function (fallbackRes) { return fallbackRes.ok ? fallbackRes.json() : null; })
-                        .then(function (fallbackData) {
-                            if (requestId !== lastRequestId) return;
-                            var features = fallbackData && Array.isArray(fallbackData.features) ? fallbackData.features : [];
-                            renderSuggestions(features);
-                        })
-                        .catch(function () {
-                            if (requestId !== lastRequestId) return;
-                            clearSuggestions();
-                        });
-                }
-
-                fetch(url)
-                    .then(function (res) {
-                        if (res.status === 429) {
-                            return res.json().then(function (data) {
-                                var retryAfter = Number(data && data.retry_after_seconds) || 60;
-                                autocompleteDisabledUntil = Date.now() + retryAfter * 1000;
-                                setAutocompleteMessage("Adressförslag är tillfälligt pausat. Försök igen om en liten stund.");
-                                clearSuggestions();
-                                return null;
-                            }).catch(function () {
-                                autocompleteDisabledUntil = Date.now() + 60000;
-                                setAutocompleteMessage("Adressförslag är tillfälligt pausat. Försök igen om en liten stund.");
-                                clearSuggestions();
-                                return null;
-                            });
-                        }
-                        if (!res.ok) return null;
-                        return res.json();
-                    })
-                    .then(function (data) {
-                        if (requestId !== lastRequestId) return;
-                        var hasServerFeatures = data && Array.isArray(data.features);
-                        if (hasServerFeatures) {
-                            renderSuggestions(data.features);
-                            return;
-                        }
-                        return fetchMapboxFallback();
-                    })
-                    .catch(function () {
-                        if (requestId !== lastRequestId) return;
-                        fetchMapboxFallback();
-                    });
-            }
-
-            addressInput.addEventListener("input", function () {
-                selectedFeature = null;
-                inServiceArea = false;
-                selectedAreaKey = "";
-                clearServiceMessage();
-                setSubmitMessage("");
-                setAutocompleteMessage("");
-                saveFormState();
-                clearTimeout(debounceTimer);
-                var q = addressInput.value.trim();
-                if (q.length < 1) {
-                    clearSuggestions();
-                    return;
-                }
-                if (Date.now() < autocompleteDisabledUntil) {
-                    setAutocompleteMessage("Adressförslag är tillfälligt pausat. Försök igen om en liten stund.");
-                    clearSuggestions();
-                    return;
-                }
-                debounceTimer = setTimeout(function () {
-                    requestSuggestions(q);
-                }, 400);
-            });
-
-            addressInput.addEventListener("keydown", function (e) {
-                var hasOpenSuggestions = suggestionsEl.classList.contains("is-open");
-                var buttons = hasOpenSuggestions ? getSuggestionButtons() : [];
-
-                if (e.key === "ArrowDown" && buttons.length) {
-                    e.preventDefault();
-                    setActiveSuggestion(activeSuggestionIndex + 1);
-                    return;
-                }
-
-                if (e.key === "ArrowUp" && buttons.length) {
-                    e.preventDefault();
-                    setActiveSuggestion(activeSuggestionIndex - 1);
-                    return;
-                }
-
-                if (e.key === "Enter") {
-                    if (buttons.length && activeSuggestionIndex >= 0 && buttons[activeSuggestionIndex]) {
-                        e.preventDefault();
-                        buttons[activeSuggestionIndex].click();
-                        return;
-                    }
-                    e.preventDefault();
-                    focusFieldByOffset(addressInput, 1);
-                    return;
-                }
-
-                if (e.key === "ArrowDown") {
-                    e.preventDefault();
-                    focusFieldByOffset(addressInput, 1);
-                    return;
-                }
-
-                if (e.key === "ArrowUp") {
-                    e.preventDefault();
-                    return;
-                }
-
-                if (e.key === "Escape") {
-                    clearSuggestions();
-                }
-            });
-
-            [firstNameInput, lastNameInput, phoneInput].forEach(function (field) {
+            [nameInput, phoneInput, emailInput].forEach(function (field) {
                 field.addEventListener("keydown", function (e) {
                     if (e.key === "ArrowDown" || e.key === "Enter") {
                         e.preventDefault();
@@ -695,110 +394,94 @@
                 }
             });
 
-            document.addEventListener("click", function (e) {
-                if (!e.target.closest(".input-wrap")) {
-                    clearSuggestions();
-                }
-            });
-
             continueBtn.addEventListener("click", function () {
                 if (phoneInput.value.trim()) {
                     phoneInput.value = formatPhoneValue(phoneInput.value);
                     saveFormState();
                 }
-                var hasSelectedAddress = !!selectedFeature;
+                var areaKey = (flowAreaParam || selectedAreaKey || "").trim();
+                if (!areaKey) {
+                    setSubmitMessage("Vi saknar din adress. Gå tillbaka till adresssteget.");
+                    return;
+                }
                 var missingPersonalInfo =
-                    !firstNameInput.value.trim() ||
-                    !lastNameInput.value.trim() ||
+                    !nameInput.value.trim() ||
                     !phoneInput.value.trim() ||
-                    !isPhoneValid(phoneInput.value);
-
-                if (!hasSelectedAddress) {
-                    setSubmitMessage("Välj en giltig adress");
-                    return;
-                }
-
-                if (!inServiceArea) {
-                    setSubmitMessage("Vi putsar tyvärr inte i ditt område än :(");
-                    return;
-                }
+                    !isPhoneValid(phoneInput.value) ||
+                    !emailInput.value.trim() ||
+                    !isEmailValid(emailInput.value);
 
                 if (missingPersonalInfo) {
                     setSubmitMessage("Fyll i dina uppgifter för att komma vidare.");
                     return;
                 }
                 setSubmitMessage("");
-                var savedPrice = "";
-                try {
-                    savedPrice = localStorage.getItem("putsad_latest_total") || "";
-                } catch (e) {}
-                var areaParam = selectedAreaKey ? "&area=" + encodeURIComponent(selectedAreaKey) : "";
-                var packageParam = selectedPackage ? "&paket=" + encodeURIComponent(selectedPackage) : "";
-                if (savedPrice && /^\d+$/.test(savedPrice)) {
-                    window.location.href = "boka-tid.html?price=" + encodeURIComponent(savedPrice) + areaParam + packageParam;
-                } else {
-                    var q = (areaParam + packageParam).replace(/^&/, "");
-                    window.location.href = "boka-tid.html" + (q ? "?" + q : "");
+                var nextParams = new URLSearchParams();
+                if (flowDate) nextParams.set("date", flowDate);
+                if (flowTime) nextParams.set("time", flowTime);
+                var savedPrice = flowPriceParam;
+                if (!savedPrice || !/^\d+$/.test(savedPrice)) {
+                    try {
+                        savedPrice = localStorage.getItem("putsad_latest_total") || "";
+                    } catch (e) {
+                        savedPrice = "";
+                    }
                 }
+                if (savedPrice && /^\d+$/.test(savedPrice)) nextParams.set("price", savedPrice);
+                nextParams.set("area", areaKey);
+                var nq = nextParams.toString();
+                window.location.href = "bekrafta.html" + (nq ? "?" + nq : "");
             });
 
             function saveFormState() {
                 try {
-                    var payload = {
-                        address: addressInput.value || "",
-                        firstName: firstNameInput.value || "",
-                        lastName: lastNameInput.value || "",
-                        phone: phoneInput.value || "",
-                        selectedFeature: selectedFeature || null,
-                        inServiceArea: !!inServiceArea,
-                        areaKey: selectedAreaKey || ""
-                    };
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+                    var existing = readSavedPerson();
+                    if (!existing || typeof existing !== "object") existing = {};
+                    var fullName = String(nameInput.value || "").replace(/\s+/g, " ").trim();
+                    var split = splitFullName(fullName);
+                    existing.firstName = split.firstName;
+                    existing.lastName = split.lastName;
+                    existing.fullName = fullName;
+                    existing.phone = phoneInput.value || "";
+                    existing.email = String(emailInput.value || "").trim();
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
                 } catch (e) {}
             }
 
             function loadFormState() {
                 try {
-                    var raw = localStorage.getItem(STORAGE_KEY);
-                    if (!raw) return;
-                    var saved = JSON.parse(raw);
-                    if (!saved || typeof saved !== "object") return;
-
-                    addressInput.value = saved.address || "";
-                    firstNameInput.value = saved.firstName || "";
-                    lastNameInput.value = saved.lastName || "";
-                    phoneInput.value = formatPhoneValue(saved.phone || "");
-
-                    if (saved.selectedFeature && typeof saved.selectedFeature === "object") {
-                        selectedFeature = saved.selectedFeature;
-                        inServiceArea = !!saved.inServiceArea;
-                        selectedAreaKey = saved.areaKey || "";
-                        handleFeature(saved.selectedFeature);
-                    } else {
-                        inServiceArea = false;
-                        selectedAreaKey = "";
+                    var saved = readSavedPerson();
+                    var composedName = String(saved.fullName || "").trim();
+                    if (!composedName) {
+                        composedName = [saved.firstName || "", saved.lastName || ""].join(" ").replace(/\s+/g, " ").trim();
                     }
+                    nameInput.value = composedName;
+                    phoneInput.value = formatPhoneValue(saved.phone || "");
+                    emailInput.value = String(saved.email || "").trim();
+                    selectedAreaKey = String(saved.areaKey || "").trim();
                 } catch (e) {}
             }
 
-            addressInput.addEventListener("blur", saveFormState);
-            firstNameInput.addEventListener("input", saveFormState);
-            lastNameInput.addEventListener("input", saveFormState);
+            nameInput.addEventListener("input", saveFormState);
             phoneInput.addEventListener("input", saveFormState);
+            emailInput.addEventListener("input", saveFormState);
             phoneInput.addEventListener("blur", function () {
                 phoneInput.value = formatPhoneValue(phoneInput.value);
                 saveFormState();
             });
 
-            document.querySelectorAll(".booking-progress-dot[data-step-target]").forEach(function (dot) {
+            document.querySelectorAll(".booking-progress-dot[data-step-index]").forEach(function (dot) {
                 dot.addEventListener("click", function () {
-                    var href = dot.getAttribute("data-step-target");
-                    if (!href) return;
-                    window.location.href = href;
+                    var s = parseInt(dot.getAttribute("data-step-index"), 10);
+                    if (!s) return;
+                    window.location.href = buildFiveStepUrl(s);
                 });
             });
 
             loadFormState();
+
+            var backPaket = document.getElementById("paket-vald-back-link");
+            if (backPaket) backPaket.setAttribute("href", buildFiveStepUrl(3));
         })();
     </script>
 </body>

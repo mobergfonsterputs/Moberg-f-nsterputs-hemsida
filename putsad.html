@@ -6,14 +6,12 @@
     <title>Putsad - Släpp in våren</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital@1&display=optional" rel="stylesheet">
-    <link rel="stylesheet" href="header-shared.css?v=14">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=optional" rel="stylesheet">
     <link rel="stylesheet" href="site-stable.css?v=2">
     <link rel="stylesheet" href="footer-shared.css?v=24">
     <style>
         :root {
             --primary-blue: #0F172A;
-            --primary-blue-hover: #1e2e4a;
             --tech-blue: #113768;
             --tech-blue-hover: #0d2c52;
             --black: #000000;
@@ -23,7 +21,23 @@
             --muted: #64748b;
             --green-check: #008000;
             --price-calc-accent: #22C55E;
-            --page-gutter: clamp(1.25rem, 5vw, 3rem);
+            /* Spacing: 8px scale — 8, 16, 24, 32, 48, 64px + multiples (rem @ 16px root) */
+            --s-8: 0.5rem;
+            --s-16: 1rem;
+            --s-24: 1.5rem;
+            --s-32: 2rem;
+            --s-40: 2.5rem;
+            --s-48: 3rem;
+            --s-56: 3.5rem;
+            --s-64: 4rem;
+            --s-72: 4.5rem;
+            --s-80: 5rem;
+            --s-88: 5.5rem;
+            --s-96: 6rem;
+            --s-104: 6.5rem;
+            --s-112: 7rem;
+            --s-128: 8rem;
+            --page-gutter: clamp(var(--s-24), 5vw, var(--s-48));
             --content-max: 1320px;
         }
 
@@ -38,190 +52,57 @@
             font-family: 'Inter', sans-serif;
             color: var(--black);
             background-color: var(--white);
-            line-height: 1.5;
+            line-height: 1.65;
             overflow-x: hidden;
-        }
-
-        /* --- NAVIGATION --- */
-        header {
-            position: sticky;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            padding: 1.2rem 0;
-        }
-
-        .header-inner {
-            width: min(var(--content-max), calc(100% - 2 * var(--page-gutter)));
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-fallback {
-            font-family: 'Inter', sans-serif;
-            font-weight: 800;
-            font-size: 2rem;
-            text-decoration: none;
-            color: var(--black);
-            letter-spacing: -1px;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2.8rem;
-            align-items: center;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--black);
-            font-weight: 500;
-            font-size: 1rem;
-        }
-
-        nav ul li > a:not(.btn-cta) {
-            position: relative;
-            display: inline-block;
-        }
-
-        nav ul li > a:not(.btn-cta)::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -4px;
-            width: 100%;
-            height: 1px;
-            background: var(--tech-blue);
-            border-radius: 999px;
-            opacity: 0;
-        }
-
-        nav ul li > a:not(.btn-cta):hover::after {
-            opacity: 1;
-        }
-
-        .nav-desktop {
-            display: flex;
-            align-items: center;
-        }
-
-        .header-mobile {
-            display: none;
-            align-items: center;
-            gap: 0.65rem;
-        }
-
-        .nav-toggle {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            padding: 0;
-            border: none;
-            background: transparent;
-            color: var(--black);
-            cursor: pointer;
-            border-radius: 10px;
-        }
-
-        .nav-toggle:hover {
-            background: transparent;
-        }
-
-        .nav-toggle svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        .mobile-menu-panel {
-            display: none;
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 100%;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
-            z-index: 999;
-        }
-
-        .mobile-menu-panel.is-open {
-            display: block;
-        }
-
-        .mobile-menu-inner {
-            width: min(var(--content-max), calc(100% - 2 * var(--page-gutter)));
-            margin: 0 auto;
-            padding: 0.75rem 0 1.25rem;
-        }
-
-        .mobile-menu-panel ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        .mobile-menu-panel li {
-            text-align: center;
-            border-bottom: 1px solid var(--black);
-        }
-
-        .mobile-menu-panel li:last-child {
-            border-bottom: none;
-        }
-
-        .mobile-menu-panel a {
-            display: block;
-            padding: 1rem 0.75rem;
-            text-decoration: none;
-            text-align: center;
-            color: var(--primary-blue);
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-weight: 400;
-            font-size: 1.4rem;
-            line-height: 1.3;
-        }
-
-        .mobile-menu-panel a:hover {
-            background: transparent;
-            text-decoration: underline;
-            text-decoration-color: #113768;
-            text-decoration-thickness: 1px;
-            text-underline-offset: 0.35em;
         }
 
         /* PUNKT 4: Alla knappar – enhetlig hover: lite ljusare färg, ingen scale */
         .btn-cta {
             background: var(--tech-blue);
             color: var(--white);
-            padding: 0.8rem 3.4rem;
+            padding: var(--s-16) var(--s-56);
             border-radius: 999px;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9rem;
-            transition: background 0.2s ease;
+            letter-spacing: 0.01em;
+            transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
             display: inline-block;
+            box-shadow: 0 4px 16px rgba(17, 55, 104, 0.30);
         }
 
         .btn-cta:hover {
             background: var(--tech-blue-hover);
+            box-shadow: 0 6px 22px rgba(17, 55, 104, 0.38);
+            transform: translateY(-1px);
+        }
+
+        .btn-cta:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(17, 55, 104, 0.22);
+        }
+
+        /* Enhetlig knapp-hover: endast mörkare (svart med 80% transparens) */
+        :where(button, .btn-cta, .btn-outline, .hero-calc .price-calc-cta, .hero-calc .price-calc-toggle-tab) {
+            transition: none !important;
+            transform: none !important;
+        }
+
+        :where(button, .btn-cta, .btn-outline, .hero-calc .price-calc-cta, .hero-calc .price-calc-toggle-tab):hover {
+            box-shadow: inset 0 0 0 9999px rgba(0, 0, 0, 0.2) !important;
+            transform: none !important;
+        }
+
+        :where(button, .btn-cta, .btn-outline, .hero-calc .price-calc-cta, .hero-calc .price-calc-toggle-tab):active {
+            transform: none !important;
         }
 
         .hero-actions {
-            margin-top: 2.5rem;
+            margin-top: clamp(var(--s-32), 4vw, var(--s-48));
             display: flex;
             flex-wrap: wrap;
-            gap: 0.9rem;
-            align-items: center;
+            gap: var(--s-16);
+            align-items: flex-start;
         }
 
         .hero-address-wrap {
@@ -233,10 +114,12 @@
         }
 
         .hero-address-title {
-            margin: 0 0 0.5rem;
-            font-size: 1rem;
-            font-weight: 600;
-            line-height: 1.35;
+            margin: 0 0 var(--s-16);
+            font-family: "Inter", sans-serif;
+            font-size: clamp(1.28rem, 2.15vw, 1.68rem);
+            line-height: 1.18;
+            font-weight: 700;
+            letter-spacing: -0.025em;
             color: var(--primary-blue);
         }
 
@@ -244,26 +127,29 @@
             display: flex;
             align-items: stretch;
             gap: 0;
-            border: 1px solid var(--border);
-            border-radius: 14px;
+            border: 1px solid rgba(17, 55, 104, 0.35);
+            border-radius: 16px;
             overflow: hidden;
             background: #fff;
-            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+            box-shadow: 0 0 0 1px rgba(17, 55, 104, 0.2), 0 10px 28px rgba(15, 23, 42, 0.06);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .hero-address-row:focus-within {
-            border-color: var(--tech-blue);
-            box-shadow: 0 0 0 3px rgba(17, 55, 104, 0.12);
+        /* Blå ram i vila; försvinner när pekaren är över rutan/förslag eller när fältet har fokus */
+        .hero-address-input-wrap:hover .hero-address-row,
+        .hero-address-input-wrap:focus-within .hero-address-row {
+            border-color: var(--border);
+            box-shadow: none;
         }
 
         .hero-address-input {
             width: 100%;
             min-width: 0;
             border: none;
-            height: 52px;
-            padding: 0 1rem;
+            height: 50px;
+            padding: 0 var(--s-24);
             font: inherit;
-            font-size: 1rem;
+            font-size: 0.96875rem;
             color: var(--primary-blue);
             outline: none;
         }
@@ -275,8 +161,8 @@
             color: #fff;
             font: inherit;
             font-weight: 600;
-            padding: 0 1.25rem;
-            min-width: 98px;
+            padding: 0 var(--s-24);
+            min-width: var(--s-104);
             cursor: pointer;
             transition: background 0.2s ease;
         }
@@ -291,7 +177,7 @@
 
         .hero-address-suggestions {
             position: absolute;
-            top: calc(100% + 6px);
+            top: calc(100% + var(--s-8));
             left: 0;
             right: 0;
             z-index: 30;
@@ -317,7 +203,7 @@
             font: inherit;
             font-size: 0.92rem;
             line-height: 1.4;
-            padding: 0.65rem 0.8rem;
+            padding: var(--s-8) var(--s-16);
             cursor: pointer;
         }
 
@@ -332,12 +218,41 @@
             outline: none;
         }
 
-        .hero-service-message {
-            margin-top: 0.55rem;
-            min-height: 1.25rem;
-            font-size: 1rem;
+        .hero-manual-area-wrap {
+            margin-top: var(--s-16);
+        }
+
+        .hero-manual-area-label {
+            display: block;
+            margin-bottom: 0.35rem;
+            font-size: 0.86rem;
             font-weight: 600;
-            line-height: 1.35;
+            color: #334155;
+        }
+
+        .hero-manual-area-select {
+            width: 100%;
+            height: 48px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0 var(--s-16);
+            font: inherit;
+            color: var(--primary-blue);
+            background: #fff;
+            outline: none;
+        }
+
+        .hero-manual-area-select:focus {
+            border-color: rgba(17, 55, 104, 0.35);
+            box-shadow: 0 0 0 1px rgba(17, 55, 104, 0.2);
+        }
+
+        .hero-service-message {
+            margin-top: var(--s-16);
+            min-height: var(--s-24);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            line-height: 1.45;
         }
 
         .hero-service-message.is-success {
@@ -351,7 +266,7 @@
         .btn-outline {
             background: var(--white);
             color: var(--black);
-            padding: 0.8rem 3.4rem;
+            padding: var(--s-16) var(--s-56);
             border-radius: 999px;
             text-decoration: none;
             font-weight: 600;
@@ -368,75 +283,270 @@
         /* --- HERO SECTION --- */
         .hero {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(280px, min(400px, 36vw));
+            grid-template-columns: minmax(0, 1fr) minmax(300px, min(480px, 44vw));
             width: min(var(--content-max), calc(100% - 2 * var(--page-gutter)));
             margin: 0 auto;
-            padding: clamp(7rem, 12vw, 8.75rem) 0 clamp(5.5rem, 12vh, 7.5rem);
-            align-items: start;
-            gap: 2.5rem 3rem;
+            padding: clamp(var(--s-96), 11vw, var(--s-128)) 0;
+            align-items: center;
+            gap: clamp(var(--s-32), 4.5vw, var(--s-48)) clamp(var(--s-32), 4vw, var(--s-56));
             min-height: 100vh;
             overflow: visible;
-            scroll-margin-top: 110px;
+            scroll-margin-top: var(--s-112);
+            position: relative;
+        }
+
+        .hero-center-illustration {
+            position: absolute;
+            left: clamp(-10px, -1.2vw, -22px);
+            bottom: clamp(-28px, -2.4vw, -44px);
+            transform: translateX(350px);
+            width: clamp(320px, 36vw, 560px);
+            max-width: 46%;
+            height: auto;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 1;
         }
 
         .hero-text {
             min-width: 0;
-            margin-top: 0.75rem;
-            padding-right: clamp(0.25rem, 1.5vw, 1rem);
+            margin-top: 0;
+            padding-right: clamp(var(--s-8), 2vw, var(--s-24));
         }
 
+        .hero-text > :not(.hero-center-illustration) {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Prisrutor (samma innehåll som berakna-pris.html), staplade i hero-högerkolumn */
+        .hero-pricing-aside {
+            width: 100%;
+            min-width: 0;
+            position: relative;
+            z-index: 1;
+            /* Vertikal komprimering ~30 % (0.7×) */
+            --hp-v: 0.7;
+        }
+
+        .hero-pricing-aside .hero-pricing-main-title {
+            margin: 0 0 calc(var(--s-16) * var(--hp-v));
+            font-size: clamp(1.28rem, 2.15vw, 1.68rem);
+            line-height: 1.18;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            color: var(--primary-blue);
+            font-family: "Inter", sans-serif;
+        }
+
+        .hero-pricing-aside .hero-pricing-groups {
+            display: flex;
+            flex-direction: column;
+            gap: calc(var(--s-16) * var(--hp-v));
+        }
+
+        .hero-pricing-aside .calc-group {
+            border: 1px solid #e6ebf1;
+            border-radius: 18px;
+            padding: calc(var(--s-16) * var(--hp-v) - 5px) var(--s-16) calc(var(--s-24) * var(--hp-v) - 5px);
+            margin: 0;
+            background: #fff;
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+        }
+
+        .hero-pricing-aside .calc-group h3 {
+            margin: var(--s-8) 0 calc(var(--s-16) * var(--hp-v));
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+            line-height: 1.2;
+        }
+
+        .hero-pricing-aside .calc-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: calc(var(--s-16) * var(--hp-v)) var(--s-16);
+            align-items: center;
+            padding: calc(var(--s-16) * var(--hp-v)) 0;
+        }
+
+        .hero-pricing-aside .calc-row + .calc-row {
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .hero-pricing-aside .calc-label {
+            font-size: 0.96rem;
+            font-weight: 400;
+            line-height: 1.3;
+            color: #334155;
+        }
+
+        .hero-pricing-aside .qty-stepper {
+            display: flex;
+            align-items: stretch;
+            border: 1px solid #e8ecf1;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .hero-pricing-aside .qty-btn {
+            width: calc(42px * var(--hp-v));
+            min-width: calc(42px * var(--hp-v));
+            border: none;
+            background: #fafbfc;
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1;
+            cursor: pointer;
+            color: var(--tech-blue);
+            transition: background 0.15s ease;
+        }
+
+        .hero-pricing-aside .qty-btn:hover {
+            background: #f1f5f9;
+        }
+
+        .hero-pricing-aside .qty-input {
+            width: calc(54px * var(--hp-v));
+            min-width: calc(54px * var(--hp-v));
+            height: calc(42px * var(--hp-v));
+            border: none;
+            border-left: 1px solid #e8ecf1;
+            border-right: 1px solid #e8ecf1;
+            text-align: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #0f172a;
+            font-family: "Inter", sans-serif;
+        }
+
+        .hero-pricing-aside .qty-input:focus {
+            outline: none;
+            background: #fafbfd;
+        }
+
+        .hero-pricing-aside .hero-pricing-footer {
+            margin-top: calc(var(--s-24) * var(--hp-v));
+            padding-top: calc(var(--s-24) * var(--hp-v));
+            border-top: 1px solid #f1f5f9;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: calc(var(--s-16) * var(--hp-v));
+            flex-wrap: wrap;
+        }
+
+        .hero-pricing-aside .hero-pricing-footer > div:first-child {
+            margin-left: 15px;
+        }
+
+        .hero-pricing-aside .total-label {
+            margin: 0;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .hero-pricing-aside .total-amount {
+            margin: calc(var(--s-8) * var(--hp-v)) 0 0;
+            font-size: calc(1.25 * clamp(1.05rem, 2.45vw, 1.3rem));
+            line-height: 1.12;
+            font-weight: 700;
+            color: var(--primary-blue);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-pricing-aside .total-note {
+            margin: calc(var(--s-8) * var(--hp-v)) 0 0;
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 400;
+            line-height: 1.35;
+            transform: translateY(-8px);
+        }
+
+        .hero-pricing-aside .hero-pricing-footer .btn-cta {
+            transform: translateY(-8px);
+        }
+
+        /* Rutnätscell — layout i hero. Själv kalkylatorn flyttas via .price-calc-widget. */
         .hero-calc {
             width: 100%;
             min-width: 0;
             position: relative;
             z-index: 1;
-            margin-top: -1.2rem;
         }
 
-        /* 25 % större visuellt, växer nedåt/vänster (fast punkt övre höger = som att dra nedre vänstra hörnet) */
+        /*
+         * Hela kalkylatorrutan som en grupp: använd denna för margin, transform, translate,
+         * max-width och centrering — då följer kort + innehåll med oförändrad design.
+         */
+        .hero-calc .price-calc-widget {
+            margin-top: var(--s-8);
+        }
+
         @media (min-width: 1041px) {
-            .hero-calc {
+            /* Yttre ruta 80px smalare, högerkant kvar mot kolumnen; padding inuti oförändrad */
+            .hero-calc .price-calc {
+                width: calc(100% - var(--s-112));
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: 0;
+            }
+            /* 25 % större visuellt, övre höger som ankare */
+            .hero-calc .price-calc-widget {
                 transform: scale(1.25);
                 transform-origin: top right;
             }
         }
 
         .hero-text h1 {
-            font-size: 3.6rem;
+            font-size: clamp(2.75rem, 5.5vw, 3.65rem);
             font-weight: 800;
-            line-height: 1;
-            margin-bottom: 1.35rem;
+            line-height: 1.02;
+            letter-spacing: -0.035em;
+            margin: 0 0 clamp(var(--s-16), 1.8vw, var(--s-24));
         }
 
         /* PUNKT 3: Dubbelt så stor, Playfair Display italic */
         .script-sub {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 4.8rem;
+            font-size: clamp(2.55rem, 5vw, 4.25rem);
+            font-weight: 400;
             color: var(--primary-blue);
             display: block;
-            line-height: 1.1;
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            margin-top: 0.12em;
         }
 
         .guarantee-note {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 2rem;
+            font-size: clamp(1.3rem, 2.4vw, 1.8rem);
             color: var(--primary-blue);
             display: block;
-            line-height: 1.2;
+            line-height: 1.35;
         }
 
         .guarantee-note .highlight {
-            font-size: 2.4rem;
+            font-size: 1.06em;
+            font-weight: 500;
+            letter-spacing: -0.02em;
         }
 
         .guarantee-note-wrap {
             display: flex;
             align-items: center;
-            gap: 0.45rem;
+            gap: var(--s-8);
             flex-wrap: wrap;
-            margin-top: 1.15rem;
+            margin-top: clamp(var(--s-24), 2.5vw, var(--s-32));
         }
 
         .guarantee-note-wrap .guarantee-note {
@@ -448,28 +558,31 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            width: 2.75rem;
-            height: 2.75rem;
-            min-width: 2.75rem;
-            min-height: 2.75rem;
+            width: var(--s-40);
+            height: var(--s-40);
+            min-width: var(--s-40);
+            min-height: var(--s-40);
             padding: 0;
-            margin: -0.5rem;
+            margin: 0;
             border: none;
             border-radius: 999px;
             background: transparent;
             color: var(--primary-blue);
             cursor: pointer;
-            transition: color 0.15s ease, opacity 0.15s ease;
+            opacity: 0.72;
+            transition: color 0.15s ease, opacity 0.15s ease, background 0.15s ease;
             -webkit-tap-highlight-color: transparent;
         }
 
         .guarantee-info-btn:hover {
-            opacity: 0.72;
+            opacity: 1;
+            background: rgba(15, 23, 42, 0.04);
         }
 
         .guarantee-info-btn:focus-visible {
             outline: 2px solid var(--tech-blue);
-            outline-offset: 2px;
+            outline-offset: calc(var(--s-8) / 4);
+            opacity: 1;
         }
 
         .guarantee-dialog {
@@ -479,9 +592,9 @@
             left: 50%;
             transform: translate(-50%, -50%);
             margin: 0;
-            max-width: calc(100vw - 1.5rem);
-            width: min(28rem, calc(100vw - 1.5rem));
-            max-height: min(85vh, calc(100dvh - 2rem));
+            max-width: calc(100vw - var(--s-24));
+            width: min(28rem, calc(100vw - var(--s-24)));
+            max-height: min(85vh, calc(100dvh - var(--s-32)));
             overflow-y: auto;
             border: 1px solid var(--black);
             border-radius: 16px;
@@ -498,13 +611,13 @@
 
         .guarantee-dialog-panel {
             position: relative;
-            padding: 1.35rem 1.35rem 1.25rem;
+            padding: var(--s-24);
         }
 
         .guarantee-dialog-close {
             position: absolute;
-            top: 0.65rem;
-            right: 0.65rem;
+            top: var(--s-16);
+            right: var(--s-16);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -529,7 +642,7 @@
 
         .guarantee-dialog-close:focus-visible {
             outline: 2px solid var(--tech-blue);
-            outline-offset: 2px;
+            outline-offset: calc(var(--s-8) / 4);
             opacity: 1;
         }
 
@@ -538,7 +651,7 @@
             font-size: 1.2rem;
             font-weight: 800;
             letter-spacing: -0.02em;
-            margin: 0 2.25rem 0.85rem 0;
+            margin: 0 var(--s-40) var(--s-16) 0;
             line-height: 1.25;
             color: var(--primary-blue);
         }
@@ -551,7 +664,7 @@
         }
 
         .guarantee-dialog-body p {
-            margin: 0 0 0.85rem;
+            margin: 0 0 var(--s-16);
         }
 
         .guarantee-dialog-body p:last-child {
@@ -559,14 +672,7 @@
         }
 
         .hero-always {
-            margin-top: 0.85rem;
-        }
-
-        .hero-always-title {
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 1.25rem;
-            margin-bottom: 0.65rem;
+            margin-top: clamp(var(--s-8), 1.2vw, var(--s-16));
         }
 
         .hero-always-list {
@@ -574,38 +680,38 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 0.55rem;
-            font-size: 1.12rem;
-            color: #111;
+            gap: var(--s-8);
+            font-size: clamp(0.98rem, 1.35vw, 1.07rem);
+            color: rgba(15, 23, 42, 0.78);
+            line-height: 1.45;
         }
 
         .hero-always-list li {
             display: flex;
             align-items: baseline;
-            gap: 0.35rem;
+            gap: var(--s-8);
         }
 
         .hero-always-list .hero-step-num {
-            font-weight: 800;
-            flex: 0 0 1.65em;
+            font-weight: 700;
+            flex: 0 0 1.5em;
             text-align: left;
+            color: var(--primary-blue);
+            font-variant-numeric: tabular-nums;
         }
 
-        /* --- REVIEWS --- */
-        .google-strip {
-            padding: clamp(2.75rem, 6vw, 4rem) var(--page-gutter);
-            background: var(--light-gray);
-            text-align: center;
-        }
-
-        .google-strip-inner {
-            max-width: min(900px, 100%);
+        .google-review-widget-section {
+            width: min(var(--content-max), calc(100% - 2 * var(--page-gutter)));
             margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            gap: clamp(1.5rem, 4vw, 3.5rem);
-            flex-wrap: wrap;
-            row-gap: 1.25rem;
+            padding: 0 0 var(--s-40);
+        }
+
+        .google-review-widget-frame {
+            display: block;
+            width: 100%;
+            min-height: 410px;
+            border: 0;
+            background: #fff;
         }
 
         /* --- PACKAGES --- */
@@ -613,7 +719,7 @@
             text-align: left;
             font-size: 2.5rem;
             font-weight: 800;
-            margin: 80px auto 0.5rem;
+            margin: var(--s-80) auto var(--s-8);
             width: min(var(--content-max), calc(100% - 2 * var(--page-gutter)));
             box-sizing: border-box;
         }
@@ -623,7 +729,7 @@
             color: #666;
             font-size: 1rem;
             max-width: min(36rem, 100%);
-            margin: 0 auto 2.5rem;
+            margin: 0 auto var(--s-40);
             line-height: 1.5;
             padding: 0;
             width: min(var(--content-max), calc(100% - 2 * var(--page-gutter)));
@@ -633,8 +739,8 @@
         .package-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            padding: 0 0 80px;
+            gap: var(--s-32);
+            padding: 0 0 var(--s-80);
             width: min(var(--content-max), calc(100% - 2 * var(--page-gutter)));
             max-width: none;
             margin: 0 auto;
@@ -643,7 +749,7 @@
 
         .package-card {
             border: 1px solid var(--border);
-            padding: 2.5rem;
+            padding: var(--s-40);
             border-radius: 24px;
             transition: box-shadow 0.3s ease, border-color 0.3s ease;
             position: relative;
@@ -654,7 +760,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        .package-card h3 { font-size: 1.8rem; margin-bottom: 1.5rem; }
+        .package-card h3 { font-size: 1.8rem; margin-bottom: var(--s-24); }
 
         /* PUNKT 5: Feature list med gröna bockar, separatorlinjer, hover-mörkna, klick öppnar text */
         .feature-list {
@@ -665,12 +771,12 @@
             display: flex;
             align-items: center;
             font-weight: 500;
-            padding: 0.75rem 0.5rem;
+            padding: var(--s-16) var(--s-8);
             border-bottom: 1px solid #1a1a1a20;
             cursor: pointer;
             transition: background 0.15s ease;
             border-radius: 6px;
-            gap: 10px;
+            gap: var(--s-16);
             flex-wrap: wrap;
         }
 
@@ -694,8 +800,8 @@
             font-size: 0.82rem;
             font-weight: 400;
             color: #555;
-            margin-top: 0.4rem;
-            padding-left: 1.4rem;
+            margin-top: var(--s-8);
+            padding-left: var(--s-24);
             line-height: 1.5;
         }
 
@@ -710,7 +816,7 @@
 
         .price-tag {
             display: block;
-            margin-top: 2rem;
+            margin-top: var(--s-32);
             font-weight: 800;
             font-size: 1.2rem;
         }
@@ -719,13 +825,14 @@
 
         /* --- Priskalkylator --- */
         .hero-calc .price-calc {
+            position: relative;
             width: 100%;
             margin: 0;
             background: var(--white);
             border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 1.35rem 1.35rem 1.45rem;
-            box-shadow: 0 10px 40px rgba(15, 23, 42, 0.07);
+            border-radius: 20px;
+            padding: var(--s-24);
+            box-shadow: 0 8px 36px rgba(15, 23, 42, 0.055);
             box-sizing: border-box;
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
             display: flex;
@@ -736,22 +843,94 @@
 
         .hero-calc .price-calc:hover:not(:focus-within) {
             border-color: var(--price-calc-accent);
-            box-shadow: 0 12px 44px rgba(34, 197, 94, 0.12);
+            box-shadow: 0 14px 48px rgba(34, 197, 94, 0.1);
         }
 
         .hero-calc .price-calc-header {
-            margin-bottom: 0.65rem;
+            margin-bottom: var(--s-16);
             position: static;
             top: auto;
             z-index: auto;
         }
 
+        .hero-calc .price-calc-customer-toggle {
+            margin: 0 0 var(--s-16);
+            max-width: 248px;
+            width: 100%;
+        }
+
+        .hero-calc .price-calc-toggle-track {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: stretch;
+            gap: 0;
+            padding: calc(var(--s-8) / 2);
+            border-radius: 999px;
+            background: var(--light-gray);
+            border: 1px solid var(--border);
+            box-sizing: border-box;
+        }
+
+        .hero-calc .price-calc-toggle-thumb {
+            position: absolute;
+            top: calc(var(--s-8) / 2);
+            bottom: calc(var(--s-8) / 2);
+            left: calc(var(--s-8) / 2);
+            width: calc(50% - var(--s-8) / 2);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.42);
+            border: 1px solid rgba(15, 23, 42, 0.1);
+            box-shadow: 0 1px 4px rgba(15, 23, 42, 0.06);
+            transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            z-index: 0;
+            box-sizing: border-box;
+        }
+
+        .hero-calc .price-calc--foretag .price-calc-toggle-thumb {
+            left: calc(50% + var(--s-8) / 4);
+        }
+
+        .hero-calc .price-calc-toggle-tab {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            padding: var(--s-8) var(--s-16);
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--muted);
+            background: transparent;
+            border: none;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .hero-calc .price-calc-toggle-tab:hover {
+            color: var(--primary-blue);
+        }
+
+        .hero-calc .price-calc-toggle-tab:focus-visible {
+            outline: 2px solid var(--tech-blue);
+            outline-offset: calc(var(--s-8) / 4);
+        }
+
+        .hero-calc .price-calc-toggle-tab[aria-selected="true"] {
+            color: var(--primary-blue);
+        }
+
+        .hero-calc .price-calc--foretag .price-calc-rut-row {
+            display: none;
+        }
+
         .hero-calc .price-calc-title {
             text-align: left;
-            font-size: clamp(1.5rem, 2.4vw, 1.75rem);
-            line-height: 1.15;
-            font-weight: 600;
-            letter-spacing: -0.02em;
+            font-size: clamp(1.38rem, 2.15vw, 1.68rem);
+            line-height: 1.18;
+            font-weight: 700;
+            letter-spacing: -0.025em;
             margin: 0;
             padding: 0;
             color: var(--primary-blue);
@@ -763,39 +942,39 @@
             font-family: "Inter", sans-serif;
             font-style: normal;
             font-weight: 500;
-            font-size: 0.82em;
+            font-size: 0.78em;
             color: var(--muted);
         }
 
         .hero-calc .price-calc-label {
             font-weight: 400;
-            font-size: 0.9375rem;
-            margin: 0 0 0.75rem;
+            font-size: 0.90625rem;
+            margin: 0 0 var(--s-16);
             color: var(--muted);
             text-align: left;
-            line-height: 1.6;
+            line-height: 1.55;
             font-family: "Inter", sans-serif;
         }
 
         .hero-calc .price-calc-rows {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: var(--s-16);
         }
 
         .hero-calc .price-calc-inputs-stack {
             display: flex;
             flex-direction: column;
-            gap: 0.65rem;
+            gap: var(--s-16);
             min-width: 0;
         }
 
         .hero-calc .price-calc-ditt-pris-col {
             display: flex;
             flex-direction: column;
-            gap: 0.55rem;
+            gap: var(--s-8);
             flex-shrink: 0;
-            padding: 0.75rem 0 0;
+            padding: var(--s-16) 0 0;
             margin-top: 0;
             border-top: 1px solid var(--border);
             min-width: 0;
@@ -805,24 +984,24 @@
         .hero-calc .price-calc-title-ditt-pris {
             margin: 0;
             padding: 0;
-            font-size: 0.72rem;
-            font-weight: 500;
-            letter-spacing: 0.04em;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
             text-transform: uppercase;
-            line-height: 1.2;
+            line-height: 1.25;
             color: var(--muted);
             text-align: left;
             font-family: "Inter", sans-serif;
         }
 
         .hero-calc .price-calc-amount {
-            margin: 0.15rem 0 0;
+            margin: 0;
             padding: 0;
-            font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+            font-size: clamp(1.38rem, 2.15vw, 1.72rem);
             font-weight: 700;
-            line-height: 1.15;
+            line-height: 1.12;
             color: var(--primary-blue);
-            letter-spacing: -0.02em;
+            letter-spacing: -0.025em;
             font-variant-numeric: tabular-nums;
             font-family: "Inter", sans-serif;
         }
@@ -831,13 +1010,13 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            gap: 40px;
-            margin: -0.35rem 0 0;
+            gap: var(--s-48);
+            margin: calc(var(--s-8) * -1) 0 0;
             min-height: 2rem;
         }
 
         .hero-calc .price-calc-after-rut {
-            margin: 0.18rem 0 0;
+            margin: calc(var(--s-8) - 20px) 0 0;
             padding: 0;
             font-size: 0.84rem;
             font-weight: 400;
@@ -852,15 +1031,16 @@
             justify-content: center;
             width: 100%;
             min-width: 0;
-            margin-top: 0.35rem;
-            padding: 0.65rem 1.15rem;
+            margin-top: calc(var(--s-8) - 20px);
+            padding: var(--s-16) var(--s-24);
             box-sizing: border-box;
-            min-height: 2.75rem;
+            min-height: var(--s-48);
             height: auto;
             font-family: "Inter", sans-serif;
             font-size: 0.875rem;
             font-weight: 600;
             line-height: 1.35;
+            letter-spacing: 0.01em;
             color: var(--white);
             text-decoration: none;
             text-align: center;
@@ -877,7 +1057,7 @@
 
         .hero-calc .price-calc-cta:focus-visible {
             outline: 2px solid var(--tech-blue);
-            outline-offset: 3px;
+            outline-offset: calc(var(--s-8) / 2);
         }
 
         .hero-calc .price-calc-row-wrap {
@@ -893,7 +1073,7 @@
         }
 
         .hero-calc .price-calc-row-box {
-            padding: 0.6rem 0.75rem;
+            padding: var(--s-16);
             border-bottom: 1px solid var(--border);
             transition: background 0.15s ease;
         }
@@ -907,10 +1087,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 0.5rem;
+            gap: var(--s-8);
             width: 100%;
             margin: 0;
-            padding: 0.62rem 0.75rem;
+            padding: var(--s-16);
             border: none;
             background: transparent;
             font: inherit;
@@ -929,7 +1109,7 @@
 
         .hero-calc details.price-calc-row-wrap .price-calc-row-box {
             opacity: 0;
-            transform: translateY(-3px);
+            transform: translateY(calc(var(--s-8) / -2));
             transition: opacity 1.6s ease, transform 1.6s ease;
         }
 
@@ -948,7 +1128,7 @@
 
         .hero-calc details.price-calc-row-wrap > summary:focus-visible {
             outline: 2px solid var(--tech-blue);
-            outline-offset: -2px;
+            outline-offset: calc(var(--s-8) / -4);
         }
 
         .hero-calc .price-calc-accordion-icon {
@@ -977,8 +1157,8 @@
             display: grid;
             grid-template-columns: minmax(0, 1fr) auto;
             align-items: center;
-            column-gap: 0.65rem;
-            row-gap: 0.4rem;
+            column-gap: calc(var(--s-8) / 4);
+            row-gap: var(--s-8);
         }
 
         .hero-calc .price-calc-row-box .price-calc-type {
@@ -1037,7 +1217,7 @@
 
         .hero-calc .qty-btn:focus-visible {
             outline: 2px solid var(--tech-blue);
-            outline-offset: 2px;
+            outline-offset: calc(var(--s-8) / 4);
         }
 
         .hero-calc .qty-input {
@@ -1061,12 +1241,76 @@
             background: #fafbfd;
         }
 
-        /* --- VARFÖR MOBERG --- */
-        .why-moberg {
+        .hero-peace-section {
             width: min(var(--content-max), calc(100% - 2 * var(--page-gutter)));
             margin: 0 auto;
-            padding: clamp(2.75rem, 6vw, 4rem) 0 clamp(4.5rem, 10vw, 6.25rem);
-            scroll-margin-top: 100px;
+            padding: clamp(var(--s-32), 6vw, var(--s-48)) 0 calc(clamp(var(--s-72), 11vw, var(--s-96)) + 90px);
+            text-align: center;
+        }
+
+        .hero-peace-title {
+            margin: 0 0 clamp(var(--s-12), 2vw, var(--s-16));
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.9rem, 3.6vw, 2.75rem);
+            font-weight: 700;
+            line-height: 1.12;
+            letter-spacing: -0.015em;
+            color: var(--primary-blue);
+        }
+
+        .hero-peace-list-wrap {
+            margin: 25px auto 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-peace-list {
+            margin: 0 auto;
+            padding: 0;
+            max-width: 42rem;
+            list-style: none;
+            text-align: center;
+            font-size: clamp(1rem, 1.55vw, 1.12rem);
+            line-height: 1.72;
+            color: #000;
+        }
+
+        .hero-peace-list li {
+            margin: 0 0 0.5rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.52rem;
+        }
+
+        .hero-peace-icon {
+            width: 1.05em;
+            height: 1.05em;
+            flex: 0 0 auto;
+            color: var(--primary-blue);
+            transform: translateY(1px);
+        }
+
+        .hero-peace-icon svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .hero-peace-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* --- VARFÖR MOBERG --- */
+        .why-moberg {
+            width: 100%;
+            margin: -70px 0 0;
+            padding: calc(clamp(var(--s-48), 6vw, var(--s-64)) + 70px) var(--page-gutter) clamp(var(--s-72), 10vw, var(--s-96));
+            scroll-margin-top: var(--s-96);
+            background: #f3f7ff;
+            box-sizing: border-box;
         }
 
         .why-moberg-title {
@@ -1074,7 +1318,7 @@
             font-size: 2.35rem;
             font-weight: 800;
             line-height: 1.15;
-            margin: -40px 0 2.5rem;
+            margin: calc(var(--s-40) * -1) 0 var(--s-40);
             letter-spacing: -0.02em;
             color: var(--primary-blue);
         }
@@ -1082,22 +1326,34 @@
         .why-moberg-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 2rem 2.5rem;
+            gap: var(--s-32) var(--s-40);
             max-width: 960px;
             margin: 0 auto;
         }
 
         .why-card {
-            padding: 0.35rem 0;
+            padding: var(--s-8) 0;
         }
 
         .why-card-inner {
             display: flex;
             align-items: flex-start;
-            gap: 1rem;
+            gap: var(--s-16);
             max-width: 26rem;
             margin: 0 auto;
             text-align: left;
+            padding: var(--s-24);
+            border-radius: 16px;
+            border: 1px solid #eef2f8;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+            transition: box-shadow 0.22s ease, transform 0.22s ease, border-color 0.22s ease;
+        }
+
+        .why-card-inner:hover {
+            box-shadow: 0 8px 28px rgba(15, 23, 42, 0.10);
+            transform: translateY(-2px);
+            border-color: #d4dff0;
         }
 
         .why-card-icon {
@@ -1118,41 +1374,42 @@
         }
 
         .why-card-text h3 {
-            font-size: 1.22rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            line-height: 1.3;
-            margin: 0 0 0.6rem;
+            line-height: 1.25;
+            margin: 0 0 var(--s-8);
+            letter-spacing: -0.01em;
             color: var(--primary-blue);
         }
 
         .why-card-text p {
             margin: 0;
-            font-size: 1.02rem;
-            line-height: 1.6;
-            color: #333;
+            font-size: 0.97rem;
+            line-height: 1.65;
+            color: #334155;
         }
 
         /* --- SÅ FUNKAR DET --- */
         .how-it-works {
             color: var(--primary-blue);
             width: min(var(--content-max), calc(100% - 2 * var(--page-gutter)));
-            margin: 0 auto 5.5rem;
-            padding: clamp(3rem, 7vw, 4.25rem) 0 clamp(3rem, 6vw, 3.75rem);
+            margin: 0 auto var(--s-88);
+            padding: clamp(var(--s-48), 7vw, var(--s-72)) 0 clamp(var(--s-48), 6vw, var(--s-64));
         }
 
         .how-it-works-title {
             font-size: 2.35rem;
             font-weight: 800;
             line-height: 1.1;
-            margin-bottom: 1.75rem;
+            margin-bottom: var(--s-32);
             letter-spacing: -0.02em;
-            transform: translateX(30px);
+            transform: translateX(var(--s-32));
         }
 
         .how-it-works-grid {
             display: grid;
             grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-            gap: 2rem 2.5rem;
+            gap: var(--s-32) var(--s-40);
             align-items: start;
         }
 
@@ -1167,31 +1424,39 @@
             color: #64748b;
             font-weight: 600;
             font-size: 1rem;
-            padding: 1.5rem;
+            padding: var(--s-24);
         }
 
         .how-it-works-steps {
             display: grid;
-            gap: 1.75rem;
-            padding-left: 1.5rem;
+            gap: var(--s-32);
+            padding-left: var(--s-24);
         }
 
         .how-step {
             border: none;
             border-radius: 0;
-            padding: 0.35rem 0;
+            padding: var(--s-8) 0 var(--s-24);
             background: transparent;
         }
 
-        .how-step + .how-step {
+        .how-step-group {
+            display: grid;
+            gap: var(--s-32);
             border-top: 1px solid #000;
-            padding-top: 1.5rem;
+            padding-top: var(--s-24);
+            padding-bottom: 15px;
+        }
+
+        .how-step-group > .how-step + .how-step {
+            border-top: 1px solid #000;
+            padding-top: var(--s-24);
         }
 
         .how-step-head {
             display: flex;
             align-items: baseline;
-            gap: 0.95rem;
+            gap: var(--s-16);
         }
 
         .how-step-num {
@@ -1214,47 +1479,55 @@
         }
 
         .how-step-body {
-            margin-top: 0.95rem;
-            margin-left: calc(1.8rem + 0.95rem);
+            margin-top: var(--s-16);
+            margin-left: calc(var(--s-32) + var(--s-16));
+            padding-bottom: 0.75rem;
             color: #000;
             font-size: 1.08rem;
             line-height: 1.58;
             max-height: 0;
             opacity: 0;
             overflow: hidden;
-            transform: translateY(-3px);
-            transition: max-height 0.56s ease, opacity 0.42s ease, transform 0.42s ease;
+            transition: max-height 0.2s ease, opacity 0.2s ease;
         }
 
         .how-step:hover .how-step-body,
         .how-step:focus-within .how-step-body {
-            max-height: 240px;
+            max-height: 26rem;
             opacity: 1;
-            transform: translateY(0);
+        }
+
+        /* Så funkar det: steg 1 öppet som standard */
+        @media (hover: hover) {
+            .how-it-works-steps > .how-step:first-child .how-step-body {
+                max-height: 26rem;
+                opacity: 1;
+            }
         }
 
         /* --- COMPARISON SECTION --- */
         .comparison-section {
             color: var(--primary-blue);
             width: min(var(--content-max), calc(100% - 2 * var(--page-gutter)));
-            margin: clamp(3rem, 8vw, 4rem) auto clamp(3.5rem, 8vw, 4.5rem);
+            margin: clamp(var(--s-48), 8vw, var(--s-64)) auto clamp(var(--s-56), 8vw, var(--s-72));
             padding: 0;
             text-align: left;
         }
 
         .comparison-headline {
-            font-size: clamp(2rem, 4vw, 2.5rem);
-            font-weight: 800;
-            margin: 0 auto 1rem;
-            letter-spacing: -0.02em;
-            line-height: 1.15;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.1rem, 4vw, 2.75rem);
+            font-weight: 700;
+            margin: 0 auto var(--s-16);
+            letter-spacing: -0.015em;
+            line-height: 1.12;
             max-width: min(38rem, 100%);
             text-align: center;
         }
 
         .comparison-lead {
             opacity: 0.8;
-            margin: 0 auto 1.5rem;
+            margin: 0 auto var(--s-24);
             max-width: 38rem;
             line-height: 1.62;
             padding: 0;
@@ -1263,12 +1536,12 @@
 
         .comp-box {
             max-width: 800px;
-            margin: 2.5rem auto 0;
+            margin: var(--s-40) auto 0;
             text-align: left;
         }
 
         .comp-bar-container {
-            margin-bottom: 2.25rem;
+            margin-bottom: var(--s-32);
         }
 
         .comp-footnote {
@@ -1282,31 +1555,52 @@
         .comp-cta-wrap {
             display: flex;
             justify-content: center;
-            margin-top: 2.75rem;
+            margin-top: var(--s-48);
         }
 
-        .bar-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
+        .comp-bar-container .bar-label {
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: var(--s-8);
+            padding-bottom: 1.35rem;
+            font-size: 0.9rem;
+        }
 
         .bar-bg {
             width: 100%;
             height: 24px;
-            background: #cfdcf4;
+            background: var(--tech-blue);
             border-radius: 999px;
             overflow: hidden;
         }
 
         .bar-fill {
             height: 100%;
-            background: var(--tech-blue);
+            background: #cfdcf4;
             border-radius: 999px;
             transition: width 1s ease;
+        }
+
+        .bar-label-ours {
+            position: absolute;
+            left: 75%;
+            transform: translateX(-100%);
+            white-space: nowrap;
+        }
+
+        .bar-label-market {
+            position: absolute;
+            right: 0;
+            top: calc(100% + 35px + 0.15rem);
+            white-space: nowrap;
         }
 
         /* --- VANLIGA FRÅGOR (accordion, inspirerad av dentme.com/sv) --- */
         .faq-section {
             background: var(--white);
-            padding: clamp(3.5rem, 8vw, 5.5rem) 0 clamp(4rem, 9vw, 5.75rem);
-            scroll-margin-top: 100px;
+            padding: clamp(var(--s-56), 8vw, var(--s-88)) 0 clamp(var(--s-64), 9vw, var(--s-96));
+            scroll-margin-top: var(--s-96);
             font-family: 'Inter', sans-serif;
         }
 
@@ -1315,7 +1609,7 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: minmax(0, 1.08fr) minmax(260px, 0.92fr);
-            gap: 3rem 3.75rem;
+            gap: var(--s-48) var(--s-64);
             align-items: start;
         }
 
@@ -1325,43 +1619,27 @@
 
         .faq-section-aside {
             min-width: 0;
-        }
-
-        .faq-media-slot {
-            margin: 0;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1.5px dashed #cbd5e1;
-            aspect-ratio: 4 / 5;
-            min-height: 280px;
-            max-height: min(520px, 70vh);
-            background: linear-gradient(180deg, #f8fafc, #f1f5f9);
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Inter', sans-serif;
-            color: #64748b;
-            font-weight: 600;
-            font-size: 1rem;
-            text-align: center;
-            padding: 1.25rem;
+            justify-content: flex-end;
+            align-items: flex-start;
         }
 
-        .faq-media-slot img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .faq-aside-photo {
             display: block;
+            width: auto;
+            max-width: min(100%, 380px);
+            height: auto;
+            max-height: min(560px, 72vh);
+            object-fit: contain;
+            transform: rotate(-90deg);
+            transform-origin: center;
         }
 
-        .faq-media-slot:has(img) {
-            border-style: solid;
-            border-color: var(--border);
-            padding: 0;
-        }
-
-        .faq-media-slot:has(img) .faq-media-placeholder {
-            display: none;
+        @media (min-width: 1041px) {
+            .faq-aside-photo {
+                margin-top: 220px;
+                margin-inline-end: 30px;
+            }
         }
 
         .faq-section-title {
@@ -1370,7 +1648,7 @@
             font-weight: 800;
             line-height: 1.1;
             text-align: left;
-            margin: 0 0 2.25rem;
+            margin: 0 0 var(--s-40);
             letter-spacing: -0.03em;
             color: var(--primary-blue);
         }
@@ -1392,8 +1670,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 1.25rem;
-            padding: 1.35rem 0;
+            gap: var(--s-24);
+            padding: var(--s-24) 0;
             cursor: pointer;
             list-style: none;
             font-family: 'Inter', sans-serif;
@@ -1415,7 +1693,7 @@
 
         .faq-item summary:focus-visible {
             outline: 2px solid var(--tech-blue);
-            outline-offset: 4px;
+            outline-offset: calc(var(--s-8) / 2);
             border-radius: 4px;
         }
 
@@ -1446,7 +1724,7 @@
         }
 
         .faq-answer {
-            padding: 0 0 1.5rem;
+            padding: 0 0 var(--s-24);
             margin: 0;
             font-family: 'Inter', sans-serif;
             font-size: 1rem;
@@ -1458,7 +1736,7 @@
         .faq-answer a {
             color: var(--tech-blue);
             text-decoration: underline;
-            text-underline-offset: 2px;
+            text-underline-offset: calc(var(--s-8) / 4);
         }
 
         /* Dölj sektionen "Våra Paket" på startsidan */
@@ -1468,145 +1746,337 @@
             display: none;
         }
 
-        /* --- RESPONSIVE --- */
+        /* ─── RESPONSIVE ─── exakt tre breakpoints: 1040 / 680 / 480 ─── */
+
+        /* ── Tablet och mellanstor skärm (max-width: 1040px) ────────────── */
         @media (max-width: 1040px) {
+
+            /* Hero: enkelspaltig, ingen min-height: 100vh */
             .hero {
                 grid-template-columns: 1fr;
-                gap: 2.75rem;
+                min-height: auto;
+                gap: clamp(var(--s-32), 5vw, var(--s-48));
             }
 
-            .hero-calc {
+            .hero-center-illustration {
+                left: 0;
+                top: 0;
+                bottom: auto;
                 transform: none;
-                max-width: 28rem;
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .hero {
-                text-align: left;
-                padding: clamp(3.25rem, 10vw, 4rem) 0 clamp(4rem, 12vh, 5.5rem);
+                width: clamp(220px, 42vw, 360px);
+                max-width: 62%;
+                opacity: 1;
             }
 
             .hero-text {
-                padding-right: 0;
+                padding-top: clamp(2rem, 4vw, 3rem);
             }
-            .hero-text h1 { font-size: 3rem; }
-            .script-sub { font-size: 4rem; }
-            .hero-actions { justify-content: flex-start; }
-            .hero-address-wrap {
+
+            /* Kalkylator: ingen transform-skalning, full bredd */
+            .hero-calc .price-calc-widget {
+                transform: none;
+                max-width: none;
                 width: 100%;
+                margin-top: var(--s-8);
             }
-            .why-moberg { padding: clamp(2rem, 6vw, 3rem) 0 clamp(3.25rem, 8vw, 4.5rem); }
-            .why-moberg-title { font-size: 1.95rem; margin-bottom: 1.65rem; }
-            .why-moberg-grid { grid-template-columns: 1fr; gap: 1.65rem; }
-            .why-card-inner { max-width: none; }
-            .how-it-works {
-                margin-bottom: 4rem;
-                padding: clamp(2.5rem, 6vw, 3.5rem) 0;
-            }
-            .how-it-works-grid { grid-template-columns: 1fr; gap: 1.75rem; }
-            .how-it-works-image-slot { min-height: 240px; }
-            .how-it-works-title { font-size: 1.95rem; margin-bottom: 1.35rem; }
-            .how-it-works-steps { padding-left: 0.75rem; }
-            .package-container { grid-template-columns: 1fr; }
-            .comparison-section { margin: clamp(2.25rem, 7vw, 3rem) auto clamp(2.75rem, 7vw, 3.5rem); width: min(var(--content-max), calc(100% - 2 * var(--page-gutter))); }
-            .faq-section { padding: clamp(2.5rem, 8vw, 3.5rem) 0 clamp(3rem, 8vw, 4rem); }
-            .faq-section-inner {
-                grid-template-columns: 1fr;
-                gap: 2.25rem;
-            }
-            .faq-media-slot {
-                aspect-ratio: 16 / 10;
-                min-height: 200px;
-                max-height: none;
-            }
-            .faq-section-title { margin-bottom: 1.5rem; font-size: 1.85rem; }
-            .faq-item summary { font-size: 0.98rem; padding: 1rem 0; }
-            .hero-calc {
+
+            .hero-pricing-aside {
                 max-width: none;
                 width: 100%;
             }
 
-            .hero-calc .price-calc-title { font-size: 1.35rem; }
+            .hero-pricing-aside .calc-row {
+                grid-template-columns: 1fr;
+                align-items: start;
+                gap: var(--s-8);
+            }
 
-            .hero-calc .price-calc-amount { font-size: 1.45rem; }
+            .hero-pricing-aside .qty-stepper {
+                width: fit-content;
+            }
+
+            .hero-pricing-aside .hero-pricing-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .hero-pricing-aside .hero-pricing-footer .btn-cta {
+                width: 100%;
+                min-width: 0;
+                text-align: center;
+                box-sizing: border-box;
+            }
+
+            .hero-calc .price-calc-title { font-size: clamp(1.28rem, 4.2vw, 1.42rem); }
+            .hero-calc .price-calc-amount { font-size: clamp(1.32rem, 4.5vw, 1.52rem); }
+            .hero-calc .price-calc-row { column-gap: var(--s-16); }
+
+            /* Varför Moberg: enkelspaltig */
+            .why-moberg { padding: clamp(var(--s-32), 6vw, var(--s-48)) 0 clamp(var(--s-56), 8vw, var(--s-72)); }
+            .why-moberg-title { font-size: 1.95rem; margin-bottom: var(--s-32); }
+            .why-moberg-grid { grid-template-columns: 1fr; gap: var(--s-32); }
+            .why-card-inner { max-width: none; }
+
+            /* Så funkar det: enkelspaltig – steg ovanför bild (order) */
+            .how-it-works {
+                margin-bottom: var(--s-64);
+                padding: clamp(var(--s-40), 6vw, var(--s-56)) 0;
+            }
+
+            .how-it-works-grid {
+                grid-template-columns: 1fr;
+                gap: var(--s-32);
+            }
+
+            .how-it-works-steps {
+                order: 1;
+                padding-left: var(--s-16);
+            }
+
+            .how-it-works-image-slot {
+                order: 2;
+                min-height: 240px;
+            }
+
+            .how-it-works-title { font-size: 1.95rem; margin-bottom: var(--s-24); }
+
+            .how-step-title { font-size: clamp(1.45rem, 3.5vw, 2.25rem); }
+
+            /* Paketcontainer */
+            .package-container { grid-template-columns: 1fr; }
+
+            /* Jämförelsesektion */
+            .comparison-section {
+                margin: clamp(var(--s-32), 7vw, var(--s-48)) auto clamp(var(--s-48), 7vw, var(--s-56));
+                width: min(var(--content-max), calc(100% - 2 * var(--page-gutter)));
+            }
+
+            /* FAQ: enkelspaltig, bild under frågorna (centrerad) */
+            .faq-section { padding: clamp(var(--s-40), 8vw, var(--s-56)) 0 clamp(var(--s-48), 8vw, var(--s-64)); }
+
+            .faq-section-inner {
+                grid-template-columns: 1fr;
+                gap: var(--s-40);
+            }
+
+            .faq-section-aside {
+                justify-content: center;
+            }
+
+            .faq-aside-photo {
+                max-width: min(100%, 420px);
+            }
+
+            .faq-section-title { margin-bottom: var(--s-24); font-size: 1.85rem; }
+
+            /* Touch-targets: min 44×44px på alla klickbara element */
+            .faq-item summary {
+                min-height: 52px;
+                display: flex;
+                align-items: center;
+                font-size: 0.98rem;
+                padding: var(--s-16) 0;
+            }
 
             .hero-calc .qty-btn {
-                width: 40px;
-                min-width: 40px;
+                min-width: 44px;
+                width: 44px;
             }
 
             .hero-calc .qty-input {
-                height: 40px;
+                height: 44px;
             }
-
-            .hero-calc .price-calc-row {
-                column-gap: 1rem;
-            }
-
-            .nav-desktop { display: none; }
-            .header-mobile { display: flex; }
         }
 
+        /* ── Mobil (max-width: 680px) ────────────────────────────────────── */
+        @media (max-width: 680px) {
+
+            /* Hero: vänsterjusterad, kortare padding */
+            .hero {
+                text-align: left;
+                padding: clamp(var(--s-56), 10vw, var(--s-72)) 0 clamp(var(--s-64), 10vw, var(--s-96));
+            }
+
+            .hero-text { padding-right: 0; }
+
+            .hero-center-illustration {
+                left: 50%;
+                top: 10%;
+                bottom: auto;
+                transform: none;
+                width: clamp(180px, 48vw, 280px);
+                max-width: 70%;
+                margin: 0;
+                opacity: 1;
+            }
+
+            .hero-text h1 {
+                font-size: clamp(2.2rem, 8.5vw, 3rem);
+                letter-spacing: -0.032em;
+            }
+
+            /* Ikon ska ligga exakt till vänster om första bokstaven även på mobil */
+            .hero-peace-list-wrap {
+                align-items: stretch;
+            }
+
+            .hero-peace-list {
+                width: 100%;
+                text-align: left;
+            }
+
+            .hero-peace-list li {
+                justify-content: flex-start;
+                text-align: left;
+                align-items: flex-start;
+            }
+
+            .hero-peace-list li > span:last-child {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+
+            .script-sub { font-size: clamp(2.05rem, 7.5vw, 3.25rem); }
+
+            .hero-actions { justify-content: flex-start; }
+            .hero-address-wrap { width: 100%; }
+
+            /* Adressrad: stapla input och knapp vertikalt */
+            .hero-address-row { flex-direction: column; }
+
+            .hero-address-input {
+                height: 52px;
+                border-radius: 16px 16px 0 0;
+            }
+
+            .hero-address-next {
+                width: 100%;
+                min-width: 0;
+                height: 52px;
+                border-left: none;
+                border-top: 1px solid var(--border);
+                border-radius: 0 0 16px 16px;
+            }
+
+            /* Primärknappar i sidans huvudinnehåll: full bredd */
+            main .btn-cta {
+                width: 100%;
+                box-sizing: border-box;
+                text-align: center;
+            }
+
+            .why-moberg {
+                padding-left: var(--page-gutter);
+                padding-right: var(--page-gutter);
+            }
+
+            /* Varför Moberg: kort-rutor mer mobilvänliga */
+            .why-moberg-grid {
+                gap: var(--s-16);
+            }
+
+            .why-card {
+                padding: 0;
+            }
+
+            .why-card-inner {
+                width: 100%;
+                padding: clamp(0.95rem, 3.5vw, 1.2rem);
+                gap: var(--s-12, 0.75rem);
+                border-radius: 14px;
+            }
+
+            .why-card-text {
+                min-width: 0;
+                flex: 1 1 auto;
+            }
+
+            .why-card-icon {
+                width: 42px;
+                height: 42px;
+            }
+
+            .why-card-icon svg {
+                width: 22px;
+                height: 22px;
+            }
+        }
+
+        /* ── Liten mobil (max-width: 480px) ─────────────────────────────── */
+        @media (max-width: 480px) {
+
+            /* Hero-steg: vertikalt med lite mer luft */
+            .hero-always-list {
+                gap: 0.75rem;
+            }
+
+            /* Hero subtext */
+            .hero-always-list,
+            .hero-address-title {
+                font-size: clamp(0.9375rem, 3.5vw, 1rem);
+            }
+
+            /* Sektionsrubriker med serif/Playfair: lite mindre */
+            .hero-peace-title,
+            .comparison-headline,
+            .how-it-works-title,
+            .why-moberg-title,
+            .faq-section-title {
+                font-size: clamp(1.45rem, 5vw, 1.8rem);
+            }
+
+            /* Stegnummer och steprubriker i Så funkar det */
+            .how-step-num { font-size: 1.85rem; }
+            .how-step-title { font-size: 1.45rem; line-height: 1.2; }
+
+            /* Playfair-rubriker som radbryts på mobil: linjehöjd */
+            .hero-peace-title,
+            .comparison-headline {
+                line-height: 1.2;
+            }
+
+            /* Bild-placeholder: minska höjd på liten mobil */
+            .how-it-works-image-slot { min-height: 180px; }
+
+            .why-card-text h3 {
+                font-size: 1rem;
+            }
+
+            .why-card-text p {
+                font-size: 0.92rem;
+                line-height: 1.6;
+                overflow-wrap: anywhere;
+            }
+        }
+
+        /* ── Hover saknas (touch-enheter): visa steg-text direkt ─────────── */
         @media (hover: none) {
             .how-step-body {
-                max-height: 240px;
+                max-height: none;
                 opacity: 1;
-                transform: none;
             }
         }
+
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-inner">
-            <a href="#hem" class="logo-fallback">Moberg Fönsterputs</a>
-            <nav class="nav-desktop" aria-label="Huvudmeny">
-                <ul>
-                    <li><a href="putsad.html#hem">Hem</a></li>
-                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
-                    <li><a href="detta-ingar.html">Detta ingår</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                    <li><a href="berakna-pris.html" class="btn-cta">Boka puts</a></li>
-                </ul>
-            </nav>
-            <div class="header-mobile">
-                <a href="berakna-pris.html" class="btn-cta">Boka puts</a>
-                <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Öppna meny">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div class="mobile-menu-panel" id="mobile-menu-panel" role="navigation" aria-label="Mobilmeny">
-            <div class="mobile-menu-inner">
-                <ul>
-                    <li><a href="putsad.html#hem">Hem</a></li>
-                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
-                    <li><a href="detta-ingar.html">Detta ingår</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                </ul>
-            </div>
-        </div>
-    </header>
+    <div data-site-header></div>
+    <script src="js/site-header.js"></script>
 
-    <main>
+<main id="innehall">
         <section class="hero" id="hem">
             <div class="hero-text">
                 <!-- PUNKT 3: "med rena fönster" i Playfair Display italic, dubbelt så stor -->
                 <h1>Släpp in våren <span class="script-sub">med rena fönster</span></h1>
                 <div class="hero-always">
-                    <div class="hero-always-title">Smidigt till ett bra pris.</div>
                     <ul class="hero-always-list">
                         <li><span class="hero-step-num">1.</span> Boka online</li>
-                        <li><span class="hero-step-num">2.</span> Vi putsar</li>
-                        <li><span class="hero-step-num">3.</span> Du betalar</li>
+                        <li><span class="hero-step-num">2.</span> Putsningen</li>
+                        <li><span class="hero-step-num">3.</span> Njut av utsikten igen</li>
                     </ul>
                 </div>
+                <img src="tecknadputsare.png" alt="" class="hero-center-illustration" width="560" height="420" decoding="async" fetchpriority="high" aria-hidden="true">
                 <div class="hero-actions">
                     <div class="hero-address-wrap">
                         <p class="hero-address-title">Kolla om vi putsar i ditt område</p>
@@ -1616,6 +2086,22 @@
                                 <button id="hero-address-next" class="hero-address-next" type="button" hidden>Nästa</button>
                             </div>
                             <div id="hero-address-suggestions" class="hero-address-suggestions" role="listbox" aria-label="Adressförslag"></div>
+                        </div>
+                        <div class="hero-manual-area-wrap" hidden>
+                            <label class="hero-manual-area-label" for="hero-manual-area-select">Om adressförslag inte fungerar, välj område manuellt:</label>
+                            <select id="hero-manual-area-select" class="hero-manual-area-select">
+                                <option value="">Välj område</option>
+                                <option value="upplands vasby">Upplands Väsby</option>
+                                <option value="sollentuna">Sollentuna</option>
+                                <option value="taby">Täby</option>
+                                <option value="vasteras">Västerås</option>
+                                <option value="gaddeholm">Gäddeholm</option>
+                                <option value="gaddeholm i vasteras">Gäddeholm i Västerås</option>
+                                <option value="lidkoping">Lidköping</option>
+                                <option value="kollandso">Kållandsö</option>
+                                <option value="bjorkfors">Björkfors</option>
+                                <option value="uppsala">Uppsala</option>
+                            </select>
                         </div>
                         <div id="hero-service-message" class="hero-service-message" aria-live="polite"></div>
                     </div>
@@ -1630,104 +2116,112 @@
                     </button>
                 </div>
             </div>
-            <div class="hero-calc" id="pris-kalkylator" aria-labelledby="price-calc-heading">
-                <div class="price-calc">
-                    <header class="price-calc-header">
-                        <h2 class="price-calc-title" id="price-calc-heading">Beräkna pris - <span class="price-calc-title-note">ingen bindning</span></h2>
-                    </header>
-                    <p class="price-calc-label">Välj typ av fönster och antal sidor som ska putsas.</p>
-                    <div class="price-calc-rows">
-                        <div class="price-calc-inputs-stack">
-                            <details class="price-calc-row-wrap" id="price-calc-wrap-utan-sprojs">
-                                <summary class="price-calc-acc-sum">
-                                    <span class="price-calc-type">Utan spröjs</span>
-                                    <svg class="price-calc-accordion-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </summary>
-                                <div class="price-calc-row-box">
-                                    <div class="price-calc-row">
-                                        <span class="price-calc-type">Enkelsidiga - 2 sidor</span>
-                                        <div class="qty-stepper">
-                                            <button type="button" class="qty-btn qty-minus" aria-label="Minska antal enkelsidiga fönster utan spröjs">−</button>
-                                            <input type="text" id="qty-vanligt" class="qty-input" value="0" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" spellcheck="false" aria-label="Antal enkelsidiga fönster utan spröjs (2 sidor)">
-                                            <button type="button" class="qty-btn qty-plus" aria-label="Öka antal enkelsidiga fönster utan spröjs">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="price-calc-row-box">
-                                    <div class="price-calc-row">
-                                        <span class="price-calc-type">Dubbelsidiga - 4 sidor</span>
-                                        <div class="qty-stepper">
-                                            <button type="button" class="qty-btn qty-minus" aria-label="Minska antal dubbelsidiga fönster utan spröjs">−</button>
-                                            <input type="text" id="qty-vanligt-dubbel" class="qty-input" value="0" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" spellcheck="false" aria-label="Antal dubbelsidiga fönster utan spröjs (4 sidor)">
-                                            <button type="button" class="qty-btn qty-plus" aria-label="Öka antal dubbelsidiga fönster utan spröjs">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </details>
-                            <details class="price-calc-row-wrap" id="price-calc-wrap-med-sprojs">
-                                <summary class="price-calc-acc-sum">
-                                    <span class="price-calc-type">Med spröjs</span>
-                                    <svg class="price-calc-accordion-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </summary>
-                                <div class="price-calc-row-box">
-                                    <div class="price-calc-row">
-                                        <span class="price-calc-type">Enkelsidiga - 2 sidor</span>
-                                        <div class="qty-stepper">
-                                            <button type="button" class="qty-btn qty-minus" aria-label="Minska antal enkelsidiga fönster med spröjs">−</button>
-                                            <input type="text" id="qty-sprojs" class="qty-input" value="0" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" spellcheck="false" aria-label="Antal enkelsidiga fönster med spröjs (2 sidor)">
-                                            <button type="button" class="qty-btn qty-plus" aria-label="Öka antal enkelsidiga fönster med spröjs">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="price-calc-row-box">
-                                    <div class="price-calc-row">
-                                        <span class="price-calc-type">Dubbelsidiga - 4 sidor</span>
-                                        <div class="qty-stepper">
-                                            <button type="button" class="qty-btn qty-minus" aria-label="Minska antal dubbelsidiga fönster med spröjs">−</button>
-                                            <input type="text" id="qty-sprojs-dubbel" class="qty-input" value="0" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" spellcheck="false" aria-label="Antal dubbelsidiga fönster med spröjs (4 sidor)">
-                                            <button type="button" class="qty-btn qty-plus" aria-label="Öka antal dubbelsidiga fönster med spröjs">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </details>
-                            <details class="price-calc-row-wrap" id="price-calc-wrap-extra-stora">
-                                <summary class="price-calc-acc-sum">
-                                    <span class="price-calc-type">Extra stora</span>
-                                    <svg class="price-calc-accordion-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </summary>
-                                <div class="price-calc-row-box">
-                                    <div class="price-calc-row">
-                                        <span class="price-calc-type">Från golv till tak</span>
-                                        <div class="qty-stepper">
-                                            <button type="button" class="qty-btn qty-minus" aria-label="Minska antal extra stora fönster (från golv till tak)">−</button>
-                                            <input type="text" id="qty-extra" class="qty-input" value="0" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" spellcheck="false" aria-label="Antal extra stora fönster från golv till tak">
-                                            <button type="button" class="qty-btn qty-plus" aria-label="Öka antal extra stora fönster (från golv till tak)">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </details>
-                        </div>
-                        <div class="price-calc-ditt-pris-col">
-                            <h3 class="price-calc-title-ditt-pris">Ditt pris</h3>
-                            <p class="price-calc-amount" id="price-calc-total" aria-live="polite">0 kr</p>
-                            <div class="price-calc-rut-row">
-                                <p class="price-calc-after-rut">Efter rutavdrag</p>
+            <aside class="hero-pricing-aside" id="pris-kalkylator" aria-label="Beräkna pris">
+                <h2 class="hero-pricing-main-title" id="hero-pricing-main-heading">Beräkna pris</h2>
+                <div class="hero-pricing-groups">
+                    <section class="calc-group" aria-label="Utan spröjs">
+                        <h3>Utan spröjs</h3>
+                        <div class="calc-row">
+                            <span class="calc-label">Enkelsidiga - 2 sidor</span>
+                            <div class="qty-stepper">
+                                <button type="button" class="qty-btn qty-minus" aria-label="Minska antal enkelsidiga fönster utan spröjs">−</button>
+                                <input type="text" id="qty-vanligt" class="qty-input" value="0" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" spellcheck="false" aria-label="Antal enkelsidiga fönster utan spröjs (2 sidor)">
+                                <button type="button" class="qty-btn qty-plus" aria-label="Öka antal enkelsidiga fönster utan spröjs">+</button>
                             </div>
-                            <a href="paket-vald.html" class="price-calc-cta">Nästa</a>
                         </div>
-                    </div>
+                        <div class="calc-row">
+                            <span class="calc-label">Dubbelsidiga - 4 sidor</span>
+                            <div class="qty-stepper">
+                                <button type="button" class="qty-btn qty-minus" aria-label="Minska antal dubbelsidiga fönster utan spröjs">−</button>
+                                <input type="text" id="qty-vanligt-dubbel" class="qty-input" value="0" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" spellcheck="false" aria-label="Antal dubbelsidiga fönster utan spröjs (4 sidor)">
+                                <button type="button" class="qty-btn qty-plus" aria-label="Öka antal dubbelsidiga fönster utan spröjs">+</button>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="calc-group" aria-label="Med spröjs">
+                        <h3>Med spröjs</h3>
+                        <div class="calc-row">
+                            <span class="calc-label">Enkelsidiga - 2 sidor</span>
+                            <div class="qty-stepper">
+                                <button type="button" class="qty-btn qty-minus" aria-label="Minska antal enkelsidiga fönster med spröjs">−</button>
+                                <input type="text" id="qty-sprojs" class="qty-input" value="0" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" spellcheck="false" aria-label="Antal enkelsidiga fönster med spröjs (2 sidor)">
+                                <button type="button" class="qty-btn qty-plus" aria-label="Öka antal enkelsidiga fönster med spröjs">+</button>
+                            </div>
+                        </div>
+                        <div class="calc-row">
+                            <span class="calc-label">Dubbelsidiga - 4 sidor</span>
+                            <div class="qty-stepper">
+                                <button type="button" class="qty-btn qty-minus" aria-label="Minska antal dubbelsidiga fönster med spröjs">−</button>
+                                <input type="text" id="qty-sprojs-dubbel" class="qty-input" value="0" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" spellcheck="false" aria-label="Antal dubbelsidiga fönster med spröjs (4 sidor)">
+                                <button type="button" class="qty-btn qty-plus" aria-label="Öka antal dubbelsidiga fönster med spröjs">+</button>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="calc-group" aria-label="Extra stora fönster">
+                        <h3>Extra stora</h3>
+                        <div class="calc-row">
+                            <span class="calc-label">Extra stort fönster</span>
+                            <div class="qty-stepper">
+                                <button type="button" class="qty-btn qty-minus" aria-label="Minska antal extra stora fönster">−</button>
+                                <input type="text" id="qty-extra" class="qty-input" value="0" maxlength="4" inputmode="numeric" pattern="[0-9]*" autocomplete="off" spellcheck="false" aria-label="Antal extra stora fönster från golv till tak">
+                                <button type="button" class="qty-btn qty-plus" aria-label="Öka antal extra stora fönster">+</button>
+                            </div>
+                        </div>
+                    </section>
                 </div>
+                <div class="hero-pricing-footer calc-footer">
+                    <div>
+                        <p class="total-label">Ditt pris</p>
+                        <p class="total-amount" id="price-calc-total" aria-live="polite">0 kr</p>
+                        <p class="total-note">Efter rutavdrag</p>
+                    </div>
+                    <a href="adress.html" class="btn-cta">Nästa</a>
+                </div>
+            </aside>
+        </section>
+
+        <section class="google-review-widget-section" aria-label="Google recensioner">
+            <iframe class="google-review-widget-frame" src="google_recension_widget.html" title="Google recensioner widget" loading="lazy"></iframe>
+        </section>
+
+        <section class="hero-peace-section" aria-labelledby="hero-peace-title">
+            <h2 class="hero-peace-title" id="hero-peace-title">Du behöver inte tänka på någonting</h2>
+            <div class="hero-peace-list-wrap">
+                <ul class="hero-peace-list">
+                    <li>
+                        <span class="hero-peace-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/>
+                                <path d="M12 4v16M4 12h16" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                        </span>
+                        <span>Vi plockar undan och ställer tillbaka i fönstren</span>
+                    </li>
+                    <li>
+                        <span class="hero-peace-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12.5a2.5 2.5 0 012.5-2.5h9A2.5 2.5 0 0119 12.5V16H5v-3.5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                                <path d="M7 10V8.8A2.8 2.8 0 019.8 6h1.6A2.8 2.8 0 0114.2 8.8V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                                <path d="M5 16v2M19 16v2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <span>Låt möblerna stå, vi arbetar runt dem</span>
+                    </li>
+                    <li>
+                        <span class="hero-peace-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 3.5a5.2 5.2 0 015.2 5.2v2.1c0 .9.28 1.77.8 2.5l1 1.4a1 1 0 01-.8 1.6H5.8a1 1 0 01-.8-1.6l1-1.4c.52-.73.8-1.6.8-2.5V8.7A5.2 5.2 0 0112 3.5z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+                                <path d="M9.8 18a2.2 2.2 0 004.4 0" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                        <span>Var hemma om du vill, det stör inte oss</span>
+                    </li>
+                </ul>
             </div>
         </section>
 
         <section class="why-moberg" id="varfor-moberg" aria-labelledby="why-moberg-title">
-            <h2 class="why-moberg-title" id="why-moberg-title">Varför Moberg fönsterputs?</h2>
+            <h2 class="why-moberg-title" id="why-moberg-title">Varför Moberg Fönsterputs?</h2>
             <div class="why-moberg-grid">
                 <article class="why-card">
                     <div class="why-card-inner">
@@ -1801,19 +2295,21 @@
                         </div>
                         <p class="how-step-body">Du bokar din puts på hemsidan som vanligt, men du kan boka av eller boka om fram tills en timme innan.</p>
                     </div>
-                    <div class="how-step" tabindex="0">
-                        <div class="how-step-head">
-                            <span class="how-step-num">2</span>
-                            <h3 class="how-step-title">Vi putsar</h3>
+                    <div class="how-step-group">
+                        <div class="how-step" tabindex="0">
+                            <div class="how-step-head">
+                                <span class="how-step-num">2</span>
+                                <h3 class="how-step-title">Vi putsar</h3>
+                            </div>
+                            <p class="how-step-body">Det enda du behöver tänka på är att släppa in oss när vi kommer, alternativt lämna över nyckeln.</p>
                         </div>
-                        <p class="how-step-body">Vi kommer till dig och putsar. Du behöver vara hemma och öppna, eller lämna av nyckel innan. Vi utför arbetet genom att putsa alla fönster och göra fint runtom.</p>
-                    </div>
-                    <div class="how-step" tabindex="0">
-                        <div class="how-step-head">
-                            <span class="how-step-num">3</span>
-                            <h3 class="how-step-title">Betalning</h3>
+                        <div class="how-step" tabindex="0">
+                            <div class="how-step-head">
+                                <span class="how-step-num">3</span>
+                                <h3 class="how-step-title">Betala inte förrän du är nöjd</h3>
+                            </div>
+                            <p class="how-step-body">Du betalar inte förrän du är nöjd med resultatet. Vi skickar kvitto och betalning sker via Swish eller kontoöverföring.</p>
                         </div>
-                        <p class="how-step-body">Du betalar inte förrän du är nöjd med resultatet. Vi skickar kvitto och betalning sker via Swish eller kontoöverföring.</p>
                     </div>
                 </div>
             </div>
@@ -1824,14 +2320,14 @@
             <p class="comparison-lead">Vi arbetar lokalt och har inga stora kostnader som bilar eller kontor – därav kan vi ge dig ett bättre pris.</p>
             <div class="comp-box">
                 <div class="comp-bar-container">
-                    <div class="bar-label"><span>Vårt pris</span> <span>Marknadens snitt</span></div>
+                    <div class="bar-label"><span class="bar-label-ours">Vårt pris</span> <span class="bar-label-market">Marknadens snitt</span></div>
                     <div class="bar-bg">
                         <div class="bar-fill" style="width: 75%;"></div>
                     </div>
                 </div>
                 <p class="comp-footnote">Vi är i snitt 20–30 % billigare än traditionella fönsterputsbolag.</p>
                 <div class="comp-cta-wrap">
-                    <a href="berakna-pris.html" class="btn-outline">Beräkna pris</a>
+                    <a href="berakna-pris.html" class="btn-cta">Beräkna pris</a>
                 </div>
             </div>
         </section>
@@ -1843,14 +2339,14 @@
                 <div class="faq-list">
                     <details class="faq-item">
                         <summary>
-                            <span class="faq-q-text">Hur bokar jag fönsterputs?</span>
+                            <span class="faq-q-text">Vad kostar det?</span>
                             <span class="faq-toggle-icon" aria-hidden="true">
                                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                                 </svg>
                             </span>
                         </summary>
-                        <p class="faq-answer">Du bokar enkelt via knappen ”Boka puts” på hemsidan. Välj tid som passar dig – du kan boka om eller avboka fram till en timme innan det bokade tillfället.</p>
+                        <p class="faq-answer">Du kan enkelt se vad det kostar för dig genom att fylla i hur många rutor du har på sidan <a href="berakna-pris.html">beräkna pris</a>.</p>
                     </details>
                     <details class="faq-item">
                         <summary>
@@ -1865,7 +2361,7 @@
                     </details>
                     <details class="faq-item">
                         <summary>
-                            <span class="faq-q-text">Hur funkar priset?</span>
+                            <span class="faq-q-text">Hur funkar prisberäkningen?</span>
                             <span class="faq-toggle-icon" aria-hidden="true">
                                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1883,7 +2379,7 @@
                                 </svg>
                             </span>
                         </summary>
-                        <p class="faq-answer">Det beror på vilket paket du väljer. I våra paket ingår puts av glas, och i utökade paket även karmar och fönsterbrädor. Se sidan <a href="detta-ingar.html">Detta ingår</a> för detaljer.</p>
+                        <p class="faq-answer">Ja — fönsterkarmar och fönsterbrädor ingår. På sidan <a href="detta-ingar.html">Detta ingår</a> kan du läsa mer om vad som ingår.</p>
                     </details>
                     <details class="faq-item">
                         <summary>
@@ -1905,24 +2401,13 @@
                                 </svg>
                             </span>
                         </summary>
-                        <p class="faq-answer">Hör gärna av dig via vår <a href="kontakt.html">kontaktsida</a> så svarar vi så snart vi kan.</p>
+                        <p class="faq-answer">Hör gärna av dig på <a href="tel:+46729421405">072 942 14 05</a> eller <a href="mailto:mobergfonsterputs@gmail.com">mobergfonsterputs@gmail.com</a>. Du kan läsa om allt som gäller under <a href="villkor.html">Villkor</a>. Vi svarar så snart vi kan.</p>
                     </details>
                 </div>
                 </div>
                 <aside class="faq-section-aside" aria-label="Illustration">
-                    <figure class="faq-media-slot">
-                        <span class="faq-media-placeholder">Bild kommer här</span>
-                        <!-- Byt ut mot er bild, t.ex.: <img src="vanliga-fragor.jpg" alt="Moberg Fönsterputs vid arbete"> -->
-                    </figure>
+                    <img class="faq-aside-photo" src="bildpåfönsterputs.jpeg" alt="Fönsterputs" width="640" height="480" loading="lazy" decoding="async">
                 </aside>
-            </div>
-        </section>
-
-        <section class="google-strip" id="recensioner">
-            <div class="google-strip-inner">
-                <div><strong>"Bästa jag testat!"</strong> – Johan V.</div>
-                <div><strong>"Sjukt smidigt."</strong> – Maria K.</div>
-                <div><strong>"Bokade på mobilen."</strong> – Ahmed L.</div>
             </div>
         </section>
 
@@ -1953,7 +2438,7 @@
             </div>
 
             <div class="package-card">
-                <div style="position: absolute; top: 20px; right: 20px; background: var(--tech-blue); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 800;">Rekommenderas 1:a gången</div>
+                <div style="position: absolute; top: var(--s-24); right: var(--s-24); background: var(--tech-blue); color: white; padding: var(--s-8) var(--s-16); border-radius: 20px; font-size: 0.7rem; font-weight: 800;">Rekommenderas 1:a gången</div>
                 <h3>Deep Clean</h3>
                 <ul class="feature-list">
                     <li onclick="this.classList.toggle('open')">
@@ -1981,7 +2466,7 @@
     <footer id="kontakt">
         <div class="footer-inner">
             <div class="footer-logo-slot">
-                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img">
+                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img" loading="lazy" decoding="async">
             </div>
             <nav class="footer-nav-col" aria-labelledby="footer-nav-puts">
                 <h3 id="footer-nav-puts" class="footer-nav-heading">Fönsterputs</h3>
@@ -1999,13 +2484,12 @@
                     <li><a href="kontakt.html">Kontakt</a></li>
                     <li><a href="om-oss.html">Om oss</a></li>
                     <li><a href="villkor.html">Villkor</a></li>
-                    <li><a href="putsad.html#recensioner">Recensioner</a></li>
                 </ul>
             </nav>
                         <nav class="footer-nav-col" aria-labelledby="footer-nav-sociala">
                 <h3 id="footer-nav-sociala" class="footer-nav-heading">Sociala</h3>
                 <ul class="footer-nav-list">
-                    <li><a href="#">Instagram</a></li>
+                    <li><a href="https://www.instagram.com/mobergsfonsterputs/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
                     <li><a href="#">Facebook</a></li>
                     <li><a href="#">LinkedIn</a></li>
                     <li><a href="#">TikTok</a></li>
@@ -2080,311 +2564,12 @@
                 openBtn.focus();
             });
         })();
-
-        (function () {
-            var toggle = document.getElementById("nav-toggle");
-            var panel = document.getElementById("mobile-menu-panel");
-            if (!toggle || !panel) return;
-            function setOpen(open) {
-                toggle.setAttribute("aria-expanded", open ? "true" : "false");
-                toggle.setAttribute("aria-label", open ? "Stäng meny" : "Öppna meny");
-                panel.classList.toggle("is-open", open);
-            }
-            toggle.addEventListener("click", function () {
-                setOpen(!panel.classList.contains("is-open"));
-            });
-            panel.querySelectorAll("a").forEach(function (link) {
-                link.addEventListener("click", function () {
-                    setOpen(false);
-                });
-            });
-        })();
-
-        (function () {
-            var addressInput = document.getElementById("hero-address-input");
-            var suggestionsEl = document.getElementById("hero-address-suggestions");
-            var serviceMessage = document.getElementById("hero-service-message");
-            var nextBtn = document.getElementById("hero-address-next");
-            if (!addressInput || !suggestionsEl || !serviceMessage || !nextBtn) return;
-
-            var PUBLIC_MAPBOX_TOKEN = "DIN_MAPBOX_TOKEN";
-            var STORAGE_KEY = "putsad_personuppgifter_v1";
-            var debounceTimer = null;
-            var lastRequestId = 0;
-            var selectedFeature = null;
-            var inServiceArea = false;
-            var selectedAreaKey = "";
-            var activeSuggestionIndex = -1;
-            var autocompleteDisabledUntil = 0;
-            var SERVICE_AREA_KEYS = [
-                "upplands vasby",
-                "sollentuna",
-                "taby",
-                "vasteras",
-                "gaddeholm",
-                "gaddeholm i vasteras",
-                "lidkoping",
-                "kollandso",
-                "bjorkfors",
-                "uppsala"
-            ];
-            var serviceAreas = new Set(SERVICE_AREA_KEYS);
-
-            function normalize(value) {
-                return String(value || "")
-                    .toLowerCase()
-                    .normalize("NFD")
-                    .replace(/[\u0300-\u036f]/g, "")
-                    .replace(/\s+/g, " ")
-                    .trim();
-            }
-
-            function getContextValue(feature, prefix) {
-                var context = feature && feature.context ? feature.context : [];
-                var found = context.find(function (item) {
-                    return String(item.id || "").indexOf(prefix + ".") === 0;
-                });
-                return found ? (found.text_sv || found.text || "") : "";
-            }
-
-            function setServiceMessage(text, kind) {
-                serviceMessage.textContent = text || "";
-                serviceMessage.classList.remove("is-success", "is-error");
-                if (kind === "success") serviceMessage.classList.add("is-success");
-                if (kind === "error") serviceMessage.classList.add("is-error");
-            }
-
-            function setSuggestionsOpen(open) {
-                suggestionsEl.classList.toggle("is-open", !!open);
-            }
-
-            function clearSuggestions() {
-                suggestionsEl.innerHTML = "";
-                setSuggestionsOpen(false);
-                activeSuggestionIndex = -1;
-            }
-
-            function updateNextVisibility() {
-                nextBtn.hidden = !inServiceArea || !selectedFeature;
-            }
-
-            function saveAddressState() {
-                try {
-                    var raw = localStorage.getItem(STORAGE_KEY);
-                    var parsed = raw ? JSON.parse(raw) : {};
-                    if (!parsed || typeof parsed !== "object") parsed = {};
-                    parsed.address = addressInput.value || "";
-                    parsed.selectedFeature = selectedFeature || null;
-                    parsed.inServiceArea = !!inServiceArea;
-                    parsed.areaKey = selectedAreaKey || "";
-                    localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
-                } catch (e) {}
-            }
-
-            function handleFeature(feature) {
-                var city =
-                    getContextValue(feature, "place") ||
-                    getContextValue(feature, "locality") ||
-                    getContextValue(feature, "district") ||
-                    "";
-                var sublocality =
-                    getContextValue(feature, "neighborhood") ||
-                    getContextValue(feature, "locality") ||
-                    "";
-                var route = (feature && (feature.text_sv || feature.text)) || "";
-
-                var cityKey = normalize(city);
-                var subKey = normalize(sublocality);
-                var routeKey = normalize(route);
-                var combinedKey = normalize(sublocality + " i " + city);
-                var routeCombinedKey = normalize(route + " i " + city);
-                var candidates = [cityKey, subKey, routeKey, combinedKey, routeCombinedKey].filter(Boolean);
-                var matchedArea = candidates.find(function (k) { return serviceAreas.has(k); }) || "";
-
-                inServiceArea = !!matchedArea;
-                selectedAreaKey = matchedArea;
-
-                if (inServiceArea) {
-                    setServiceMessage("Vi putsar i ditt område : )", "success");
-                } else {
-                    setServiceMessage("Vi putsar tyvärr inte i ditt område än : (", "error");
-                }
-                updateNextVisibility();
-                saveAddressState();
-            }
-
-            function renderSuggestions(features) {
-                suggestionsEl.innerHTML = "";
-                activeSuggestionIndex = -1;
-                if (!features || !features.length) {
-                    setSuggestionsOpen(false);
-                    return;
-                }
-                features.forEach(function (feature) {
-                    var btn = document.createElement("button");
-                    btn.type = "button";
-                    btn.className = "hero-address-suggestion-btn";
-                    btn.textContent = feature.place_name_sv || feature.place_name || "";
-                    btn.addEventListener("click", function () {
-                        selectedFeature = feature;
-                        addressInput.value = feature.place_name_sv || feature.place_name || "";
-                        clearSuggestions();
-                        handleFeature(feature);
-                    });
-                    suggestionsEl.appendChild(btn);
-                });
-                setSuggestionsOpen(true);
-            }
-
-            function getSuggestionButtons() {
-                return Array.prototype.slice.call(
-                    suggestionsEl.querySelectorAll(".hero-address-suggestion-btn")
-                );
-            }
-
-            function setActiveSuggestion(index) {
-                var buttons = getSuggestionButtons();
-                if (!buttons.length) {
-                    activeSuggestionIndex = -1;
-                    return;
-                }
-                if (index < 0) index = buttons.length - 1;
-                if (index >= buttons.length) index = 0;
-                activeSuggestionIndex = index;
-                buttons.forEach(function (btn, i) {
-                    var isActive = i === activeSuggestionIndex;
-                    btn.classList.toggle("is-active", isActive);
-                    btn.setAttribute("aria-selected", isActive ? "true" : "false");
-                });
-            }
-
-            function requestSuggestions(query) {
-                var requestId = ++lastRequestId;
-                var url = "/api/address-suggest?q=" + encodeURIComponent(query);
-
-                function fetchMapboxFallback() {
-                    if (!PUBLIC_MAPBOX_TOKEN) {
-                        clearSuggestions();
-                        return Promise.resolve();
-                    }
-                    var fallbackUrl =
-                        "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-                        encodeURIComponent(query) +
-                        ".json?access_token=" + encodeURIComponent(PUBLIC_MAPBOX_TOKEN) +
-                        "&autocomplete=true&country=se&language=sv&types=address,place,locality,postcode&limit=6";
-
-                    return fetch(fallbackUrl)
-                        .then(function (fallbackRes) { return fallbackRes.ok ? fallbackRes.json() : null; })
-                        .then(function (fallbackData) {
-                            if (requestId !== lastRequestId) return;
-                            var features = fallbackData && Array.isArray(fallbackData.features) ? fallbackData.features : [];
-                            renderSuggestions(features);
-                        })
-                        .catch(function () {
-                            if (requestId !== lastRequestId) return;
-                            clearSuggestions();
-                        });
-                }
-
-                fetch(url)
-                    .then(function (res) {
-                        if (res.status === 429) {
-                            return res.json().then(function (data) {
-                                var retryAfter = Number(data && data.retry_after_seconds) || 60;
-                                autocompleteDisabledUntil = Date.now() + retryAfter * 1000;
-                                clearSuggestions();
-                                return null;
-                            }).catch(function () {
-                                autocompleteDisabledUntil = Date.now() + 60000;
-                                clearSuggestions();
-                                return null;
-                            });
-                        }
-                        if (!res.ok) return null;
-                        return res.json();
-                    })
-                    .then(function (data) {
-                        if (requestId !== lastRequestId) return;
-                        var hasServerFeatures = data && Array.isArray(data.features);
-                        if (hasServerFeatures) {
-                            renderSuggestions(data.features);
-                            return;
-                        }
-                        return fetchMapboxFallback();
-                    })
-                    .catch(function () {
-                        if (requestId !== lastRequestId) return;
-                        fetchMapboxFallback();
-                    });
-            }
-
-            addressInput.addEventListener("input", function () {
-                selectedFeature = null;
-                inServiceArea = false;
-                selectedAreaKey = "";
-                setServiceMessage("", "");
-                updateNextVisibility();
-                saveAddressState();
-                clearTimeout(debounceTimer);
-                var q = addressInput.value.trim();
-                if (q.length < 1) {
-                    clearSuggestions();
-                    return;
-                }
-                if (Date.now() < autocompleteDisabledUntil) {
-                    clearSuggestions();
-                    return;
-                }
-                debounceTimer = setTimeout(function () {
-                    requestSuggestions(q);
-                }, 400);
-            });
-
-            addressInput.addEventListener("keydown", function (e) {
-                var hasOpenSuggestions = suggestionsEl.classList.contains("is-open");
-                var buttons = hasOpenSuggestions ? getSuggestionButtons() : [];
-
-                if (e.key === "ArrowDown" && buttons.length) {
-                    e.preventDefault();
-                    setActiveSuggestion(activeSuggestionIndex + 1);
-                    return;
-                }
-
-                if (e.key === "ArrowUp" && buttons.length) {
-                    e.preventDefault();
-                    setActiveSuggestion(activeSuggestionIndex - 1);
-                    return;
-                }
-
-                if (e.key === "Enter" && buttons.length && activeSuggestionIndex >= 0 && buttons[activeSuggestionIndex]) {
-                    e.preventDefault();
-                    buttons[activeSuggestionIndex].click();
-                    return;
-                }
-
-                if (e.key === "Escape") {
-                    clearSuggestions();
-                }
-            });
-
-            document.addEventListener("click", function (e) {
-                if (!e.target.closest(".hero-address-input-wrap")) {
-                    clearSuggestions();
-                }
-            });
-
-            nextBtn.addEventListener("click", function () {
-                if (!selectedFeature || !inServiceArea) return;
-                saveAddressState();
-                var areaParam = selectedAreaKey ? "?area=" + encodeURIComponent(selectedAreaKey) : "";
-                window.location.href = "berakna-pris.html" + areaParam;
-            });
-        })();
     </script>
-    <script src="price-calc-prices.js"></script>
+    <script src="js/hero-address-widget.js" defer></script>
     <script>
         (function () {
             var PRICE_CALC_SESSION_KEY = "putsad_price_calc_state_v1";
+            var PRICE_CALC_CUSTOMER_TYPE_KEY = "putsad_price_calc_customer_type_v1";
             var PRICE_CALC_INPUT_IDS = [
                 "qty-vanligt",
                 "qty-vanligt-dubbel",
@@ -2476,6 +2661,7 @@
                     var d = digitsOnly(t);
                     if (d === "") return;
                     input.value = String(clamp(parseInt(d, 10)));
+                    updatePriceTotal();
                 });
             }
 
@@ -2485,7 +2671,6 @@
                 var plus = stepper.querySelector(".qty-plus");
                 if (!input || !minus || !plus) return;
                 var wrap = stepper.closest(".price-calc-row-wrap");
-                if (!wrap) return;
                 bindNumericInput(input);
                 function sync() {
                     refreshRowWrapNonzero(wrap);
@@ -2513,6 +2698,58 @@
                 wrap.classList.toggle("price-calc-row-wrap--nonzero", nonzero);
             }
 
+            function getPriceCalcRoot() {
+                var w = document.getElementById("pris-kalkylator");
+                if (w) {
+                    var inner = w.querySelector(".price-calc");
+                    if (inner) return inner;
+                }
+                return document.querySelector(".hero-calc .price-calc");
+            }
+
+            function isForetagCustomer() {
+                var root = getPriceCalcRoot();
+                return !!(root && root.classList.contains("price-calc--foretag"));
+            }
+
+            function applyCustomerType(foretag) {
+                var root = getPriceCalcRoot();
+                var tabPrivat = document.getElementById("price-calc-tab-privat");
+                var tabForetag = document.getElementById("price-calc-tab-foretag");
+                if (root) {
+                    root.classList.toggle("price-calc--foretag", foretag);
+                }
+                if (tabPrivat && tabForetag) {
+                    tabPrivat.setAttribute("aria-selected", foretag ? "false" : "true");
+                    tabForetag.setAttribute("aria-selected", foretag ? "true" : "false");
+                    tabPrivat.setAttribute("tabindex", foretag ? "-1" : "0");
+                    tabForetag.setAttribute("tabindex", foretag ? "0" : "-1");
+                }
+                try {
+                    localStorage.setItem(PRICE_CALC_CUSTOMER_TYPE_KEY, foretag ? "foretag" : "privat");
+                } catch (e) {}
+                updatePriceTotal();
+            }
+
+            function restoreCustomerType() {
+                var foretag = false;
+                try {
+                    foretag = localStorage.getItem(PRICE_CALC_CUSTOMER_TYPE_KEY) === "foretag";
+                } catch (e) {}
+                var root = getPriceCalcRoot();
+                var tabPrivat = document.getElementById("price-calc-tab-privat");
+                var tabForetag = document.getElementById("price-calc-tab-foretag");
+                if (root) {
+                    root.classList.toggle("price-calc--foretag", foretag);
+                }
+                if (tabPrivat && tabForetag) {
+                    tabPrivat.setAttribute("aria-selected", foretag ? "false" : "true");
+                    tabForetag.setAttribute("aria-selected", foretag ? "true" : "false");
+                    tabPrivat.setAttribute("tabindex", foretag ? "-1" : "0");
+                    tabForetag.setAttribute("tabindex", foretag ? "0" : "-1");
+                }
+            }
+
             function updatePriceTotal() {
                 var out = document.getElementById("price-calc-total");
                 var vanligt = document.getElementById("qty-vanligt");
@@ -2528,9 +2765,10 @@
                     readInput(sprojs) * (p.sprojs_enkel != null ? p.sprojs_enkel : 56) +
                     readInput(sprojsD) * (p.sprojs_dubbel != null ? p.sprojs_dubbel : 86) +
                     readInput(extra) * (p.extra_stor != null ? p.extra_stor : 76);
-                out.textContent = base.toLocaleString("sv-SE") + " kr";
+                var display = isForetagCustomer() ? base * 2 : base;
+                out.textContent = display.toLocaleString("sv-SE") + " kr";
                 try {
-                    localStorage.setItem("putsad_latest_total", String(base));
+                    localStorage.setItem("putsad_latest_total", String(display));
                 } catch (e) {}
                 savePriceCalcState();
             }
@@ -2546,6 +2784,21 @@
             }
 
             restorePriceCalcState();
+            restoreCustomerType();
+
+            var tabPrivatEl = document.getElementById("price-calc-tab-privat");
+            var tabForetagEl = document.getElementById("price-calc-tab-foretag");
+            if (tabPrivatEl) {
+                tabPrivatEl.addEventListener("click", function () {
+                    applyCustomerType(false);
+                });
+            }
+            if (tabForetagEl) {
+                tabForetagEl.addEventListener("click", function () {
+                    applyCustomerType(true);
+                });
+            }
+
             [
                 ["qty-vanligt", "qty-vanligt-dubbel"],
                 ["qty-sprojs", "qty-sprojs-dubbel"]
@@ -2570,14 +2823,6 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
 
 
 

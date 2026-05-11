@@ -1,0 +1,10 @@
+.cursor/
+
+.env
+.env.local
+.env.*.local
+.netlify/
+node_modules/
+*.log
+.DS_Store
+Thumbs.db

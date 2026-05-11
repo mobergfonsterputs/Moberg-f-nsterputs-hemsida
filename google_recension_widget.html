@@ -1,0 +1,291 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+.widget-wrap,.widget-wrap *{font-family:"Roboto",Arial,sans-serif;}
+.widget-wrap{padding:1.5rem 0;}
+.header{display:flex;align-items:center;gap:16px;margin-bottom:1.5rem;}
+.logo-circle{width:48px;height:48px;border-radius:50%;background:#4285F4;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.logo-circle span{color:#fff;font-weight:500;font-size:18px;}
+.biz-name{font-size:17px;font-weight:500;color:var(--color-text-primary);margin:0 0 2px;}
+.google-link{font-size:12px;color:#4285F4;text-decoration:none;display:flex;align-items:center;gap:3px;}
+.rating-overview{display:flex;align-items:center;gap:20px;padding:1rem 1.25rem;background:var(--color-background-secondary);border-radius:var(--border-radius-lg);margin-bottom:1.5rem;}
+.big-score{font-size:48px;font-weight:500;color:var(--color-text-primary);line-height:1;}
+.score-right{display:flex;flex-direction:column;gap:4px;}
+.stars-row{display:flex;gap:2px;}
+.star{font-size:22px;color:#FBBC04;}
+.star.empty{color:var(--color-border-tertiary);}
+.review-count{
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  font-size:13px;
+  color:#4285F4;
+  text-decoration:none;
+}
+.review-count:hover{text-decoration:underline;}
+.bars-section{margin-left:auto;display:flex;flex-direction:column;gap:4px;}
+.bar-row{display:flex;align-items:center;gap:8px;}
+.bar-label{font-size:12px;color:var(--color-text-secondary);min-width:10px;}
+.bar-track{width:100px;height:6px;background:var(--color-background-primary);border-radius:3px;overflow:hidden;border:0.5px solid var(--color-border-tertiary);}
+.bar-fill{height:100%;border-radius:3px;background:#FBBC04;}
+.bar-count{font-size:12px;color:var(--color-text-secondary);min-width:14px;}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+.card{
+  background:#fff;
+  border:1px solid #dadce0;
+  border-radius:12px;
+  padding:16px;
+}
+.card-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0;}
+.card-name{font-size:14px;font-weight:500;color:var(--color-text-primary);}
+.card-date{font-size:11px;color:var(--color-text-secondary);}
+.card-stars{display:flex;gap:2px;margin-bottom:10px;}
+.card-stars span{font-size:14px;color:#FBBC04;}
+.card-text{
+  font-size:13px;
+  color:var(--color-text-secondary);
+  line-height:1.5;
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.cards-nav{display:flex;justify-content:flex-end;gap:8px;margin-top:12px;}
+.cards-nav button{width:32px;height:32px;border-radius:999px;border:1px solid #dadce0;background:#fff;color:#3c4043;cursor:pointer;}
+.cards-nav button:hover{background:#f5f5f5;}
+.verified{font-size:11px;color:var(--color-text-tertiary);display:flex;align-items:center;gap:3px;margin-top:4px;}
+</style>
+
+<div class="widget-wrap">
+  <div class="rating-overview">
+    <div class="big-score" data-summary-score>4,8</div>
+    <div class="score-right">
+      <div class="stars-row" data-summary-stars>
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star" style="position:relative;overflow:hidden;display:inline-block;">
+          <span style="position:absolute;left:0;top:0;width:80%;overflow:hidden;display:inline-block;color:#FBBC04;">★</span>
+          <span style="color:var(--color-border-secondary);">★</span>
+        </span>
+      </div>
+      <a
+        class="review-count"
+        data-summary-count
+        href="https://www.google.com/search?q=moberg+f%C3%B6nsterputs+&num=10&sca_esv=b8c2a88c761a13ca&hl=sv-SE&biw=1536&bih=826&tbm=lcl&sxsrf=ANbL-n6qz-avPr93pZ8gurwDVBcLT36MWg%3A1778235873685&ei=4bn9aZLFKcWj3QP9v5oh#rlfi=hd:;si:1720582088020249331,l,ChNtb2JlcmcgZsO2bnN0ZXJwdXRzSOnm8t-PvoCACFodEAAQARgAGAEiE21vYmVyZyBmw7Zuc3RlcnB1dHOSARd3aW5kb3dfY2xlYW5pbmdfc2VydmljZQ;mv:[[59.661002077319026,17.818177507558467],[59.66064212268096,17.817464892441535]]"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Se 312 recensioner ↗</a>
+    </div>
+  </div>
+
+  <div class="cards-grid" data-cards-grid></div>
+  <div class="cards-nav">
+    <button type="button" data-cards-prev aria-label="Föregående recensioner">‹</button>
+    <button type="button" data-cards-next aria-label="Nästa recensioner">›</button>
+  </div>
+
+</div>
+<script>
+(function () {
+  var STORAGE_KEY = "putsad_google_widget_cards_v1";
+  var DEFAULT_CARDS = [
+    {
+      name: "Lena Holm",
+      publishedDate: "",
+      rating: 5,
+      text: "Fantastiskt ställe! Kaffet är suveränt och personalen otroligt trevlig. Kommer definitivt tillbaka nästa gång jag är i stan."
+    },
+    {
+      name: "Mikael K.",
+      publishedDate: "",
+      rating: 5,
+      text: "Bästa kanelbullen jag ätit på länge, nybakad och fluffig. Mysig atmosfär och lagom snabb service. Verkligen ett gömställe i hjärtat av staden."
+    },
+    {
+      name: "Anna S.",
+      publishedDate: "",
+      rating: 4,
+      text: "Riktigt bra café med härlig inredning. Lite trångt vid lunchtid men absolut värt det. Oat latte var perfekt, precis rätt temperatur och sötma."
+    }
+  ];
+  var currentStart = 0;
+  function visibleCount() {
+    if (window.matchMedia("(max-width: 680px)").matches) return 1;
+    if (window.matchMedia("(max-width: 980px)").matches) return 2;
+    return 3;
+  }
+  function parseIsoDate(value) {
+    var m = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!m) return null;
+    var y = Number(m[1]);
+    var mo = Number(m[2]) - 1;
+    var d = Number(m[3]);
+    var dt = new Date(y, mo, d);
+    if (dt.getFullYear() !== y || dt.getMonth() !== mo || dt.getDate() !== d) return null;
+    return dt;
+  }
+  function relativeDateText(dateStr, fallbackText) {
+    var dt = parseIsoDate(dateStr);
+    if (!dt) return String(fallbackText || "");
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var reviewDay = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate());
+    var diffDays = Math.floor((today - reviewDay) / 86400000);
+    if (diffDays <= 0) return "idag";
+    if (diffDays === 1) return "igår";
+    if (diffDays < 7) return diffDays + " dagar sedan";
+    if (diffDays < 14) return "1 vecka sedan";
+    if (diffDays < 30) return Math.floor(diffDays / 7) + " veckor sedan";
+    if (diffDays < 365) {
+      var months = Math.floor(diffDays / 30);
+      return months <= 1 ? "1 månad sedan" : months + " månader sedan";
+    }
+    var years = Math.floor(diffDays / 365);
+    return years <= 1 ? "1 år sedan" : years + " år sedan";
+  }
+  function initials(name) {
+    var clean = String(name || "").trim();
+    if (!clean) return "??";
+    var parts = clean.split(/\s+/).slice(0, 2);
+    return parts.map(function (part) { return part.charAt(0).toUpperCase(); }).join("");
+  }
+  function starsHtml(rating) {
+    var safe = Math.max(1, Math.min(5, Math.round(Number(rating) || 5)));
+    var out = "";
+    for (var i = 1; i <= 5; i += 1) {
+      if (i <= safe) out += "<span>★</span>";
+      else out += "<span style='color:var(--color-border-secondary);'>★</span>";
+    }
+    return out;
+  }
+  function starsHtmlFromAverage(avg) {
+    var safe = Math.max(0, Math.min(5, Number(avg) || 0));
+    var full = Math.floor(safe);
+    var fraction = safe - full;
+    var out = "";
+    for (var i = 1; i <= 5; i += 1) {
+      if (i <= full) {
+        out += "<span class='star'>★</span>";
+      } else if (i === full + 1 && fraction >= 0.25) {
+        var pct = Math.min(100, Math.max(0, Math.round(fraction * 100)));
+        out += "<span class='star' style='position:relative;overflow:hidden;display:inline-block;'><span style='position:absolute;left:0;top:0;width:" + pct + "%;overflow:hidden;display:inline-block;color:#FBBC04;'>★</span><span style='color:var(--color-border-secondary);'>★</span></span>";
+      } else {
+        out += "<span class='star' style='color:var(--color-border-secondary);'>★</span>";
+      }
+    }
+    return out;
+  }
+  function updateSummary(cards) {
+    var scoreEl = document.querySelector("[data-summary-score]");
+    var starsEl = document.querySelector("[data-summary-stars]");
+    var countEl = document.querySelector("[data-summary-count]");
+    var sourceCards = Array.isArray(cards) && cards.length ? cards : [];
+    if (!sourceCards.length) {
+      var domCards = document.querySelectorAll("[data-review-card]");
+      sourceCards = Array.prototype.map.call(domCards, function () { return { rating: 5 }; });
+    }
+    if (!sourceCards.length) return;
+    var ratings = sourceCards.map(function (c) { return Math.max(1, Math.min(5, Number((c && c.rating) || 0))); }).filter(function (n) { return !!n; });
+    if (!ratings.length) return;
+    var sum = ratings.reduce(function (acc, n) { return acc + n; }, 0);
+    var avg = sum / ratings.length;
+    if (scoreEl) scoreEl.textContent = avg.toFixed(1).replace(".", ",");
+    if (starsEl) starsEl.innerHTML = starsHtmlFromAverage(avg);
+    if (countEl) countEl.textContent = "Se " + ratings.length + " recensioner ↗";
+  }
+  function escapeHtml(value) {
+    return String(value || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+  function initialsBg(idx) {
+    var palette = [
+      "background:#E6F1FB;color:#0C447C;",
+      "background:#E1F5EE;color:#085041;",
+      "background:#FAEEDA;color:#633806;",
+      "background:#F3E8FF;color:#5B21B6;",
+      "background:#FFE4E6;color:#9F1239;",
+      "background:#E0F2FE;color:#0C4A6E;"
+    ];
+    return palette[idx % palette.length];
+  }
+  function normalizeCards(payload) {
+    var cards = payload && Array.isArray(payload.cards) ? payload.cards : DEFAULT_CARDS;
+    cards = cards.map(function (item) {
+      return {
+        name: String((item && item.name) || ""),
+        publishedDate: String((item && item.publishedDate) || ""),
+        rating: Math.max(1, Math.min(5, Number((item && item.rating) || 5))),
+        text: String((item && item.text) || "")
+      };
+    }).filter(function (item) {
+      return item.name || item.text;
+    });
+    return cards.length ? cards : DEFAULT_CARDS;
+  }
+  function renderCards(cards) {
+    var grid = document.querySelector("[data-cards-grid]");
+    if (!grid) return;
+    var take = visibleCount();
+    if (currentStart > cards.length - 1) currentStart = 0;
+    var html = [];
+    for (var i = 0; i < Math.min(take, cards.length); i += 1) {
+      var idx = (currentStart + i) % cards.length;
+      var item = cards[idx];
+      html.push([
+        "<div class='card'>",
+        "  <div class='card-top'>",
+        "    <div class='avatar' style='" + initialsBg(idx) + "'>" + escapeHtml(initials(item.name)) + "</div>",
+        "    <div>",
+        "      <div class='card-name'>" + escapeHtml(item.name) + "</div>",
+        "      <div class='card-date'>" + escapeHtml(relativeDateText(item.publishedDate, "")) + "</div>",
+        "    </div>",
+        "  </div>",
+        "  <div class='card-stars'>" + starsHtml(item.rating) + "</div>",
+        "  <p class='card-text'>" + escapeHtml(item.text) + "</p>",
+        "</div>"
+      ].join(""));
+    }
+    grid.innerHTML = html.join("");
+  }
+  function applyData(payload) {
+    var cards = normalizeCards(payload);
+    renderCards(cards);
+    updateSummary(cards);
+    return cards;
+  }
+  function bindNavigation(getCards) {
+    var prev = document.querySelector("[data-cards-prev]");
+    var next = document.querySelector("[data-cards-next]");
+    if (prev) {
+      prev.addEventListener("click", function () {
+        var cards = getCards();
+        var step = visibleCount();
+        currentStart = currentStart - step;
+        while (currentStart < 0) currentStart += cards.length;
+        renderCards(cards);
+      });
+    }
+    if (next) {
+      next.addEventListener("click", function () {
+        var cards = getCards();
+        currentStart = (currentStart + visibleCount()) % cards.length;
+        renderCards(cards);
+      });
+    }
+  }
+  var cardsState = DEFAULT_CARDS.slice();
+  bindNavigation(function () { return cardsState; });
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    var parsed = raw ? JSON.parse(raw) : null;
+    cardsState = applyData(parsed);
+  } catch (e) {}
+  cardsState = applyData({ cards: cardsState });
+  window.addEventListener("resize", function () {
+    renderCards(cardsState);
+  });
+})();
+</script>

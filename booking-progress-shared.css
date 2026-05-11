@@ -1,14 +1,18 @@
-/* Booking flow: top-nav + tillbaka-länk + progress (samma layout som personuppgifter / paket-vald.html) */
+/* Booking flow: top-nav + tillbaka-länk + progress (fem steg: pris → adress → tid → person → bekräfta) */
 
 body.booking-flow-step-2 {
-    --booking-progress-fill: 33.333%;
+    --booking-progress-fill: 25%;
 }
 
 body.booking-flow-step-3 {
-    --booking-progress-fill: 66.666%;
+    --booking-progress-fill: 50%;
 }
 
 body.booking-flow-step-4 {
+    --booking-progress-fill: 75%;
+}
+
+body.booking-flow-step-5 {
     --booking-progress-fill: 100%;
 }
 
@@ -32,12 +36,13 @@ body.booking-flow-step-4 {
     border-radius: 999px;
     color: #0f172a;
     text-decoration: none;
+    transition: background 0.18s ease;
 }
 
 .back-link:hover {
     text-decoration: underline;
     text-decoration-color: #113768;
-    text-decoration-thickness: 1px;
+    text-decoration-thickness: 2px;
     text-underline-offset: 3px;
 }
 
@@ -61,7 +66,7 @@ body.booking-flow-step-4 {
 }
 
 .booking-progress {
-    width: min(760px, 100%);
+    width: min(960px, 100%);
     margin: 0;
 }
 
@@ -80,9 +85,10 @@ body.booking-flow-step-4 {
     top: 0;
     left: 0;
     bottom: 0;
-    width: var(--booking-progress-fill, 33.333%);
+    width: var(--booking-progress-fill, 25%);
     border-radius: 999px;
     background: var(--tech-blue, #113768);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .booking-progress-dots {
@@ -103,6 +109,7 @@ body.booking-flow-step-4 {
     box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.14);
     background: #fff;
     cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .booking-progress-dot.is-complete {
@@ -122,8 +129,8 @@ body.booking-flow-step-4 {
     margin-right: auto;
     margin-top: 1rem;
     position: relative;
-    height: 1.1rem;
-    font-size: 0.85rem;
+    min-height: 2.35rem;
+    font-size: clamp(0.62rem, 1.85vw, 0.8rem);
     color: #64748b;
     font-weight: 500;
 }
@@ -133,7 +140,9 @@ body.booking-flow-step-4 {
     top: 0;
     transform: translateX(-50%);
     text-align: center;
-    white-space: nowrap;
+    white-space: normal;
+    line-height: 1.2;
+    max-width: 20%;
 }
 
 .booking-progress-step.is-active {

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adress</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=optional" rel="stylesheet">
+    <link rel="stylesheet" href="site-stable.css?v=2">
+    <link rel="stylesheet" href="booking-progress-shared.css?v=4">
+    <link rel="stylesheet" href="footer-shared.css?v=24">
+    <style>
+        :root {
+            --primary-blue: #0F172A;
+            --tech-blue: #113768;
+            --tech-blue-hover: #0d2c52;
+            --border: #e5e5e5;
+            --s-8: 0.5rem;
+            --s-16: 1rem;
+            --s-24: 1.5rem;
+            --s-104: 6.5rem;
+        }
+
+        body {
+            margin: 0;
+            padding: 0 0 40px;
+            font-family: 'Inter', sans-serif;
+            color: var(--primary-blue);
+            background: #fff;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        .adress-page-main {
+            width: min(32rem, calc(100% - 2.5rem));
+            margin: 74px auto 0;
+            padding: 0 0 40px;
+        }
+
+        .adress-page-title {
+            margin: 0 0 0.65rem;
+            font-size: 2rem;
+            letter-spacing: -0.02em;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .adress-page-intro {
+            margin: 0 0 var(--s-24);
+            color: #475569;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .hero-address-wrap {
+            width: min(32rem, 100%);
+        }
+
+        .hero-address-input-wrap {
+            position: relative;
+        }
+
+        .hero-address-row {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            background: #fff;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hero-address-row:focus-within {
+            border-color: rgba(17, 55, 104, 0.35);
+            box-shadow: 0 0 0 1px rgba(17, 55, 104, 0.2), 0 10px 28px rgba(15, 23, 42, 0.06);
+        }
+
+        .hero-address-input {
+            width: 100%;
+            min-width: 0;
+            border: none;
+            height: 50px;
+            padding: 0 var(--s-24);
+            font: inherit;
+            font-size: 0.96875rem;
+            color: var(--primary-blue);
+            outline: none;
+        }
+
+        .hero-address-next {
+            border: none;
+            border-left: 1px solid var(--border);
+            background: var(--tech-blue);
+            color: #fff;
+            font: inherit;
+            font-weight: 600;
+            padding: 0 var(--s-24);
+            min-width: var(--s-104);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .hero-address-next:hover {
+            background: var(--tech-blue-hover);
+        }
+
+        .hero-address-next[hidden] {
+            display: none;
+        }
+
+        .hero-address-suggestions {
+            position: absolute;
+            top: calc(100% + var(--s-8));
+            left: 0;
+            right: 0;
+            z-index: 30;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+            overflow: hidden;
+            display: none;
+        }
+
+        .hero-address-suggestions.is-open {
+            display: block;
+        }
+
+        .hero-address-suggestion-btn {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            background: #fff;
+            color: var(--primary-blue);
+            text-align: left;
+            font: inherit;
+            font-size: 0.92rem;
+            line-height: 1.4;
+            padding: var(--s-8) var(--s-16);
+            cursor: pointer;
+        }
+
+        .hero-address-suggestion-btn:last-child {
+            border-bottom: none;
+        }
+
+        .hero-address-suggestion-btn:hover,
+        .hero-address-suggestion-btn:focus-visible,
+        .hero-address-suggestion-btn.is-active {
+            background: rgba(15, 23, 42, 0.05);
+            outline: none;
+        }
+
+        .hero-service-message {
+            margin-top: var(--s-16);
+            min-height: var(--s-24);
+            font-size: 0.9375rem;
+            font-weight: 500;
+            line-height: 1.45;
+        }
+
+        .hero-service-message.is-success {
+            color: #166534;
+        }
+
+        .hero-service-message.is-error {
+            color: #b91c1c;
+        }
+
+        .manual-area-wrap {
+            margin-top: var(--s-16);
+        }
+
+        .manual-area-label {
+            display: block;
+            margin-bottom: 0.35rem;
+            font-size: 0.86rem;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .manual-area-select {
+            width: 100%;
+            height: 48px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0 0.85rem;
+            font: inherit;
+            color: var(--primary-blue);
+            background: #fff;
+            outline: none;
+        }
+
+        .manual-area-select:focus {
+            border-color: rgba(17, 55, 104, 0.35);
+            box-shadow: 0 0 0 1px rgba(17, 55, 104, 0.2);
+        }
+
+        /* ── Tablet (max-width: 1040px) ─────────────────────────────────── */
+        @media (max-width: 1040px) {
+            /* Touch-targets */
+            .hero-address-next {
+                min-height: 44px;
+            }
+
+            .hero-address-suggestion-btn {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        /* ── Mobil (max-width: 680px) ─────────────────────────────────── */
+        @media (max-width: 680px) {
+            /* Adressrad: stapla input och knapp vertikalt */
+            .hero-address-row {
+                flex-direction: column;
+            }
+
+            .hero-address-input {
+                height: 52px;
+                border-radius: 16px 16px 0 0;
+            }
+
+            .hero-address-next {
+                width: 100%;
+                min-width: 0;
+                height: 52px;
+                border-left: none;
+                border-top: 1px solid var(--border);
+                border-radius: 0 0 16px 16px;
+            }
+        }
+
+        /* ── Liten mobil (max-width: 480px) ─────────────────────────────── */
+        @media (max-width: 480px) {
+            .adress-page-title {
+                font-size: clamp(1.45rem, 5vw, 1.8rem);
+            }
+        }
+    </style>
+</head>
+<body class="booking-flow-step-2">
+    <div data-site-header></div>
+    <script src="js/site-header.js"></script>
+
+    <div class="top-nav">
+        <a class="back-link" href="putsad.html#pris-kalkylator" aria-label="Tillbaka">
+            <span class="back-link-icon" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M14.5 6.5L9 12l5.5 5.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+            <span class="back-link-text">Tillbaka</span>
+        </a>
+
+        <section class="booking-progress" aria-label="Bokningssteg">
+            <div class="booking-progress-track" aria-hidden="true">
+                <div class="booking-progress-fill"></div>
+                <div class="booking-progress-dots">
+                    <span class="booking-progress-dot is-complete" style="left: 0%;" data-step-index="1" title="Beräkna pris"></span>
+                    <span class="booking-progress-dot is-active" style="left: 25%;" data-step-index="2" title="Adress"></span>
+                    <span class="booking-progress-dot" style="left: 50%;" data-step-index="3" title="Boka tid"></span>
+                    <span class="booking-progress-dot" style="left: 75%;" data-step-index="4" title="Personuppgifter"></span>
+                    <span class="booking-progress-dot" style="left: 100%;" data-step-index="5" title="Bekräfta"></span>
+                </div>
+            </div>
+            <div class="booking-progress-steps">
+                <div class="booking-progress-step is-complete" style="left: 0%;">Beräkna pris</div>
+                <div class="booking-progress-step is-active" style="left: 25%;">Adress</div>
+                <div class="booking-progress-step" style="left: 50%;">Boka tid</div>
+                <div class="booking-progress-step" style="left: 75%;">Personuppgifter</div>
+                <div class="booking-progress-step" style="left: 100%;">Bekräfta</div>
+            </div>
+        </section>
+    </div>
+
+    <main class="adress-page-main" id="innehall">
+        <h1 class="adress-page-title">Adress</h1>
+        <p class="adress-page-intro">Fyll i din adress för att se om vi putsar i ditt område.</p>
+        <div class="hero-address-wrap">
+            <div class="hero-address-input-wrap">
+                <div class="hero-address-row">
+                    <input id="hero-address-input" class="hero-address-input" type="text" placeholder="Ange adress" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    <button id="hero-address-next" class="hero-address-next" type="button" hidden>Nästa</button>
+                </div>
+                <div id="hero-address-suggestions" class="hero-address-suggestions" role="listbox" aria-label="Adressförslag"></div>
+            </div>
+            <div class="manual-area-wrap" hidden>
+                <label class="manual-area-label" for="manual-area-select">Om adressförslag inte fungerar, välj område manuellt:</label>
+                <select id="manual-area-select" class="manual-area-select">
+                    <option value="">Välj område</option>
+                    <option value="upplands vasby">Upplands Väsby</option>
+                    <option value="sollentuna">Sollentuna</option>
+                    <option value="taby">Täby</option>
+                    <option value="vasteras">Västerås</option>
+                    <option value="gaddeholm">Gäddeholm</option>
+                    <option value="gaddeholm i vasteras">Gäddeholm i Västerås</option>
+                    <option value="lidkoping">Lidköping</option>
+                    <option value="kollandso">Kållandsö</option>
+                    <option value="bjorkfors">Björkfors</option>
+                    <option value="uppsala">Uppsala</option>
+                </select>
+            </div>
+            <div id="hero-service-message" class="hero-service-message" aria-live="polite"></div>
+        </div>
+    </main>
+
+    <footer id="kontakt">
+        <div class="footer-inner">
+            <div class="footer-logo-slot">
+                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img" loading="lazy" decoding="async">
+            </div>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-puts">
+                <h3 id="footer-nav-puts" class="footer-nav-heading">Fönsterputs</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
+                    <li><a href="detta-ingar.html">Detta ingår</a></li>
+                    <li><a href="berakna-pris.html">Beräkna pris</a></li>
+                    <li><a href="putsad.html#vanliga-fragor">Vanliga frågor</a></li>
+                    <li><a href="viktig-information.html">Viktig information</a></li>
+                </ul>
+            </nav>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-company">
+                <h3 id="footer-nav-company" class="footer-nav-heading">Företag</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="om-oss.html">Om oss</a></li>
+                    <li><a href="villkor.html">Villkor</a></li>
+                    <li><a href="putsad.html#recensioner">Recensioner</a></li>
+                </ul>
+            </nav>
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-sociala">
+                <h3 id="footer-nav-sociala" class="footer-nav-heading">Sociala</h3>
+                <ul class="footer-nav-list">
+                    <li><a href="https://www.instagram.com/mobergsfonsterputs/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">TikTok</a></li>
+                </ul>
+            </nav>
+            <div class="footer-legal">
+                <p>&copy; <span id="footer-year"></span> Moberg Fönsterputs. Alla rättigheter förbehållna.</p>
+            </div>
+        </div>
+        <a href="admin-login.html" class="footer-admin-secret" aria-hidden="true" tabindex="-1">&#8203;</a>
+    </footer>
+
+    <script>
+        (function () {
+            var yearEl = document.getElementById("footer-year");
+            if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+        })();
+    </script>
+    <script defer src="js/hero-address-widget.js"></script>
+</body>
+</html>

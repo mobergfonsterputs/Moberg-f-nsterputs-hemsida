@@ -1,14 +1,34 @@
-/* Minskar visuellt “hopp” vid omladdning och onödig rörelse vid klick */
+/* Minskar visuellt "hopp" vid omladdning och onödig rörelse vid klick */
 html {
     scroll-behavior: auto;
     /* Reserverar plats för scrollbar så headern inte flyttar vid sidbyte/kortare sida */
     scrollbar-gutter: stable;
+    overflow-x: clip;
 }
 
 body {
     font-synthesis: none;
 }
 
+img,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ── Design tokens ──────────────────────────────────────────────── */
+:root {
+    --color-brand: #113768;
+}
+
+/* ── Base focus style ───────────────────────────────────────────── */
+:focus-visible {
+    outline: 2.5px solid var(--color-brand, #113768);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

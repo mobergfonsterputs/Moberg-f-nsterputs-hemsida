@@ -1,0 +1,12 @@
+{
+  "name": "moberg-fonsterputs",
+  "private": true,
+  "description": "Statisk webbplats med Netlify Functions för Mapbox och admin.",
+  "scripts": {
+    "build": "node -e \"require('fs').accessSync('netlify.toml'); console.log('OK: static publish, functions bundled by Netlify');\"",
+    "dev": "netlify dev"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

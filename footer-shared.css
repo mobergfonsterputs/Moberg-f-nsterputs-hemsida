@@ -15,6 +15,7 @@ body > footer {
     grid-template-columns: minmax(220px, 440px) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
     gap: 1.9rem 3rem;
     align-items: start;
+    min-width: 0;
 }
 
 .footer-nav-col {
@@ -160,6 +161,16 @@ body > footer {
         grid-template-columns: 1fr 1fr;
     }
 
+    .footer-nav-col {
+        margin-top: 0;
+    }
+
+    .footer-inner > nav.footer-nav-col:first-of-type,
+    .footer-inner > nav.footer-nav-col[aria-labelledby="footer-nav-company"],
+    .footer-inner > nav.footer-nav-col[aria-labelledby="footer-nav-sociala"] {
+        margin-left: 0;
+    }
+
     .footer-logo-slot {
         grid-column: 1 / -1;
         justify-self: center;
@@ -168,6 +179,7 @@ body > footer {
     }
 
     .footer-legal {
+        margin-top: 0;
         text-align: left;
     }
 }
@@ -182,9 +194,8 @@ body > footer {
         margin-left: 0;
     }
 
-    /* Annars dubbel luft mellan Fönsterputs och Företag */
-    .footer-inner > nav.footer-nav-col:last-of-type {
-        margin-top: 140px;
+    .footer-nav-col {
+        margin-top: 0;
     }
 }
 

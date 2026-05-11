@@ -6,13 +6,11 @@
     <title>Bokat</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=optional" rel="stylesheet">
-    <link rel="stylesheet" href="header-shared.css?v=14">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=optional" rel="stylesheet">
     <link rel="stylesheet" href="site-stable.css?v=2">
     <link rel="stylesheet" href="footer-shared.css?v=24">
     <style>
         :root {
-            --tech-blue: #113768;
             --text: #0f172a;
             --muted: #475569;
         }
@@ -84,16 +82,18 @@
             min-height: 52px;
             padding: 0.95rem 1.75rem;
             border-radius: 999px;
-            background: var(--tech-blue);
-            color: #fff;
+            border: 1.5px solid #0f172a;
+            background: #fff;
+            color: #0f172a;
             text-decoration: none;
             font-weight: 700;
             font-size: 0.98rem;
             letter-spacing: 0.01em;
+            transition: background 0.2s ease, color 0.2s ease;
         }
 
         .calendar-btn:hover {
-            background: #0d2c52;
+            background: #f8fafc;
         }
 
         .calendar-btn.is-disabled {
@@ -101,48 +101,184 @@
             opacity: 0.55;
         }
 
-        @media (max-width: 700px) {
+        .pdf-template-shell {
+            position: fixed;
+            left: -9999px;
+            top: 0;
+            width: 794px;
+            background: #fff;
+            padding: 0;
+            visibility: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .pdf-template {
+            width: 794px;
+            min-height: 1123px;
+            padding: 56px 56px 42px;
+            font-family: "Inter", sans-serif;
+            color: #0f172a;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pdf-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 2rem;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .pdf-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .pdf-company-name {
+            margin: 0;
+            font-size: 28px;
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            color: #000;
+        }
+
+        .pdf-contact {
+            display: grid;
+            gap: 4px;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #475569;
+        }
+
+        .pdf-title {
+            margin: 34px 0 28px;
+            font-size: 17px;
+            line-height: 1.05;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            color: #0f172a;
+        }
+
+        .pdf-section {
+            padding-top: 18px;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 18px;
+        }
+
+        .pdf-section:first-of-type {
+            margin-top: 0;
+        }
+
+        .pdf-section-title {
+            margin: 0 0 14px;
+            font-size: 12px;
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #113768;
+        }
+
+        .pdf-grid {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 10px 18px;
+        }
+
+        .pdf-label {
+            font-size: 14px;
+            line-height: 1.55;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .pdf-value {
+            font-size: 14px;
+            line-height: 1.55;
+            font-weight: 500;
+            color: #0f172a;
+            word-break: break-word;
+        }
+
+        .pdf-price-row .pdf-value {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .pdf-price-note {
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0;
+            color: #475569;
+        }
+
+        .pdf-footer {
+            margin-top: auto;
+            padding-top: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 2rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .pdf-footer-text {
+            display: grid;
+            gap: 8px;
+            max-width: 440px;
+        }
+
+        .pdf-footer-title {
+            margin: 0;
+            font-size: 18px;
+            line-height: 1.2;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .pdf-footer-copy {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #475569;
+        }
+
+        .pdf-footer-logo {
+            width: 130px;
+            height: auto;
+            object-fit: contain;
+            object-position: left bottom;
+            flex-shrink: 0;
+        }
+
+        /* ── Mobil (max-width: 680px) ─────────────────────────────────── */
+        @media (max-width: 680px) {
             .booking-complete {
                 margin-top: 6.5rem;
             }
         }
+
+        /* ── Liten mobil (max-width: 480px) ─────────────────────────────── */
+        @media (max-width: 480px) {
+            .booking-complete-title {
+                font-size: clamp(1.45rem, 5vw, 1.8rem);
+            }
+        }
+
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-inner">
-            <a href="putsad.html#hem" class="logo-fallback">Moberg Fönsterputs</a>
-            <nav class="nav-desktop" aria-label="Huvudmeny">
-                <ul>
-                    <li><a href="putsad.html#hem">Hem</a></li>
-                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
-                    <li><a href="detta-ingar.html">Detta ingår</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                    <li><a href="berakna-pris.html" class="btn-cta">Boka puts</a></li>
-                </ul>
-            </nav>
-            <div class="header-mobile">
-                <a href="berakna-pris.html" class="btn-cta">Boka puts</a>
-                <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Öppna meny">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div class="mobile-menu-panel" id="mobile-menu-panel" role="navigation" aria-label="Mobilmeny">
-            <div class="mobile-menu-inner">
-                <ul>
-                    <li><a href="putsad.html#hem">Hem</a></li>
-                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
-                    <li><a href="detta-ingar.html">Detta ingår</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                </ul>
-            </div>
-        </div>
-    </header>
+    <div data-site-header></div>
+    <script src="js/site-header.js"></script>
 
-    <main class="booking-complete">
+<main class="booking-complete" id="innehall">
         <div class="booking-complete-icons" aria-hidden="true">
             <svg class="booking-complete-check" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="32" cy="32" r="30" fill="#16A34A" fill-opacity="0.12"/>
@@ -160,13 +296,82 @@
             <p class="booking-complete-line">Om du inte är hemma så behöver du lämna över nyckel, vänligen kontakta 072 942 14 05.</p>
         </div>
 
-        <a id="calendar-btn" class="calendar-btn is-disabled" href="#" download="moberg-bokning.ics">Lägg till i kalendern</a>
+        <a id="calendar-btn" class="calendar-btn" href="#">Ladda ner bokningsbekräftelse</a>
     </main>
+
+    <div id="pdf-template-shell" class="pdf-template-shell" aria-hidden="true">
+        <article class="pdf-template" id="pdf-template">
+            <header class="pdf-header">
+                <div class="pdf-brand">
+                    <h1 class="pdf-company-name">Moberg Fönsterputs</h1>
+                    <div class="pdf-contact">
+                        <span>mobergfonsterputs@gmail.com</span>
+                        <span>072 942 14 05</span>
+                    </div>
+                </div>
+            </header>
+
+            <h2 class="pdf-title">Bokningsbekräftelse</h2>
+
+            <section class="pdf-section">
+                <h3 class="pdf-section-title">Bokningsdetaljer</h3>
+                <div class="pdf-grid">
+                    <div class="pdf-label">Bokningsdatum</div>
+                    <div class="pdf-value" id="pdf-booking-date"></div>
+                    <div class="pdf-label">Datum och tid</div>
+                    <div class="pdf-value" id="pdf-service-date-time"></div>
+                    <div class="pdf-label">Adress</div>
+                    <div class="pdf-value" id="pdf-address"></div>
+                </div>
+            </section>
+
+            <section class="pdf-section">
+                <h3 class="pdf-section-title">Kunduppgifter</h3>
+                <div class="pdf-grid">
+                    <div class="pdf-label">Namn</div>
+                    <div class="pdf-value" id="pdf-customer-name"></div>
+                    <div class="pdf-label">Telefonnummer</div>
+                    <div class="pdf-value" id="pdf-phone"></div>
+                    <div class="pdf-label">E-post</div>
+                    <div class="pdf-value" id="pdf-email"></div>
+                </div>
+            </section>
+
+            <section class="pdf-section">
+                <h3 class="pdf-section-title">Tjänst</h3>
+                <div class="pdf-grid">
+                    <div class="pdf-label">Beskrivning</div>
+                    <div class="pdf-value" id="pdf-service-description"></div>
+                    <div class="pdf-label">Tillägg / noteringar</div>
+                    <div class="pdf-value" id="pdf-special-notes"></div>
+                </div>
+            </section>
+
+            <section class="pdf-section">
+                <h3 class="pdf-section-title">Pris</h3>
+                <div class="pdf-grid pdf-price-row">
+                    <div class="pdf-label">Totalt pris</div>
+                    <div class="pdf-value" id="pdf-total-price"></div>
+                    <div class="pdf-label">Information</div>
+                    <div class="pdf-value pdf-price-note">Moberg Fönsterputs ansöker automatiskt om rutavdrag för kunden.</div>
+                </div>
+            </section>
+
+            <footer class="pdf-footer">
+                <div class="pdf-footer-text">
+                    <p class="pdf-footer-title">Tack för din bokning!</p>
+                    <p class="pdf-footer-copy">Vi kontaktar dig om vi behöver kompletterande information inför besöket.</p>
+                    <p class="pdf-footer-copy">Avbokning kan göras kostnadsfritt fram till 1 timme innan bokad tid.</p>
+                </div>
+                <img src="MOBERG~3.PNG" alt="" class="pdf-footer-logo" crossorigin="anonymous">
+            </footer>
+        </article>
+    </div>
 
     <footer id="kontakt">
         <div class="footer-inner">
             <div class="footer-logo-slot">
-                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img">
+                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img" loading="lazy" decoding="async">
             </div>
             <nav class="footer-nav-col" aria-labelledby="footer-nav-puts">
                 <h3 id="footer-nav-puts" class="footer-nav-heading">Fönsterputs</h3>
@@ -190,7 +395,7 @@
             <nav class="footer-nav-col" aria-labelledby="footer-nav-sociala">
                 <h3 id="footer-nav-sociala" class="footer-nav-heading">Sociala</h3>
                 <ul class="footer-nav-list">
-                    <li><a href="#">Instagram</a></li>
+                    <li><a href="https://www.instagram.com/mobergsfonsterputs/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
                     <li><a href="#">Facebook</a></li>
                     <li><a href="#">LinkedIn</a></li>
                     <li><a href="#">TikTok</a></li>
@@ -203,25 +408,13 @@
         <a href="admin-login.html" class="footer-admin-secret" aria-hidden="true" tabindex="-1">&#8203;</a>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script>
         (function () {
-            var toggle = document.getElementById("nav-toggle");
-            var panel = document.getElementById("mobile-menu-panel");
-            if (toggle && panel) {
-                function setOpen(open) {
-                    toggle.setAttribute("aria-expanded", open ? "true" : "false");
-                    toggle.setAttribute("aria-label", open ? "Stäng meny" : "Öppna meny");
-                    panel.classList.toggle("is-open", open);
-                }
-                toggle.addEventListener("click", function () {
-                    setOpen(!panel.classList.contains("is-open"));
-                });
-                panel.querySelectorAll("a").forEach(function (link) {
-                    link.addEventListener("click", function () {
-                        setOpen(false);
-                    });
-                });
-            }
+            var BOOKED_STORAGE_KEY = "putsad_booked_times_v1";
+            var PERSON_STORAGE_KEY = "putsad_personuppgifter_v1";
+            var PRICE_CALC_SESSION_KEY = "putsad_price_calc_state_v1";
 
             function getParam(name) {
                 return new URLSearchParams(window.location.search).get(name) || "";
@@ -248,92 +441,189 @@
                 return String(n).padStart(2, "0");
             }
 
-            function toIcsDate(dateObj) {
-                return dateObj.getUTCFullYear() +
-                    pad(dateObj.getUTCMonth() + 1) +
-                    pad(dateObj.getUTCDate()) + "T" +
-                    pad(dateObj.getUTCHours()) +
-                    pad(dateObj.getUTCMinutes()) +
-                    pad(dateObj.getUTCSeconds()) + "Z";
+            function formatDateTime(dateObj) {
+                return dateObj.getFullYear() + "-" + pad(dateObj.getMonth() + 1) + "-" + pad(dateObj.getDate()) + " " + pad(dateObj.getHours()) + ":" + pad(dateObj.getMinutes());
             }
 
-            function getRoundedHalfHoursFromPrice(price) {
-                if (!isFinite(price) || price <= 0) return null;
-                var hours = price / 500;
-                return Math.ceil(hours * 2) / 2;
+            function safeText(value, fallback) {
+                var trimmed = String(value || "").trim();
+                return trimmed || fallback;
             }
 
-            function buildIcsContent(dateKey, timeValue, priceValue) {
-                var createdAt = new Date();
-                var uid = "moberg-" + Date.now() + "@mobergfonsterputs";
-                var dateParts = String(dateKey || "").split("-");
-                if (dateParts.length !== 3) return "";
-
-                var year = Number(dateParts[0]);
-                var monthIndex = Number(dateParts[1]) - 1;
-                var day = Number(dateParts[2]);
-                if (!isFinite(year) || !isFinite(monthIndex) || !isFinite(day)) return "";
-
-                var timeMatch = String(timeValue || "").match(/^(\d{1,2}):(\d{2})$/);
-                var durationHours = getRoundedHalfHoursFromPrice(Number(priceValue));
-                if (timeMatch) {
-                    var start = new Date(year, monthIndex, day, Number(timeMatch[1]), Number(timeMatch[2]), 0);
-                    var durationMinutes = Math.round((durationHours || 2) * 60);
-                    var end = new Date(start.getTime() + durationMinutes * 60000);
-                    return [
-                        "BEGIN:VCALENDAR",
-                        "VERSION:2.0",
-                        "PRODID:-//Moberg Fonsterputs//Bokning//SV",
-                        "BEGIN:VEVENT",
-                        "UID:" + uid,
-                        "DTSTAMP:" + toIcsDate(createdAt),
-                        "DTSTART:" + toIcsDate(start),
-                        "DTEND:" + toIcsDate(end),
-                        "SUMMARY:Moberg Fonsterputs",
-                        "DESCRIPTION:Om du inte ar hemma sa behover du lamna over nyckel. Vanligen kontakta 072 942 14 05.",
-                        "END:VEVENT",
-                        "END:VCALENDAR"
-                    ].join("\r\n");
+            function readCalcState() {
+                try {
+                    var raw = sessionStorage.getItem(PRICE_CALC_SESSION_KEY);
+                    var state = raw ? JSON.parse(raw) : {};
+                    if (!state || typeof state !== "object") return {};
+                    return state;
+                } catch (e) {
+                    return {};
                 }
+            }
 
-                var allDayStart = String(year) + pad(monthIndex + 1) + pad(day);
-                var nextDay = new Date(year, monthIndex, day + 1);
-                var allDayEnd = String(nextDay.getFullYear()) + pad(nextDay.getMonth() + 1) + pad(nextDay.getDate());
-                return [
-                    "BEGIN:VCALENDAR",
-                    "VERSION:2.0",
-                    "PRODID:-//Moberg Fonsterputs//Bokning//SV",
-                    "BEGIN:VEVENT",
-                    "UID:" + uid,
-                    "DTSTAMP:" + toIcsDate(createdAt),
-                    "DTSTART;VALUE=DATE:" + allDayStart,
-                    "DTEND;VALUE=DATE:" + allDayEnd,
-                    "SUMMARY:Moberg Fonsterputs",
-                    "DESCRIPTION:Om du inte ar hemma sa behover du lamna over nyckel. Vanligen kontakta 072 942 14 05.",
-                    "END:VEVENT",
-                    "END:VCALENDAR"
-                ].join("\r\n");
+            function getWindowCount(calcState) {
+                return ["qty-vanligt", "qty-vanligt-dubbel", "qty-sprojs", "qty-sprojs-dubbel", "qty-extra"].reduce(function (sum, key) {
+                    var n = Number(calcState[key] || 0);
+                    return sum + (isFinite(n) && n > 0 ? n : 0);
+                }, 0);
+            }
+
+            function setPdfField(id, value) {
+                var el = document.getElementById(id);
+                if (!el) return;
+                el.textContent = value;
+            }
+
+            function buildPdfFileName(dateValue, timeValue) {
+                var safeDate = String(dateValue || "bokning").replace(/[^\d-]/g, "");
+                var safeTime = String(timeValue || "").replace(/[^\d]/g, "");
+                return "bokningsbekraftelse" + (safeDate ? "-" + safeDate : "") + (safeTime ? "-" + safeTime : "") + ".pdf";
+            }
+
+            function renderPdfTemplate(data) {
+                setPdfField("pdf-booking-date", data.bookingDate);
+                setPdfField("pdf-service-date-time", data.serviceDateTime);
+                setPdfField("pdf-address", data.address);
+                setPdfField("pdf-customer-name", data.customerName);
+                setPdfField("pdf-phone", data.phone);
+                setPdfField("pdf-email", data.email);
+                setPdfField("pdf-service-description", data.serviceDescription);
+                setPdfField("pdf-special-notes", data.specialNotes);
+                setPdfField("pdf-total-price", data.totalPrice);
+            }
+
+            function waitForImage(img) {
+                return new Promise(function (resolve) {
+                    if (!img) {
+                        resolve();
+                        return;
+                    }
+                    if (img.complete) {
+                        resolve();
+                        return;
+                    }
+                    img.addEventListener("load", function () { resolve(); }, { once: true });
+                    img.addEventListener("error", function () { resolve(); }, { once: true });
+                });
+            }
+
+            async function buildAndDownloadBookingPdf(data) {
+                if (!window.jspdf || !window.jspdf.jsPDF || !window.html2canvas) return false;
+                renderPdfTemplate(data);
+
+                var shell = document.getElementById("pdf-template-shell");
+                var template = document.getElementById("pdf-template");
+                var footerLogo = template ? template.querySelector(".pdf-footer-logo") : null;
+                if (!shell || !template) return false;
+
+                shell.style.visibility = "visible";
+                await waitForImage(footerLogo);
+
+                var canvas = await window.html2canvas(template, {
+                    backgroundColor: "#ffffff",
+                    scale: 3,
+                    useCORS: true
+                });
+
+                shell.style.visibility = "hidden";
+
+                var doc = new window.jspdf.jsPDF({ unit: "mm", format: "a4" });
+                var pageWidth = doc.internal.pageSize.getWidth();
+                var pageHeight = doc.internal.pageSize.getHeight();
+                var imgData = canvas.toDataURL("image/jpeg", 1);
+                doc.addImage(imgData, "JPEG", 0, 0, pageWidth, pageHeight, undefined, "FAST");
+                doc.save(buildPdfFileName(data.serviceDateRaw, data.serviceTimeRaw));
+                return true;
             }
 
             var date = getParam("date");
             var time = getParam("time");
             var price = getParam("price");
+            var area = getParam("area");
             var dateLine = document.getElementById("booking-date-line");
             var calendarBtn = document.getElementById("calendar-btn");
             var formattedDate = formatDateText(date);
 
-            if (dateLine) {
-                dateLine.textContent = formattedDate || "Datum saknas";
+            function readPersonState() {
+                try {
+                    var raw = localStorage.getItem(PERSON_STORAGE_KEY);
+                    return raw ? JSON.parse(raw) : {};
+                } catch (e) {
+                    return {};
+                }
             }
 
-            if (calendarBtn && date) {
-                var ics = buildIcsContent(date, time, price);
-                if (ics) {
-                    var blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-                    var url = URL.createObjectURL(blob);
-                    calendarBtn.href = url;
-                    calendarBtn.classList.remove("is-disabled");
+            function saveBookedTime() {
+                if (!date || !time) return;
+                var person = readPersonState();
+                var payload = {
+                    id: [date, time, person.phone || "", person.address || ""].join("|"),
+                    createdAt: new Date().toISOString(),
+                    date: date,
+                    time: time,
+                    price: price || "",
+                    area: area || person.areaKey || "",
+                    address: person.address || "",
+                    firstName: person.firstName || "",
+                    lastName: person.lastName || "",
+                    phone: person.phone || "",
+                    email: person.email || "",
+                    personnummer: person.personnummer || ""
+                };
+                try {
+                    var raw = localStorage.getItem(BOOKED_STORAGE_KEY);
+                    var list = raw ? JSON.parse(raw) : [];
+                    if (!Array.isArray(list)) list = [];
+                    var exists = list.some(function (item) {
+                        return item && item.id === payload.id;
+                    });
+                    if (!exists) {
+                        list.unshift(payload);
+                        localStorage.setItem(BOOKED_STORAGE_KEY, JSON.stringify(list));
+                    }
+                } catch (e) {}
+            }
+
+            saveBookedTime();
+
+            if (dateLine) {
+                if (formattedDate && time) {
+                    dateLine.textContent = formattedDate + " kl. " + time;
+                } else {
+                    dateLine.textContent = formattedDate || "Datum saknas";
                 }
+            }
+
+            if (calendarBtn) {
+                calendarBtn.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    var person = readPersonState();
+                    var calcState = readCalcState();
+                    var windowCount = getWindowCount(calcState);
+                    var customerName = [person.firstName || "", person.lastName || ""].join(" ").trim();
+                    var serviceDateTime = formattedDate && time ? (formattedDate + " kl. " + time) : safeText(formattedDate, "Ej angivet");
+                    var bookingData = {
+                        bookingDate: formatDateTime(new Date()),
+                        serviceDateTime: serviceDateTime,
+                        serviceDateRaw: date,
+                        serviceTimeRaw: time,
+                        address: safeText(person.address, "Ej angiven"),
+                        customerName: safeText(customerName, "Ej angivet"),
+                        phone: safeText(person.phone, "Ej angivet"),
+                        email: safeText(person.email, "Ej angivet"),
+                        serviceDescription: "Fönsterputs - " + String(windowCount || 0) + " fönster",
+                        specialNotes: area ? ("Område: " + area) : "Inga tillägg angivna",
+                        totalPrice: (isFinite(Number(price)) && Number(price) > 0) ? (Number(price).toLocaleString("sv-SE") + " kr") : "Ej angivet"
+                    };
+
+                    buildAndDownloadBookingPdf(bookingData).then(function (ok) {
+                        if (!ok) {
+                            alert("Kunde inte skapa PDF just nu. Försök igen om en stund.");
+                        }
+                    }).catch(function () {
+                        alert("Kunde inte skapa PDF just nu. Försök igen om en stund.");
+                    });
+                });
             }
 
             var yearEl = document.getElementById("footer-year");

@@ -1,0 +1,33 @@
+# Netlify: https://docs.netlify.com/configure-builds/file-based-configuration/
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# API under samma origin som webbplatsen (krävs för fetch utan CORS-problem)
+[[redirects]]
+  from = "/api/address-suggest"
+  to = "/.netlify/functions/address-suggest"
+  status = 200
+
+[[redirects]]
+  from = "/api/admin-auth"
+  to = "/.netlify/functions/admin-auth"
+  status = 200
+
+# Säkerhetsheaders (ingen strikt CSP här — sidorna använder inline scripts)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    Cache-Control = "no-store"

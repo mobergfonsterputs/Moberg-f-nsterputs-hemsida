@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Widget recensioner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=optional" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0f172a;
+            --muted: #64748b;
+            --line: #dbe2ea;
+            --brand: #113768;
+            --bg: #f8fafc;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Inter, sans-serif;
+            color: var(--ink);
+            background: var(--bg);
+        }
+        .wrap {
+            width: min(1000px, calc(100% - 2rem));
+            margin: 1.5rem auto 2.5rem;
+            display: grid;
+            gap: 1rem;
+        }
+        .panel {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 1rem;
+        }
+        h1 { margin: 0 0 0.45rem; font-size: 1.6rem; }
+        h2 { margin: 0 0 0.75rem; font-size: 1.1rem; }
+        p { margin: 0; color: var(--muted); }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.8rem;
+        }
+        label {
+            display: grid;
+            gap: 0.35rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #334155;
+        }
+        input, textarea, select, button, a {
+            font: inherit;
+        }
+        input, textarea, select {
+            width: 100%;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 0.62rem 0.72rem;
+            background: #fff;
+        }
+        textarea {
+            min-height: 96px;
+            resize: vertical;
+            grid-column: 1 / -1;
+        }
+        .toolbar {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-top: 0.9rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: #fff;
+            color: var(--ink);
+            padding: 0 0.9rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            border-color: var(--brand);
+            background: var(--brand);
+            color: #fff;
+            font-weight: 600;
+        }
+        @media (max-width: 760px) {
+            .grid { grid-template-columns: 1fr; }
+            textarea { grid-column: 1; }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        (function () {
+            try {
+                if (sessionStorage.getItem("putsad_admin_auth") !== "1") {
+                    window.location.replace("admin-login.html");
+                }
+            } catch (e) {
+                window.location.replace("admin-login.html");
+            }
+        })();
+    </script>
+    <main class="wrap">
+        <section class="panel">
+            <h1>Admin - Widget recensioner</h1>
+            <p>Andra texterna i rutorna för recension-widgeten under hero.</p>
+            <div class="toolbar">
+                <a class="btn" href="admin.html">Till admin</a>
+                <a class="btn" href="putsad.html" target="_blank" rel="noopener noreferrer">Visa sidan</a>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Recensioner</h2>
+            <div id="review-editors" style="display:grid; gap:1rem;"></div>
+            <div class="toolbar">
+                <button id="add-btn" class="btn" type="button">+ Lägg till recension</button>
+                <button id="save-btn" class="btn btn-primary" type="button">Spara widget-texter</button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        (function () {
+            var STORAGE_KEY = "putsad_google_widget_cards_v1";
+            var FALLBACK = {
+                cards: [
+                    {
+                        name: "Lena Holm",
+                        publishedDate: "",
+                        rating: 5,
+                        text: "Fantastiskt ställe! Kaffet är suveränt och personalen otroligt trevlig. Kommer definitivt tillbaka nästa gång jag är i stan."
+                    },
+                    {
+                        name: "Mikael K.",
+                        publishedDate: "",
+                        rating: 5,
+                        text: "Bästa kanelbullen jag ätit på länge, nybakad och fluffig. Mysig atmosfär och lagom snabb service. Verkligen ett gömställe i hjärtat av staden."
+                    },
+                    {
+                        name: "Anna S.",
+                        publishedDate: "",
+                        rating: 4,
+                        text: "Riktigt bra café med härlig inredning. Lite trångt vid lunchtid men absolut värt det. Oat latte var perfekt, precis rätt temperatur och sötma."
+                    }
+                ]
+            };
+
+            function getEl(id) { return document.getElementById(id); }
+            function escapeHtml(value) {
+                return String(value || "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#39;");
+            }
+
+            function load() {
+                try {
+                    var raw = localStorage.getItem(STORAGE_KEY);
+                    var parsed = raw ? JSON.parse(raw) : null;
+                    if (!parsed || !Array.isArray(parsed.cards)) return FALLBACK;
+                    parsed.cards = parsed.cards.map(function (card) {
+                        return {
+                            name: String((card && card.name) || ""),
+                            publishedDate: String((card && card.publishedDate) || ""),
+                            rating: Math.max(1, Math.min(5, Number((card && card.rating) || 5))),
+                            text: String((card && card.text) || "")
+                        };
+                    });
+                    return parsed;
+                } catch (e) {
+                    return FALLBACK;
+                }
+            }
+
+            function createEditorCard(card, index) {
+                return [
+                    '<section class="panel" data-editor-card data-index="' + index + '">',
+                    '  <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;margin-bottom:0.75rem;">',
+                    '    <h2 style="margin:0;">Recension ' + (index + 1) + "</h2>",
+                    '    <button type="button" class="btn" data-remove-index="' + index + '">Ta bort</button>',
+                    "  </div>",
+                    '  <div class="grid">',
+                    "    <label>Namn",
+                    '      <input data-field="name" type="text" placeholder="Namn" value="' + escapeHtml(card.name) + '">',
+                    "    </label>",
+                    "    <label>Recensionsdatum",
+                    '      <input data-field="publishedDate" type="date" value="' + escapeHtml(card.publishedDate) + '">',
+                    "    </label>",
+                    "    <label>Betyg (stjärnor)",
+                    '      <select data-field="rating">',
+                    '        <option value="5"' + (Number(card.rating) === 5 ? " selected" : "") + ">5</option>",
+                    '        <option value="4"' + (Number(card.rating) === 4 ? " selected" : "") + ">4</option>",
+                    '        <option value="3"' + (Number(card.rating) === 3 ? " selected" : "") + ">3</option>",
+                    '        <option value="2"' + (Number(card.rating) === 2 ? " selected" : "") + ">2</option>",
+                    '        <option value="1"' + (Number(card.rating) === 1 ? " selected" : "") + ">1</option>",
+                    "      </select>",
+                    "    </label>",
+                    '    <label style="grid-column:1 / -1;">Recensionstext',
+                    '      <textarea data-field="text" placeholder="Skriv recensionen">' + escapeHtml(card.text) + "</textarea>",
+                    "    </label>",
+                    "  </div>",
+                    "</section>"
+                ].join("");
+            }
+
+            function renderEditors(cards) {
+                var wrap = getEl("review-editors");
+                wrap.innerHTML = cards.map(createEditorCard).join("");
+            }
+
+            function readEditors() {
+                var nodes = Array.prototype.slice.call(document.querySelectorAll("[data-editor-card]"));
+                return nodes.map(function (node) {
+                    return {
+                        name: String((node.querySelector('[data-field="name"]') || {}).value || "").trim(),
+                        publishedDate: String((node.querySelector('[data-field="publishedDate"]') || {}).value || "").trim(),
+                        rating: Math.max(1, Math.min(5, Number(String((node.querySelector('[data-field="rating"]') || {}).value || "5")))),
+                        text: String((node.querySelector('[data-field="text"]') || {}).value || "").trim()
+                    };
+                });
+            }
+
+            function save() {
+                var payload = { cards: readEditors() };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+                var btn = getEl("save-btn");
+                var old = btn.textContent;
+                btn.textContent = "Sparat";
+                setTimeout(function () { btn.textContent = old; }, 900);
+            }
+
+            var data = load();
+            renderEditors(data.cards);
+
+            getEl("review-editors").addEventListener("click", function (e) {
+                var target = e.target;
+                if (!target || !target.matches("[data-remove-index]")) return;
+                var idx = Number(target.getAttribute("data-remove-index"));
+                var cards = readEditors();
+                if (cards.length <= 1) return;
+                cards.splice(idx, 1);
+                renderEditors(cards);
+            });
+
+            getEl("add-btn").addEventListener("click", function () {
+                var cards = readEditors();
+                cards.push({
+                    name: "",
+                    publishedDate: "",
+                    rating: 5,
+                    text: ""
+                });
+                renderEditors(cards);
+            });
+
+            getEl("save-btn").addEventListener("click", save);
+        })();
+    </script>
+</body>
+</html>

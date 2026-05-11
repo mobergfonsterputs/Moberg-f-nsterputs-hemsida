@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin – Raderat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            min-height: 100dvh;
+            font-family: "Inter", sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.5;
+        }
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 1.25rem;
+        }
+        .header-inner {
+            max-width: 76rem;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        h1 { font-size: 1.25rem; font-weight: 700; }
+        .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .btn {
+            font: inherit;
+            border: 1px solid #cbd5e1;
+            background: #fff;
+            border-radius: 999px;
+            padding: 0.45rem 0.9rem;
+            cursor: pointer;
+            color: #334155;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .btn:hover { background: #f1f5f9; color: #0f172a; }
+        .btn-danger {
+            border-color: #fecaca;
+            color: #b91c1c;
+            background: #fff;
+        }
+        .btn-danger:hover { background: #fef2f2; }
+        main {
+            max-width: 76rem;
+            margin: 0 auto;
+            padding: 1.25rem;
+        }
+        .intro {
+            color: #64748b;
+            margin-bottom: 1rem;
+            font-size: 0.92rem;
+        }
+        .list { display: grid; gap: 0.85rem; }
+        .arc-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 0.9rem;
+            display: grid;
+            gap: 0.55rem;
+        }
+        .arc-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .arc-kind {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #64748b;
+        }
+        .arc-kind.message { color: #113768; }
+        .arc-kind.booking { color: #0d9488; }
+        .arc-when { font-size: 0.85rem; color: #64748b; }
+        .arc-body {
+            font-size: 0.9rem;
+            color: #1e293b;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .arc-meta {
+            display: grid;
+            gap: 0.35rem;
+            font-size: 0.88rem;
+        }
+        .arc-meta-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .arc-meta-row span:first-child { color: #64748b; min-width: 5.5rem; }
+        .empty {
+            padding: 1.2rem;
+            background: #fff;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            color: #64748b;
+        }
+    </style>
+    <script>
+        (function () {
+            var AUTH_KEY = "putsad_admin_auth";
+            try {
+                if (sessionStorage.getItem(AUTH_KEY) !== "1") {
+                    window.location.replace("admin-login.html");
+                }
+            } catch (e) {
+                window.location.replace("admin-login.html");
+            }
+        })();
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <h1>Raderat</h1>
+            <div class="actions">
+                <a class="btn" href="admin-oversikt.html">Till adminöversikt</a>
+                <button type="button" class="btn btn-danger" id="purge-all">Töm papperskorgen</button>
+                <button type="button" class="btn" id="admin-logout">Logga ut</button>
+            </div>
+        </div>
+    </header>
+    <main id="innehall">
+        <p class="intro">Här hamnar det som raderats från <strong>Meddelanden</strong> och <strong>Bokade tider</strong>. Samma webbläsare / enhet som där borttagningen gjordes (localStorage).</p>
+        <div id="archive-list" class="list"></div>
+    </main>
+
+    <script src="js/admin-deleted-archive.js"></script>
+    <script>
+        (function () {
+            var AUTH_KEY = "putsad_admin_auth";
+            var listEl = document.getElementById("archive-list");
+            var logoutBtn = document.getElementById("admin-logout");
+            var purgeAllBtn = document.getElementById("purge-all");
+
+            var AREA_LABELS = {
+                "upplands vasby": "Upplands Väsby",
+                "sollentuna": "Sollentuna",
+                "taby": "Täby",
+                "vasteras": "Västerås",
+                "gaddeholm": "Gäddeholm",
+                "gaddeholm i vasteras": "Gäddeholm i Västerås",
+                "lidkoping": "Lidköping",
+                "kollandso": "Kållandsö",
+                "bjorkfors": "Björkfors",
+                "uppsala": "Uppsala"
+            };
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function () {
+                    try { sessionStorage.removeItem(AUTH_KEY); } catch (e) {}
+                    window.location.href = "putsad.html";
+                });
+            }
+
+            function escapeHtml(value) {
+                return String(value || "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#39;");
+            }
+
+            function formatWhen(iso) {
+                if (!iso) return "-";
+                var d = new Date(iso);
+                if (isNaN(d.getTime())) return "-";
+                return d.toLocaleString("sv-SE");
+            }
+
+            function formatDate(dateKey) {
+                var m = String(dateKey || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+                if (!m) return dateKey || "-";
+                var d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+                if (isNaN(d.getTime())) return dateKey || "-";
+                return d.toLocaleDateString("sv-SE", { day: "numeric", month: "long", year: "numeric" });
+            }
+
+            function kindLabel(kind) {
+                if (kind === "message") return "Meddelande";
+                if (kind === "booking") return "Bokning";
+                return String(kind || "Okänd");
+            }
+
+            function renderMessageBody(d) {
+                var email = escapeHtml(d.email);
+                var msg = escapeHtml(d.message);
+                return "E-post: " + email + "\n\n" + msg;
+            }
+
+            function renderBookingBody(b) {
+                var area = AREA_LABELS[b.area] || b.area || "-";
+                var fullName = [b.firstName || "", b.lastName || ""].join(" ").replace(/\s+/g, " ").trim() || "-";
+                var price = (b.price && /^\d+$/.test(String(b.price)))
+                    ? Number(b.price).toLocaleString("sv-SE") + " kr"
+                    : "-";
+                var rows = [
+                    ["Datum", formatDate(b.date) + (b.time ? " kl. " + String(b.time) : "")],
+                    ["Namn", fullName],
+                    ["Personnummer", b.personnummer || "-"],
+                    ["Telefon", b.phone || "-"],
+                    ["E-post", b.email || "-"],
+                    ["Adress", b.address || "-"],
+                    ["Område", area],
+                    ["Pris", price],
+                    ["Bokning skapad", formatWhen(b.createdAt)]
+                ];
+                return rows.map(function (r) {
+                    return r[0] + ": " + escapeHtml(String(r[1]));
+                }).join("\n");
+            }
+
+            function render() {
+                var read = typeof putsadReadDeletedArchive === "function" ? putsadReadDeletedArchive : function () { return []; };
+                var items = read();
+                if (!items.length) {
+                    listEl.innerHTML = '<div class="empty">Inget raderat ännu.</div>';
+                    return;
+                }
+                listEl.innerHTML = items.map(function (item) {
+                    var id = escapeHtml(item.id);
+                    var kind = String(item.kind || "");
+                    var kindClass = kind === "message" || kind === "booking" ? kind : "";
+                    var deleted = escapeHtml(formatWhen(item.deletedAt));
+                    var bodyHtml = "";
+                    if (kind === "message" && item.data) {
+                        bodyHtml = '<div class="arc-body">' + renderMessageBody(item.data).replace(/\n/g, "<br>") + "</div>";
+                    } else if (kind === "booking" && item.data) {
+                        bodyHtml = '<div class="arc-body">' + renderBookingBody(item.data).replace(/\n/g, "<br>") + "</div>";
+                    } else {
+                        bodyHtml = '<div class="arc-body">' + escapeHtml(JSON.stringify(item.data, null, 2)) + "</div>";
+                    }
+                    return (
+                        '<article class="arc-card" data-id="' + id + '">' +
+                            '<div class="arc-top">' +
+                                '<span class="arc-kind ' + escapeHtml(kindClass) + '">' + escapeHtml(kindLabel(kind)) + '</span>' +
+                                '<span class="arc-when">Borttagen: ' + deleted + "</span>" +
+                            "</div>" +
+                            bodyHtml +
+                            '<div><button type="button" class="btn btn-danger arc-remove" data-id="' + id + '">Ta bort för alltid</button></div>' +
+                        "</article>"
+                    );
+                }).join("");
+
+                listEl.querySelectorAll(".arc-remove").forEach(function (btn) {
+                    btn.addEventListener("click", function () {
+                        var rid = btn.getAttribute("data-id");
+                        var write = typeof putsadWriteDeletedArchive === "function" ? putsadWriteDeletedArchive : function () {};
+                        var next = read().filter(function (x) { return String(x.id) !== String(rid); });
+                        write(next);
+                        render();
+                    });
+                });
+            }
+
+            if (purgeAllBtn) {
+                purgeAllBtn.addEventListener("click", function () {
+                    var read = typeof putsadReadDeletedArchive === "function" ? putsadReadDeletedArchive : function () { return []; };
+                    if (!read().length) return;
+                    if (!window.confirm("Töm hela papperskorgen? Detta går inte att ångra.")) return;
+                    if (typeof putsadWriteDeletedArchive === "function") {
+                        putsadWriteDeletedArchive([]);
+                    }
+                    render();
+                });
+            }
+
+            render();
+        })();
+    </script>
+</body>
+</html>

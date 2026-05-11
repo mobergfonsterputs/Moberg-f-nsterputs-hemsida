@@ -6,16 +6,13 @@
     <title>Villkor | Moberg Fönsterputs</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital@1&display=optional" rel="stylesheet">
-    <link rel="stylesheet" href="header-shared.css?v=14">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=optional" rel="stylesheet">
     <link rel="stylesheet" href="site-stable.css?v=2">
     <link rel="stylesheet" href="footer-shared.css?v=24">
     <style>
         :root {
             --primary-blue: #0f172a;
-            --tech-blue: #113768;
             --muted: #64748b;
-            --border: #e2e8f0;
             --page-gutter: clamp(1.25rem, 5vw, 3rem);
             --content-max: min(920px, 100%);
         }
@@ -118,43 +115,26 @@
         .terms-footnote p + p {
             margin-top: 0.4rem;
         }
+
+        /* ── Overflow-skydd ──────────────────────────────────────────────── */
+        body {
+            overflow-x: hidden;
+        }
+
+        /* ── Liten mobil (max-width: 480px) ─────────────────────────────── */
+        @media (max-width: 480px) {
+            .terms-hero h1 {
+                font-size: clamp(1.45rem, 5vw, 1.8rem);
+            }
+        }
+
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-inner">
-            <a href="putsad.html#hem" class="logo-fallback">Moberg Fönsterputs</a>
-            <nav class="nav-desktop" aria-label="Huvudmeny">
-                <ul>
-                    <li><a href="putsad.html#hem">Hem</a></li>
-                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
-                    <li><a href="detta-ingar.html">Detta ingår</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                    <li><a href="berakna-pris.html" class="btn-cta">Boka puts</a></li>
-                </ul>
-            </nav>
-            <div class="header-mobile">
-                <a href="berakna-pris.html" class="btn-cta">Boka puts</a>
-                <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Öppna meny">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div class="mobile-menu-panel" id="mobile-menu-panel" role="navigation" aria-label="Mobilmeny">
-            <div class="mobile-menu-inner">
-                <ul>
-                    <li><a href="putsad.html#hem">Hem</a></li>
-                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
-                    <li><a href="detta-ingar.html">Detta ingår</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                </ul>
-            </div>
-        </div>
-    </header>
+    <div data-site-header></div>
+    <script src="js/site-header.js"></script>
 
-    <main class="terms-page">
+<main class="terms-page" id="innehall">
         <header class="terms-hero">
             <h1>Allmänna villkor - Moberg fönsterputs</h1>
             <p class="lead">Dessa villkor beskriver hur tjänsten fungerar, vad som gäller för pris och betalning samt ansvar för både kund och utförare.</p>
@@ -203,7 +183,7 @@
                 </article>
                 <article class="term-item">
                     <h3>2.4 Betalning</h3>
-                    <p>Privatpersoner: 15 dagar</p>
+                    <p>Privatpersoner: 10 dagar</p>
                     <p>Företag: 30 dagar</p>
                     <p>Vid sen betalning tillkommer lagstadgad påminnelseavgift och ränta.</p>
                 </article>
@@ -220,8 +200,8 @@
             <div class="terms-items">
                 <article class="term-item">
                     <h3>3.1 Avbokning</h3>
-                    <p>Du kan avboka utan kostnad fram till en timme innan planerat utförande.</p>
-                    <p>Vid sena avbokningar eller om vi inte får tillgång till fastigheten kan vi debitera för den timmen.</p>
+                    <p>Du kan avboka utan kostnad upp till 24 timmar innan din bokade tid.</p>
+                    <p>Vid sen avbokning eller om vi inte får tillgång till fastigheten kan vi debitera för 50% av arbetskostnaden.</p>
                 </article>
                 <article class="term-item">
                     <h3>3.2 Återkommande tjänster</h3>
@@ -237,14 +217,15 @@
                     <h3>4.1 Tillgång och framkomlighet</h3>
                     <p>Du ansvarar för att:</p>
                     <ul>
-                        <li>vi kommer åt fönstren utan att behöva stå i sängar eller soffor</li>
-                        <li>grindar/larm är öppna</li>
+                        <li>Vi på ett rimligt vis kommer åt och kan putsa fönstren</li>
+                        <li>Dörrar, fönster, larm och grindar är upplåsta</li>
                     </ul>
                     <p>Om vi hindras i vårt arbete kan extra kostnader tillkomma.</p>
                 </article>
                 <article class="term-item">
                     <h3>4.2 Föremål i vägen</h3>
-                    <p>Vi flyttar inte möbler. Krukor, dekorationer eller annan egendom kan vi ta hand om men, om en stor möbel står i vägen ansvarar vi inte för att fönster bakom putsas – och vi tar heller inget ansvar för skador på föremål som är i vägen för arbetet.</p>
+                    <p>Vi plockar undan och ställer tillbaka krukor etc. i fönstren och arbetar runt möbler så gott vi kan.</p>
+                    <p>Vi tar inget ansvar för skador på föremål vi behöver flytta på - och om en stor möbel är i vägen för vårt arbete kan vi inte garantera att fönstret bakom blir putsat.</p>
                 </article>
             </div>
         </section>
@@ -263,11 +244,9 @@
                 </article>
                 <article class="term-item">
                     <h3>5.3 Kraftig smuts</h3>
-                    <p>Vanlig fönsterputs omfattar inte borttagning av:</p>
+                    <p>Vår fönsterputs omfattar:</p>
                     <ul>
-                        <li>färg</li>
-                        <li>cement</li>
-                        <li>hårt sittande partiklar</li>
+                        <li>Delvis borttagnnig av hårt sittande smuts</li>
                     </ul>
                     <p>Sådant kan kräva specialbehandling.</p>
                 </article>
@@ -318,7 +297,7 @@
     <footer id="kontakt">
         <div class="footer-inner">
             <div class="footer-logo-slot">
-                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img">
+                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img" loading="lazy" decoding="async">
             </div>
             <nav class="footer-nav-col" aria-labelledby="footer-nav-puts">
                 <h3 id="footer-nav-puts" class="footer-nav-heading">Fönsterputs</h3>
@@ -340,7 +319,7 @@
                                     <nav class="footer-nav-col" aria-labelledby="footer-nav-sociala">
                 <h3 id="footer-nav-sociala" class="footer-nav-heading">Sociala</h3>
                 <ul class="footer-nav-list">
-                    <li><a href="#">Instagram</a></li>
+                    <li><a href="https://www.instagram.com/mobergsfonsterputs/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
                     <li><a href="#">Facebook</a></li>
                     <li><a href="#">LinkedIn</a></li>
                     <li><a href="#">TikTok</a></li>
@@ -359,25 +338,7 @@
             if (!yearEl) return;
             yearEl.textContent = String(new Date().getFullYear());
         })();
-        (function () {
-            var toggle = document.getElementById("nav-toggle");
-            var panel = document.getElementById("mobile-menu-panel");
-            if (!toggle || !panel) return;
-            function setOpen(open) {
-                toggle.setAttribute("aria-expanded", open ? "true" : "false");
-                toggle.setAttribute("aria-label", open ? "Stäng meny" : "Öppna meny");
-                panel.classList.toggle("is-open", open);
-            }
-            toggle.addEventListener("click", function () {
-                setOpen(!panel.classList.contains("is-open"));
-            });
-            panel.querySelectorAll("a").forEach(function (link) {
-                link.addEventListener("click", function () {
-                    setOpen(false);
-                });
-            });
-        })();
-    </script>
+</script>
 </body>
 </html>
 

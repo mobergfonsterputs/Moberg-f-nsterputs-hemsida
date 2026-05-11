@@ -8,16 +8,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { box-sizing: border-box; }
         body {
+            margin: 0;
             min-height: 100dvh;
             font-family: "Inter", sans-serif;
             background: #0f172a;
             color: #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
         }
         .panel {
             width: min(22rem, 100%);
@@ -92,12 +89,21 @@
             font-size: 0.85rem;
             color: #64748b;
         }
+        .panel-wrap {
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
+    <main id="innehall" class="panel-wrap">
     <div class="panel">
         <h1>Admin</h1>
-        <p class="lead">Ange lösenord för att öppna adminöversikten.</p>
+        <p class="lead">Lösenordet verifieras på servern (miljövariabel ADMIN_PASSWORD). Kräver Netlify Functions.</p>
         <form id="admin-login-form" novalidate>
             <label for="admin-password">Lösenord</label>
             <input id="admin-password" type="password" name="password" autocomplete="current-password" required>
@@ -108,13 +114,13 @@
             </div>
         </form>
     </div>
+    </main>
     <script>
         (function () {
             var AUTH_KEY = "putsad_admin_auth";
-            var PASSWORD = "123!";
             try {
                 if (sessionStorage.getItem(AUTH_KEY) === "1") {
-                    window.location.replace("admin-oversikt.html");
+                    window.location.replace("admin.html");
                     return;
                 }
             } catch (e) {}
@@ -128,15 +134,45 @@
                 e.preventDefault();
                 err.textContent = "";
                 var v = input.value;
-                if (v === PASSWORD) {
-                    try {
-                        sessionStorage.setItem(AUTH_KEY, "1");
-                    } catch (ex) {}
-                    window.location.href = "admin-oversikt.html";
-                    return;
-                }
-                err.textContent = "Fel lösenord.";
-                input.select();
+                fetch("/api/admin-auth", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ password: v }),
+                })
+                    .then(function (res) {
+                        return res.json().then(function (data) {
+                            return { res: res, data: data || {} };
+                        }).catch(function () {
+                            return { res: res, data: {} };
+                        });
+                    })
+                    .then(function (out) {
+                        if (out.res.status === 200 && out.data.ok) {
+                            try {
+                                sessionStorage.setItem(AUTH_KEY, "1");
+                            } catch (ex) {}
+                            window.location.href = "admin.html";
+                            return;
+                        }
+                        if (out.res.status === 503) {
+                            err.textContent =
+                                "Admin är inte konfigurerat (saknar ADMIN_PASSWORD på servern). Se DEPLOY.md.";
+                            input.select();
+                            return;
+                        }
+                        if (out.res.status === 429) {
+                            err.textContent = "För många försök. Vänta en stund.";
+                            input.select();
+                            return;
+                        }
+                        err.textContent = "Fel lösenord.";
+                        input.select();
+                    })
+                    .catch(function () {
+                        err.textContent =
+                            "Kunde inte nå servern. Använd netlify dev lokalt, eller kontrollera att sajten är deployad på Netlify.";
+                        input.select();
+                    });
             });
         })();
     </script>

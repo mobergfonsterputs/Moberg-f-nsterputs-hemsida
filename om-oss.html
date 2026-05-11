@@ -6,8 +6,7 @@
     <title>Om oss | Moberg Fönsterputs</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=optional" rel="stylesheet">
-    <link rel="stylesheet" href="header-shared.css?v=14">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=optional" rel="stylesheet">
     <link rel="stylesheet" href="site-stable.css?v=2">
     <link rel="stylesheet" href="footer-shared.css?v=24">
     <style>
@@ -20,6 +19,7 @@
             font-family: "Inter", sans-serif;
             color: var(--primary-blue);
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
         .simple-page {
             min-height: 45vh;
@@ -29,55 +29,37 @@
             box-sizing: border-box;
         }
         .simple-page h1 {
-            font-size: clamp(1.85rem, 4vw, 2.5rem);
-            font-weight: 800;
-            letter-spacing: -0.02em;
+            font-family: "Playfair Display", serif;
+            font-size: clamp(2.1rem, 4vw, 2.9rem);
+            font-weight: 700;
+            letter-spacing: -0.015em;
             margin: 0 0 1rem;
-            line-height: 1.15;
+            line-height: 1.1;
         }
         .simple-page p {
             margin: 0;
-            line-height: 1.62;
-            color: rgba(15, 23, 42, 0.88);
+            line-height: 1.68;
+            color: rgba(15, 23, 42, 0.85);
             font-size: 1.05rem;
+        }
+
+        /* ── Liten mobil (max-width: 480px) ─────────────────────────────── */
+        @media (max-width: 480px) {
+            .simple-page h1 {
+                font-size: clamp(1.45rem, 5vw, 1.8rem);
+            }
+
+            .simple-page p {
+                font-size: clamp(0.9375rem, 3.5vw, 1rem);
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="header-inner">
-            <a href="putsad.html#hem" class="logo-fallback">Moberg Fönsterputs</a>
-            <nav class="nav-desktop" aria-label="Huvudmeny">
-                <ul>
-                    <li><a href="putsad.html#hem">Hem</a></li>
-                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
-                    <li><a href="detta-ingar.html">Detta ingår</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                    <li><a href="berakna-pris.html" class="btn-cta">Boka puts</a></li>
-                </ul>
-            </nav>
-            <div class="header-mobile">
-                <a href="berakna-pris.html" class="btn-cta">Boka puts</a>
-                <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Öppna meny">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div class="mobile-menu-panel" id="mobile-menu-panel" role="navigation" aria-label="Mobilmeny">
-            <div class="mobile-menu-inner">
-                <ul>
-                    <li><a href="putsad.html#hem">Hem</a></li>
-                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
-                    <li><a href="detta-ingar.html">Detta ingår</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                </ul>
-            </div>
-        </div>
-    </header>
+    <div data-site-header></div>
+    <script src="js/site-header.js"></script>
 
-    <main class="simple-page">
+    <main class="simple-page" id="innehall">
         <h1>Om oss</h1>
         <p>Innehåll kommer snart.</p>
     </main>
@@ -85,7 +67,7 @@
     <footer id="kontakt">
         <div class="footer-inner">
             <div class="footer-logo-slot">
-                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img">
+                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img" loading="lazy" decoding="async">
             </div>
             <nav class="footer-nav-col" aria-labelledby="footer-nav-puts">
                 <h3 id="footer-nav-puts" class="footer-nav-heading">Fönsterputs</h3>
@@ -93,7 +75,9 @@
                     <li><a href="sa-funkar-det.html">Så funkar det</a></li>
                     <li><a href="detta-ingar.html">Detta ingår</a></li>
                     <li><a href="berakna-pris.html">Beräkna pris</a></li>
-                    <li><a href="putsad.html#vanliga-fragor">Vanliga frågor</a></li>                </ul>
+                    <li><a href="putsad.html#vanliga-fragor">Vanliga frågor</a></li>
+                    <li><a href="viktig-information.html">Viktig information</a></li>
+                </ul>
             </nav>
             <nav class="footer-nav-col" aria-labelledby="footer-nav-company">
                 <h3 id="footer-nav-company" class="footer-nav-heading">Företag</h3>
@@ -104,10 +88,10 @@
                     <li><a href="putsad.html#recensioner">Recensioner</a></li>
                 </ul>
             </nav>
-                                    <nav class="footer-nav-col" aria-labelledby="footer-nav-sociala">
+            <nav class="footer-nav-col" aria-labelledby="footer-nav-sociala">
                 <h3 id="footer-nav-sociala" class="footer-nav-heading">Sociala</h3>
                 <ul class="footer-nav-list">
-                    <li><a href="#">Instagram</a></li>
+                    <li><a href="https://www.instagram.com/mobergsfonsterputs/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
                     <li><a href="#">Facebook</a></li>
                     <li><a href="#">LinkedIn</a></li>
                     <li><a href="#">TikTok</a></li>
@@ -126,35 +110,6 @@
             if (!yearEl) return;
             yearEl.textContent = String(new Date().getFullYear());
         })();
-        (function () {
-            var toggle = document.getElementById("nav-toggle");
-            var panel = document.getElementById("mobile-menu-panel");
-            if (!toggle || !panel) return;
-            function setOpen(open) {
-                toggle.setAttribute("aria-expanded", open ? "true" : "false");
-                toggle.setAttribute("aria-label", open ? "Stäng meny" : "Öppna meny");
-                panel.classList.toggle("is-open", open);
-            }
-            toggle.addEventListener("click", function () {
-                setOpen(!panel.classList.contains("is-open"));
-            });
-            panel.querySelectorAll("a").forEach(function (link) {
-                link.addEventListener("click", function () {
-                    setOpen(false);
-                });
-            });
-        })();
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-

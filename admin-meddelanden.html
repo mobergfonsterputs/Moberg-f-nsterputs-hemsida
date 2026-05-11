@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin – Meddelanden</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            min-height: 100dvh;
+            font-family: "Inter", sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.5;
+        }
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 1.25rem;
+        }
+        .header-inner {
+            max-width: 76rem;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        h1 { font-size: 1.25rem; font-weight: 700; }
+        .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .btn {
+            font: inherit;
+            border: 1px solid #cbd5e1;
+            background: #fff;
+            border-radius: 999px;
+            padding: 0.45rem 0.9rem;
+            cursor: pointer;
+            color: #334155;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .btn:hover { background: #f1f5f9; color: #0f172a; }
+        .btn-danger {
+            border-color: #fecaca;
+            color: #b91c1c;
+            background: #fff;
+        }
+        .btn-danger:hover { background: #fef2f2; }
+        main {
+            max-width: 76rem;
+            margin: 0 auto;
+            padding: 1.25rem;
+        }
+        .intro {
+            color: #64748b;
+            margin-bottom: 1rem;
+            font-size: 0.92rem;
+        }
+        .list { display: grid; gap: 0.8rem; }
+        .msg-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 0.9rem;
+            display: grid;
+            gap: 0.55rem;
+        }
+        .msg-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .msg-email { font-weight: 700; color: #113768; word-break: break-all; }
+        .msg-when { font-size: 0.85rem; color: #64748b; }
+        .msg-body {
+            font-size: 0.92rem;
+            color: #0f172a;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .msg-actions { display: flex; gap: 0.45rem; flex-wrap: wrap; }
+        .empty {
+            padding: 1.2rem;
+            background: #fff;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            color: #64748b;
+        }
+    </style>
+    <script>
+        (function () {
+            var AUTH_KEY = "putsad_admin_auth";
+            try {
+                if (sessionStorage.getItem(AUTH_KEY) !== "1") {
+                    window.location.replace("admin-login.html");
+                }
+            } catch (e) {
+                window.location.replace("admin-login.html");
+            }
+        })();
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <h1>Meddelanden</h1>
+            <div class="actions">
+                <a class="btn" href="admin-oversikt.html">Till adminöversikt</a>
+                <button type="button" class="btn btn-danger" id="clear-all">Rensa alla</button>
+                <button type="button" class="btn" id="admin-logout">Logga ut</button>
+            </div>
+        </div>
+    </header>
+    <main id="innehall">
+        <p class="intro">Meddelanden från formuläret på sidan Så funkar det sparas i webbläsaren (localStorage) på den enhet där de skickades.</p>
+        <div id="messages-list" class="list"></div>
+    </main>
+
+    <script src="js/admin-deleted-archive.js"></script>
+    <script>
+        (function () {
+            var AUTH_KEY = "putsad_admin_auth";
+            var STORAGE_KEY = "putsad_contact_messages_v1";
+            var listEl = document.getElementById("messages-list");
+            var logoutBtn = document.getElementById("admin-logout");
+            var clearAllBtn = document.getElementById("clear-all");
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function () {
+                    try { sessionStorage.removeItem(AUTH_KEY); } catch (e) {}
+                    window.location.href = "putsad.html";
+                });
+            }
+
+            function readMessages() {
+                try {
+                    var raw = localStorage.getItem(STORAGE_KEY);
+                    var parsed = raw ? JSON.parse(raw) : [];
+                    return Array.isArray(parsed) ? parsed : [];
+                } catch (e) {
+                    return [];
+                }
+            }
+
+            function writeMessages(list) {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+                } catch (e) {}
+            }
+
+            function escapeHtml(value) {
+                return String(value || "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#39;");
+            }
+
+            function formatWhen(iso) {
+                if (!iso) return "-";
+                var d = new Date(iso);
+                if (isNaN(d.getTime())) return "-";
+                return d.toLocaleString("sv-SE");
+            }
+
+            function render() {
+                var msgs = readMessages();
+                if (!msgs.length) {
+                    listEl.innerHTML = '<div class="empty">Inga meddelanden ännu.</div>';
+                    return;
+                }
+                listEl.innerHTML = msgs.map(function (m) {
+                    var id = escapeHtml(m.id);
+                    var email = escapeHtml(m.email);
+                    var body = escapeHtml(m.message);
+                    var when = escapeHtml(formatWhen(m.createdAt));
+                    return (
+                        '<article class="msg-card" data-id="' + id + '">' +
+                            '<div class="msg-top">' +
+                                '<span class="msg-email">' + email + '</span>' +
+                                '<span class="msg-when">' + when + '</span>' +
+                            '</div>' +
+                            '<div class="msg-body">' + body + '</div>' +
+                            '<div class="msg-actions">' +
+                                '<button type="button" class="btn btn-danger msg-delete" data-id="' + id + '">Ta bort</button>' +
+                            '</div>' +
+                        '</article>'
+                    );
+                }).join("");
+
+                listEl.querySelectorAll(".msg-delete").forEach(function (btn) {
+                    btn.addEventListener("click", function () {
+                        var rid = btn.getAttribute("data-id");
+                        var msgs = readMessages();
+                        var removed = msgs.filter(function (x) { return String(x.id) === String(rid); })[0];
+                        if (removed && typeof putsadPushDeleted === "function") {
+                            putsadPushDeleted("message", removed);
+                        }
+                        var next = msgs.filter(function (x) { return String(x.id) !== String(rid); });
+                        writeMessages(next);
+                        render();
+                    });
+                });
+            }
+
+            if (clearAllBtn) {
+                clearAllBtn.addEventListener("click", function () {
+                    var msgs = readMessages();
+                    if (!msgs.length) return;
+                    if (!window.confirm("Ta bort alla meddelanden?")) return;
+                    if (typeof putsadPushDeleted === "function") {
+                        msgs.forEach(function (m) {
+                            putsadPushDeleted("message", m);
+                        });
+                    }
+                    writeMessages([]);
+                    render();
+                });
+            }
+
+            render();
+        })();
+    </script>
+</body>
+</html>

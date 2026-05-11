@@ -6,10 +6,9 @@
     <title>Bekräfta</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:ital@1&display=optional" rel="stylesheet">
-    <link rel="stylesheet" href="header-shared.css?v=14">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=optional" rel="stylesheet">
     <link rel="stylesheet" href="site-stable.css?v=2">
-    <link rel="stylesheet" href="booking-progress-shared.css?v=3">
+    <link rel="stylesheet" href="booking-progress-shared.css?v=4">
     <link rel="stylesheet" href="footer-shared.css?v=24">
     <style>
         body {
@@ -21,129 +20,6 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-        header {
-            position: sticky;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(20px);
-            padding: 1.2rem 0;
-        }
-        .header-inner {
-            width: min(1320px, calc(100% - 2.5rem));
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo-fallback {
-            font-family: 'Inter', sans-serif;
-            font-weight: 800;
-            font-size: 2rem;
-            text-decoration: none;
-            color: #000;
-            letter-spacing: -1px;
-        }
-        nav ul {
-            display: flex;
-            list-style: none;
-            align-items: center;
-            gap: 2.8rem;
-        }
-        nav a {
-            color: #000;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        nav ul li > a:not(.btn-cta) {
-            position: relative;
-            display: inline-block;
-        }
-        nav ul li > a:not(.btn-cta)::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -4px;
-            width: 100%;
-            height: 1px;
-            background: #113768;
-            border-radius: 999px;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-        nav ul li > a:not(.btn-cta):hover::after { opacity: 1; }
-        .nav-desktop { display: flex; align-items: center; }
-        .header-mobile { display: none; align-items: center; gap: 0.65rem; }
-        .nav-toggle {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            padding: 0;
-            border: none;
-            background: transparent;
-            color: #000;
-            cursor: pointer;
-            border-radius: 10px;
-            transition: background 0.2s ease;
-        }
-        .nav-toggle:hover { background: rgba(0, 0, 0, 0.06); }
-        .nav-toggle svg { width: 24px; height: 24px; }
-        .mobile-menu-panel {
-            display: none;
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 100%;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid #e5e5e5;
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
-            z-index: 999;
-        }
-        .mobile-menu-panel.is-open { display: block; }
-        .mobile-menu-inner {
-            width: min(1320px, calc(100% - 2.5rem));
-            margin: 0 auto;
-            padding: 0.75rem 0 1.25rem;
-        }
-        .mobile-menu-panel ul {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-        .mobile-menu-panel li { text-align: center; border-bottom: 1px solid #000; }
-        .mobile-menu-panel li:last-child { border-bottom: none; }
-        .mobile-menu-panel a {
-            display: block;
-            padding: 1rem 0.75rem;
-            text-decoration: none;
-            text-align: center;
-            color: #0F172A;
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-weight: 400;
-            font-size: 1.4rem;
-            line-height: 1.3;
-        }
-        .mobile-menu-panel a:hover { background: rgba(0, 0, 0, 0.03); }
-        .btn-cta {
-            background: #113768;
-            color: #fff;
-            padding: 0.8rem 3.4rem;
-            border-radius: 999px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: background 0.2s ease;
-            display: inline-block;
-        }
-        .btn-cta:hover { background: #0d2c52; }
         .content {
             width: min(680px, calc(100% - 2.5rem));
             margin: 2.75rem auto 0;
@@ -323,6 +199,12 @@
         .confirm-wrap {
             margin-top: 0;
         }
+        .confirm-input-title {
+            margin: 0 0 0.45rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
         .confirm-input-group {
             display: flex;
             align-items: stretch;
@@ -456,6 +338,74 @@
         .confirm-flow-msg:empty {
             display: none;
         }
+        .personnummer-help-link {
+            display: inline-block;
+            margin-top: 0.55rem;
+            font-size: 0.9rem;
+            color: #113768;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            font: inherit;
+        }
+        .personnummer-help-link:hover {
+            color: #0d2c52;
+        }
+        .personnummer-help-dialog {
+            width: min(760px, calc(100% - 2rem));
+            border: none;
+            border-radius: 14px;
+            padding: 0;
+            box-shadow: 0 20px 48px rgba(15, 23, 42, 0.3);
+        }
+        .personnummer-help-dialog::backdrop {
+            background: rgba(15, 23, 42, 0.46);
+        }
+        .personnummer-help-inner {
+            padding: 1.43rem 1.56rem 1.56rem;
+        }
+        .personnummer-help-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.7rem;
+        }
+        .personnummer-help-title {
+            margin: 0;
+            font-size: 1.1rem;
+            line-height: 1.25;
+            font-weight: 800;
+            color: #0f172a;
+        }
+        .personnummer-help-close {
+            border: 1px solid #cbd5e1;
+            background: #fff;
+            color: #0f172a;
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+        .personnummer-help-close:hover {
+            background: #f8fafc;
+        }
+        .personnummer-help-body {
+            color: #334155;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .personnummer-help-body p {
+            margin: 0 0 0.8rem;
+        }
+        .personnummer-help-body p:last-child {
+            margin-bottom: 0;
+        }
         .ok-msg {
             margin-top: 1rem;
             color: #15803d;
@@ -465,57 +415,40 @@
         .ok-msg.is-visible {
             display: block;
         }
-        @media (max-width: 700px) {
+        /* ── Tablet (max-width: 1040px) ─────────────────────────────────── */
+        @media (max-width: 1040px) {
+            .confirm-btn {
+                min-height: 44px;
+            }
+        }
+
+        /* ── Mobil (max-width: 680px) ─────────────────────────────────── */
+        @media (max-width: 680px) {
             .row {
                 grid-template-columns: 1fr;
                 gap: 0.2rem;
             }
+
             .confirm-input-group {
                 max-width: none;
             }
         }
-        @media (max-width: 900px) {
-            .nav-desktop { display: none; }
-            .header-mobile { display: flex; }
+
+        /* ── Liten mobil (max-width: 480px) ─────────────────────────────── */
+        @media (max-width: 480px) {
+            .confirm-step h1 {
+                font-size: clamp(1.45rem, 5vw, 1.8rem);
+            }
         }
+
     </style>
 </head>
-<body class="booking-flow-step-4">
-    <header>
-        <div class="header-inner">
-            <a href="#hem" class="logo-fallback">Moberg Fönsterputs</a>
-            <nav class="nav-desktop" aria-label="Huvudmeny">
-                <ul>
-                    <li><a href="putsad.html#hem">Hem</a></li>
-                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
-                    <li><a href="detta-ingar.html">Detta ingår</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                    <li><a href="berakna-pris.html" class="btn-cta">Boka puts</a></li>
-                </ul>
-            </nav>
-            <div class="header-mobile">
-                <a href="berakna-pris.html" class="btn-cta">Boka puts</a>
-                <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Öppna meny">
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div class="mobile-menu-panel" id="mobile-menu-panel" role="navigation" aria-label="Mobilmeny">
-            <div class="mobile-menu-inner">
-                <ul>
-                    <li><a href="putsad.html#hem">Hem</a></li>
-                    <li><a href="sa-funkar-det.html">Så funkar det</a></li>
-                    <li><a href="detta-ingar.html">Detta ingår</a></li>
-                    <li><a href="kontakt.html">Kontakt</a></li>
-                </ul>
-            </div>
-        </div>
-    </header>
+<body class="booking-flow-step-5">
+    <div data-site-header></div>
+    <script src="js/site-header.js"></script>
 
-    <div class="top-nav">
-        <a class="back-link" href="boka-tid.html" aria-label="Tillbaka">
+<div class="top-nav">
+        <a class="back-link" id="bekrafta-back-link" href="paket-vald.html" aria-label="Tillbaka">
             <span class="back-link-icon" aria-hidden="true">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M14.5 6.5L9 12l5.5 5.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
@@ -528,21 +461,23 @@
                 <div class="booking-progress-fill"></div>
                 <div class="booking-progress-dots">
                     <span id="step-dot-1" class="booking-progress-dot is-complete" style="left: 0%;" title="Beräkna pris"></span>
-                    <span id="step-dot-2" class="booking-progress-dot is-complete" style="left: 33.333%;" title="Personuppgifter"></span>
-                    <span id="step-dot-3" class="booking-progress-dot is-complete" style="left: 66.666%;" title="Boka tid"></span>
-                    <span id="step-dot-4" class="booking-progress-dot is-active" style="left: 100%;" title="Bekräfta"></span>
+                    <span id="step-dot-2" class="booking-progress-dot is-complete" style="left: 25%;" title="Adress"></span>
+                    <span id="step-dot-3" class="booking-progress-dot is-complete" style="left: 50%;" title="Boka tid"></span>
+                    <span id="step-dot-4" class="booking-progress-dot is-complete" style="left: 75%;" title="Personuppgifter"></span>
+                    <span id="step-dot-5" class="booking-progress-dot is-active" style="left: 100%;" title="Bekräfta"></span>
                 </div>
             </div>
             <div class="booking-progress-steps">
                 <div class="booking-progress-step is-complete" style="left: 0%;">Beräkna pris</div>
-                <div class="booking-progress-step is-complete" style="left: 33.333%;">Personuppgifter</div>
-                <div class="booking-progress-step is-complete" style="left: 66.666%;">Boka tid</div>
+                <div class="booking-progress-step is-complete" style="left: 25%;">Adress</div>
+                <div class="booking-progress-step is-complete" style="left: 50%;">Boka tid</div>
+                <div class="booking-progress-step is-complete" style="left: 75%;">Personuppgifter</div>
                 <div class="booking-progress-step is-active" style="left: 100%;">Bekräfta</div>
             </div>
         </section>
     </div>
 
-    <main class="content">
+    <main class="content" id="innehall">
         <section class="card">
             <h1 class="title">Bekräfta din bokning</h1>
             <p class="intro">Kontrollera att uppgifterna stämmer innan du bekräftar.</p>
@@ -556,19 +491,33 @@
                 <label for="terms-checkbox" class="terms-label">Jag godkänner <a href="villkor.html" class="terms-link">villkoren</a>.</label>
             </div>
             <div class="confirm-wrap">
+                <p class="confirm-input-title">Bekräfta med personnummer</p>
                 <div class="confirm-input-group" role="group" aria-label="Bekräfta med personnummer">
-                    <input type="text" id="confirm-personnummer" class="confirm-input" placeholder="Personnummer" inputmode="numeric" autocomplete="off" maxlength="13" spellcheck="false" aria-label="Personnummer">
+                    <input type="text" id="confirm-personnummer" class="confirm-input" placeholder="ÅÅMMDDXXXX" inputmode="numeric" autocomplete="off" maxlength="10" spellcheck="false" aria-label="Personnummer">
                     <button id="confirm-btn" class="confirm-btn" type="button" aria-label="Bekräfta bokning" disabled>Bekräfta</button>
                 </div>
                 <div id="confirm-flow-msg" class="confirm-flow-msg" role="status" aria-live="polite"></div>
+                <button type="button" id="personnummer-help-link" class="personnummer-help-link">Varför måste jag bekräfta med personnummer?</button>
             </div>
         </section>
     </main>
+    <dialog id="personnummer-help-dialog" class="personnummer-help-dialog" aria-labelledby="personnummer-help-title">
+        <div class="personnummer-help-inner">
+            <div class="personnummer-help-head">
+                <h2 id="personnummer-help-title" class="personnummer-help-title">Varför måste jag bekräfta med personnummer?</h2>
+                <button type="button" id="personnummer-help-close" class="personnummer-help-close" aria-label="Stäng">×</button>
+            </div>
+            <div class="personnummer-help-body">
+                <p>Vi behöver ditt personnummer för att kunna ansöka om RUT-avdrag åt dig direkt, så att du får ett lägre pris utan att behöva göra något själv.</p>
+                <p>Uppgifterna sparas i webbläsaren på den här enheten (localStorage) tills du rensar dem; de skickas inte till någon server i det här bokningsflödet. Hantera enheten som känslig.</p>
+            </div>
+        </div>
+    </dialog>
 
     <footer id="kontakt">
         <div class="footer-inner">
             <div class="footer-logo-slot">
-                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img">
+                <img src="MOBERG~3.PNG" alt="Moberg Fönsterputs logga" class="footer-logo-img" loading="lazy" decoding="async">
             </div>
             <nav class="footer-nav-col" aria-labelledby="footer-nav-puts">
                 <h3 id="footer-nav-puts" class="footer-nav-heading">Fönsterputs</h3>
@@ -592,7 +541,7 @@
                                     <nav class="footer-nav-col" aria-labelledby="footer-nav-sociala">
                 <h3 id="footer-nav-sociala" class="footer-nav-heading">Sociala</h3>
                 <ul class="footer-nav-list">
-                    <li><a href="#">Instagram</a></li>
+                    <li><a href="https://www.instagram.com/mobergsfonsterputs/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
                     <li><a href="#">Facebook</a></li>
                     <li><a href="#">LinkedIn</a></li>
                     <li><a href="#">TikTok</a></li>
@@ -607,26 +556,7 @@
 
     <script>
         (function () {
-            var toggle = document.getElementById("nav-toggle");
-            var panel = document.getElementById("mobile-menu-panel");
-            if (toggle && panel) {
-                function setOpen(open) {
-                    toggle.setAttribute("aria-expanded", open ? "true" : "false");
-                    toggle.setAttribute("aria-label", open ? "Stäng meny" : "Öppna meny");
-                    panel.classList.toggle("is-open", open);
-                }
-                toggle.addEventListener("click", function () {
-                    setOpen(!panel.classList.contains("is-open"));
-                });
-                panel.querySelectorAll("a").forEach(function (link) {
-                    link.addEventListener("click", function () {
-                        setOpen(false);
-                    });
-                });
-            }
-
             var PERSON_STORAGE_KEY = "putsad_personuppgifter_v1";
-            var PACKAGE_STORAGE_KEY = "putsad_selected_package";
             var AREA_LABELS = {
                 "upplands vasby": "Upplands Väsby",
                 "sollentuna": "Sollentuna",
@@ -640,11 +570,6 @@
                 "uppsala": "Uppsala"
             };
             var BOOKABLE_AREA_KEYS = Object.keys(AREA_LABELS);
-            var PACKAGE_LABELS = {
-                "standard": "Standard",
-                "deep-clean": "Deep Clean"
-            };
-            var MAPBOX_TOKEN = "DIN_MAPBOX_TOKEN";
 
             function getRoundedHalfHoursFromPrice(price) {
                 if (!isFinite(price) || price <= 0) return null;
@@ -766,10 +691,6 @@
             var dateText = formatDateText(date);
             var time = getParam("time");
             var area = getParam("area") || person.areaKey || "";
-            var pkg = getParam("paket") || "";
-            if (!pkg) {
-                try { pkg = localStorage.getItem(PACKAGE_STORAGE_KEY) || ""; } catch (e) {}
-            }
             var priceRaw = Number(getParam("price"));
             if (!isFinite(priceRaw) || priceRaw <= 0) {
                 try { priceRaw = Number(localStorage.getItem("putsad_latest_total")); } catch (e) { priceRaw = NaN; }
@@ -777,7 +698,10 @@
             var roundedHours = getRoundedHalfHoursFromPrice(priceRaw);
             var est = formatHoursValue(roundedHours);
             var timeRange = formatTimeRange(time, roundedHours);
-            var fullName = [person.firstName || "", person.lastName || ""].join(" ").replace(/\s+/g, " ").trim();
+            var fullName = String(person.fullName || "").replace(/\s+/g, " ").trim();
+            if (!fullName) {
+                fullName = [person.firstName || "", person.lastName || ""].join(" ").replace(/\s+/g, " ").trim();
+            }
             var hasValidPrice = isFinite(priceRaw) && priceRaw > 0;
             var priceDisplay = hasValidPrice
                 ? priceRaw.toLocaleString("sv-SE") + " kr efter rutavdrag"
@@ -793,68 +717,154 @@
             ];
 
             var grid = document.getElementById("summary-grid");
-            rows.forEach(function (r) {
+
+            function textDiv(className, text) {
+                var el = document.createElement("div");
+                el.className = className;
+                el.textContent = text;
+                return el;
+            }
+
+            function appendLabelValueRow(label, valueText, rowOptions) {
+                rowOptions = rowOptions || {};
                 var row = document.createElement("div");
                 row.className = "row";
-                if (r[0] === "Adress") {
-                    row.id = "address-row";
-                    row.innerHTML =
-                        "<div class='k'>" + r[0] + "</div>" +
-                        "<div class='v'><button id='address-value-btn' class='address-value-btn' type='button'>" + r[1] + "</button></div>";
-                } else if (r[0] === "Namn") {
-                    row.id = "name-row";
-                    row.innerHTML =
-                        "<div class='k'>" + r[0] + "</div>" +
-                        "<div class='v'>" +
-                        "<div class='inline-value-wrap'>" +
-                        "<button id='name-value-btn' class='address-value-btn' type='button'>" + r[1] + "</button>" +
-                        "<input id='name-edit-input' class='inline-edit-input' type='text' autocomplete='name'>" +
-                        "</div>" +
-                        "<div id='name-edit-msg' class='inline-edit-msg'></div>" +
-                        "</div>";
-                } else if (r[0] === "Telefon") {
-                    row.id = "phone-row";
-                    row.innerHTML =
-                        "<div class='k'>" + r[0] + "</div>" +
-                        "<div class='v'>" +
-                        "<div class='inline-value-wrap'>" +
-                        "<button id='phone-value-btn' class='address-value-btn' type='button'>" + r[1] + "</button>" +
-                        "<input id='phone-edit-input' class='inline-edit-input' type='tel' autocomplete='tel' inputmode='tel'>" +
-                        "</div>" +
-                        "<div id='phone-edit-msg' class='inline-edit-msg'></div>" +
-                        "</div>";
-                } else if (r[0] === "Datum") {
-                    row.id = "date-row";
-                    row.innerHTML =
-                        "<div class='k'>" + r[0] + "</div>" +
-                        "<div class='v'><button id='date-value-btn' class='address-value-btn' type='button'>" + r[1] + "</button></div>";
-                } else if (r[0] === "Tid") {
-                    row.id = "time-row";
-                    row.innerHTML =
-                        "<div class='k'>" + r[0] + "</div>" +
-                        "<div class='v'><button id='time-value-btn' class='address-value-btn' type='button'>" + r[1] + "</button></div>";
-                } else if (r[0] === "Beräknat pris") {
-                    row.id = "price-row";
-                    row.innerHTML =
-                        "<div class='k'>" + r[0] + "</div>" +
-                        "<div class='v'><button id='price-value-btn' class='address-value-btn price-pulse' type='button'>" + r[1] + "</button></div>";
-                } else {
-                    row.innerHTML = "<div class='k'>" + r[0] + "</div><div class='v'>" + r[1] + "</div>";
-                }
+                if (rowOptions.id) row.id = rowOptions.id;
+                row.appendChild(textDiv("k", label));
+                var v = document.createElement("div");
+                v.className = "v";
+                var btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = "address-value-btn" + (rowOptions.btnExtraClass ? " " + rowOptions.btnExtraClass : "");
+                if (rowOptions.btnId) btn.id = rowOptions.btnId;
+                btn.textContent = valueText;
+                v.appendChild(btn);
+                row.appendChild(v);
                 grid.appendChild(row);
-                if (r[0] === "Adress") {
+            }
+
+            rows.forEach(function (r) {
+                var label = r[0];
+                var valueText = String(r[1] == null ? "" : r[1]);
+
+                if (label === "Adress") {
+                    appendLabelValueRow(label, valueText, { id: "address-row", btnId: "address-value-btn" });
                     var editorRow = document.createElement("div");
                     editorRow.className = "row address-editor-row";
                     editorRow.id = "address-editor-row";
-                    editorRow.innerHTML =
-                        "<div></div>" +
-                        "<div class='address-editor'>" +
-                        "<input id='address-edit-input' class='address-edit-input' type='text' autocomplete='off' spellcheck='false'>" +
-                        "<div id='address-edit-suggestions' class='address-edit-suggestions'></div>" +
-                        "<div id='address-edit-msg' class='address-edit-msg'></div>" +
-                        "</div>";
+                    editorRow.appendChild(document.createElement("div"));
+                    var editorCell = document.createElement("div");
+                    editorCell.className = "address-editor";
+                    var addrInput = document.createElement("input");
+                    addrInput.id = "address-edit-input";
+                    addrInput.className = "address-edit-input";
+                    addrInput.type = "text";
+                    addrInput.setAttribute("autocomplete", "off");
+                    addrInput.setAttribute("spellcheck", "false");
+                    editorCell.appendChild(addrInput);
+                    var addrSug = document.createElement("div");
+                    addrSug.id = "address-edit-suggestions";
+                    addrSug.className = "address-edit-suggestions";
+                    editorCell.appendChild(addrSug);
+                    var addrMsg = document.createElement("div");
+                    addrMsg.id = "address-edit-msg";
+                    addrMsg.className = "address-edit-msg";
+                    editorCell.appendChild(addrMsg);
+                    editorRow.appendChild(editorCell);
                     grid.appendChild(editorRow);
+                    return;
                 }
+
+                if (label === "Namn") {
+                    var nameRow = document.createElement("div");
+                    nameRow.className = "row";
+                    nameRow.id = "name-row";
+                    nameRow.appendChild(textDiv("k", label));
+                    var nameV = document.createElement("div");
+                    nameV.className = "v";
+                    var nameWrap = document.createElement("div");
+                    nameWrap.className = "inline-value-wrap";
+                    var nameBtnEl = document.createElement("button");
+                    nameBtnEl.type = "button";
+                    nameBtnEl.id = "name-value-btn";
+                    nameBtnEl.className = "address-value-btn";
+                    nameBtnEl.textContent = valueText;
+                    nameWrap.appendChild(nameBtnEl);
+                    var nameInp = document.createElement("input");
+                    nameInp.id = "name-edit-input";
+                    nameInp.className = "inline-edit-input";
+                    nameInp.type = "text";
+                    nameInp.setAttribute("autocomplete", "name");
+                    nameWrap.appendChild(nameInp);
+                    nameV.appendChild(nameWrap);
+                    var nameEditMsg = document.createElement("div");
+                    nameEditMsg.id = "name-edit-msg";
+                    nameEditMsg.className = "inline-edit-msg";
+                    nameV.appendChild(nameEditMsg);
+                    nameRow.appendChild(nameV);
+                    grid.appendChild(nameRow);
+                    return;
+                }
+
+                if (label === "Telefon") {
+                    var phoneRow = document.createElement("div");
+                    phoneRow.className = "row";
+                    phoneRow.id = "phone-row";
+                    phoneRow.appendChild(textDiv("k", label));
+                    var phoneV = document.createElement("div");
+                    phoneV.className = "v";
+                    var phoneWrap = document.createElement("div");
+                    phoneWrap.className = "inline-value-wrap";
+                    var phoneBtnEl = document.createElement("button");
+                    phoneBtnEl.type = "button";
+                    phoneBtnEl.id = "phone-value-btn";
+                    phoneBtnEl.className = "address-value-btn";
+                    phoneBtnEl.textContent = valueText;
+                    phoneWrap.appendChild(phoneBtnEl);
+                    var phoneInp = document.createElement("input");
+                    phoneInp.id = "phone-edit-input";
+                    phoneInp.className = "inline-edit-input";
+                    phoneInp.type = "tel";
+                    phoneInp.setAttribute("autocomplete", "tel");
+                    phoneInp.setAttribute("inputmode", "tel");
+                    phoneWrap.appendChild(phoneInp);
+                    phoneV.appendChild(phoneWrap);
+                    var phoneEditMsg = document.createElement("div");
+                    phoneEditMsg.id = "phone-edit-msg";
+                    phoneEditMsg.className = "inline-edit-msg";
+                    phoneV.appendChild(phoneEditMsg);
+                    phoneRow.appendChild(phoneV);
+                    grid.appendChild(phoneRow);
+                    return;
+                }
+
+                if (label === "Datum") {
+                    appendLabelValueRow(label, valueText, { id: "date-row", btnId: "date-value-btn" });
+                    return;
+                }
+
+                if (label === "Tid") {
+                    appendLabelValueRow(label, valueText, { id: "time-row", btnId: "time-value-btn" });
+                    return;
+                }
+
+                if (label === "Beräknat pris") {
+                    appendLabelValueRow(label, valueText, {
+                        id: "price-row",
+                        btnId: "price-value-btn",
+                        btnExtraClass: "price-pulse"
+                    });
+                    return;
+                }
+
+                var fallbackRow = document.createElement("div");
+                fallbackRow.className = "row";
+                fallbackRow.appendChild(textDiv("k", label));
+                var fv = document.createElement("div");
+                fv.className = "v";
+                fv.textContent = valueText;
+                fallbackRow.appendChild(fv);
+                grid.appendChild(fallbackRow);
             });
 
             var addressBtn = document.getElementById("address-value-btn");
@@ -946,41 +956,43 @@
 
             function requestAddressSuggestions(query) {
                 var requestId = ++addressReqId;
-                var fallbackUrl =
-                    "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-                    encodeURIComponent(query) +
-                    ".json?access_token=" + encodeURIComponent(MAPBOX_TOKEN) +
-                    "&autocomplete=true&country=se&language=sv&types=address,place,locality,postcode&limit=6";
                 fetch("/api/address-suggest?q=" + encodeURIComponent(query))
                     .then(function (res) {
-                        if (res && res.ok) return res.json();
-                        throw new Error("api route failed");
+                        if (res.status === 429) {
+                            return res.json().then(function (data) {
+                                var retryAfter = Number(data && data.retry_after_seconds) || 60;
+                                if (addressEditMsg) {
+                                    addressEditMsg.textContent =
+                                        "För många förfrågningar. Försök igen om " + retryAfter + " s.";
+                                }
+                                return null;
+                            }).catch(function () {
+                                if (addressEditMsg) addressEditMsg.textContent = "För många förfrågningar. Vänta en stund.";
+                                return null;
+                            });
+                        }
+                        if (res.status === 503) {
+                            if (addressEditMsg) {
+                                addressEditMsg.textContent =
+                                    "Adressförslag är inte konfigurerat på servern än. Ange adress manuellt eller försök senare.";
+                            }
+                            return null;
+                        }
+                        if (!res.ok) {
+                            if (addressEditMsg) addressEditMsg.textContent = "Kunde inte hämta adressförslag.";
+                            return null;
+                        }
+                        return res.json();
                     })
                     .then(function (data) {
                         if (requestId !== addressReqId) return;
                         var fromApi = data && data.features ? data.features : [];
-                        if (fromApi.length) {
-                            renderAddressSuggestions(fromApi);
-                            return;
-                        }
-                        return fetch(fallbackUrl)
-                            .then(function (res) { return res.ok ? res.json() : null; })
-                            .then(function (fallbackData) {
-                                if (requestId !== addressReqId) return;
-                                renderAddressSuggestions(fallbackData && fallbackData.features ? fallbackData.features : []);
-                            });
+                        renderAddressSuggestions(fromApi);
                     })
                     .catch(function () {
-                        return fetch(fallbackUrl)
-                            .then(function (res) { return res.ok ? res.json() : null; })
-                            .then(function (fallbackData) {
-                                if (requestId !== addressReqId) return;
-                                renderAddressSuggestions(fallbackData && fallbackData.features ? fallbackData.features : []);
-                            })
-                            .catch(function () {
-                                if (requestId !== addressReqId) return;
-                                addressEditSuggestions.classList.remove("is-open");
-                            });
+                        if (requestId !== addressReqId) return;
+                        if (addressEditMsg) addressEditMsg.textContent = "Kunde inte hämta adressförslag.";
+                        addressEditSuggestions.classList.remove("is-open");
                     });
             }
 
@@ -1096,6 +1108,29 @@
             var personnummerInput = document.getElementById("confirm-personnummer");
             var termsCheckbox = document.getElementById("terms-checkbox");
             var confirmFlowMsg = document.getElementById("confirm-flow-msg");
+            var personnummerHelpLink = document.getElementById("personnummer-help-link");
+            var personnummerHelpDialog = document.getElementById("personnummer-help-dialog");
+            var personnummerHelpClose = document.getElementById("personnummer-help-close");
+
+            if (personnummerHelpLink && personnummerHelpDialog) {
+                personnummerHelpLink.addEventListener("click", function () {
+                    if (typeof personnummerHelpDialog.showModal === "function") {
+                        personnummerHelpDialog.showModal();
+                    }
+                });
+            }
+            if (personnummerHelpClose && personnummerHelpDialog) {
+                personnummerHelpClose.addEventListener("click", function () {
+                    personnummerHelpDialog.close();
+                });
+            }
+            if (personnummerHelpDialog) {
+                personnummerHelpDialog.addEventListener("click", function (e) {
+                    if (e.target === personnummerHelpDialog) {
+                        personnummerHelpDialog.close();
+                    }
+                });
+            }
 
             function normalizePhoneDigitsFlow(raw) {
                 var digits = String(raw || "").replace(/\D/g, "");
@@ -1109,9 +1144,25 @@
                 return digits.slice(0, 10);
             }
 
+            function normalizePersonnummerDigits(raw) {
+                return String(raw || "").replace(/\D/g, "").slice(0, 10);
+            }
+
+            function savePersonnummerToPersonState(raw) {
+                var digits = normalizePersonnummerDigits(raw);
+                if (digits.length !== 10) return;
+                try {
+                    person.personnummer = digits;
+                    localStorage.setItem(PERSON_STORAGE_KEY, JSON.stringify(person));
+                } catch (e) {}
+            }
+
+            function isPersonnummerValid(raw) {
+                var digits = normalizePersonnummerDigits(raw);
+                return digits.length === 10;
+            }
+
             function isBookingFlowComplete() {
-                if (!hasValidPrice) return false;
-                if (!(pkg && String(pkg).trim())) return false;
                 if (!date || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return false;
                 if (!time || !/^\d{1,2}:\d{2}$/.test(String(time).trim())) return false;
                 if (!(area && String(area).trim())) return false;
@@ -1124,24 +1175,41 @@
 
             if (termsCheckbox && confirmBtn) {
                 function syncTermsButton() {
-                    confirmBtn.disabled = !termsCheckbox.checked;
+                    var termsOk = !!termsCheckbox.checked;
+                    var pnrOk = isPersonnummerValid(personnummerInput && personnummerInput.value);
+                    confirmBtn.disabled = !(termsOk && pnrOk);
                 }
                 termsCheckbox.addEventListener("change", function () {
                     if (confirmFlowMsg) confirmFlowMsg.textContent = "";
                     syncTermsButton();
                 });
+                if (personnummerInput) {
+                    personnummerInput.addEventListener("input", function () {
+                        var digits = normalizePersonnummerDigits(personnummerInput.value);
+                        personnummerInput.value = digits;
+                        if (confirmFlowMsg) confirmFlowMsg.textContent = "";
+                        syncTermsButton();
+                    });
+                }
                 syncTermsButton();
             }
             if (confirmBtn) {
                 confirmBtn.addEventListener("click", function () {
                     if (confirmFlowMsg) confirmFlowMsg.textContent = "";
                     if (termsCheckbox && !termsCheckbox.checked) return;
-                    if (!isBookingFlowComplete()) {
+                    if (!isPersonnummerValid(personnummerInput && personnummerInput.value)) {
                         if (confirmFlowMsg) {
-                            confirmFlowMsg.textContent = "Gör klart på de andra sidorna innan du bekräftar.";
+                            confirmFlowMsg.textContent = "Ange ett giltigt personnummer med 10 siffror.";
                         }
                         return;
                     }
+                    if (!isBookingFlowComplete()) {
+                        if (confirmFlowMsg) {
+                            confirmFlowMsg.textContent = "Saknar uppgifter. Kontrollera adress, datum/tid, namn och telefon innan du bekräftar.";
+                        }
+                        return;
+                    }
+                    savePersonnummerToPersonState(personnummerInput && personnummerInput.value);
                     window.location.href = buildCompleteUrl();
                 });
             }
@@ -1157,41 +1225,49 @@
             function buildStepUrl(step) {
                 if (step === 1) return "putsad.html#pris-kalkylator";
                 if (step === 2) {
-                    var p2 = new URLSearchParams();
-                    if (pkg) p2.set("paket", pkg);
-                    var q2 = p2.toString();
-                    return "paket-vald.html" + (q2 ? "?" + q2 : "");
+                    return "adress.html";
                 }
                 if (step === 3) {
                     var p3 = new URLSearchParams();
                     if (isFinite(priceRaw) && priceRaw > 0) p3.set("price", String(priceRaw));
                     if (area) p3.set("area", area);
-                    if (pkg) p3.set("paket", pkg);
                     if (date) p3.set("date", date);
                     if (time) p3.set("time", time);
                     var q3 = p3.toString();
                     return "boka-tid.html" + (q3 ? "?" + q3 : "");
                 }
-                if (step === 4) return window.location.pathname + window.location.search;
+                if (step === 4) {
+                    var p4 = new URLSearchParams();
+                    if (date) p4.set("date", date);
+                    if (time) p4.set("time", time);
+                    if (isFinite(priceRaw) && priceRaw > 0) p4.set("price", String(priceRaw));
+                    if (area) p4.set("area", area);
+                    var q4 = p4.toString();
+                    return "paket-vald.html" + (q4 ? "?" + q4 : "");
+                }
+                if (step === 5) return window.location.pathname + window.location.search;
                 return "bekrafta.html";
             }
+
+            var bekraftaBackEl = document.getElementById("bekrafta-back-link");
+            if (bekraftaBackEl) bekraftaBackEl.setAttribute("href", buildStepUrl(4));
 
             function buildCompleteUrl() {
                 var params = new URLSearchParams();
                 if (isFinite(priceRaw) && priceRaw > 0) params.set("price", String(priceRaw));
                 if (area) params.set("area", area);
-                if (pkg) params.set("paket", pkg);
                 if (date) params.set("date", date);
                 if (time) params.set("time", time);
                 var query = params.toString();
-                return "bokat.html" + (query ? "?" + query : "");
+                return "bokning-laddar.html" + (query ? "?" + query : "");
             }
 
             [
                 [1, "step-dot-1"],
                 [2, "step-dot-2"],
                 [3, "step-dot-3"],
-                [4, "step-dot-4"]
+                [4, "step-dot-4"],
+                [5, "step-dot-5"]
             ].forEach(function (pair) {
                 var step = pair[0];
                 var el = document.getElementById(pair[1]);

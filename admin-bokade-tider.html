@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin – Bokade tider</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            min-height: 100dvh;
+            font-family: "Inter", sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.5;
+        }
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 1.25rem;
+        }
+        .header-inner {
+            max-width: 76rem;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        h1 { font-size: 1.25rem; font-weight: 700; }
+        .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .btn {
+            font: inherit;
+            border: 1px solid #cbd5e1;
+            background: #fff;
+            border-radius: 999px;
+            padding: 0.45rem 0.9rem;
+            cursor: pointer;
+            color: #334155;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .btn:hover { background: #f1f5f9; color: #0f172a; }
+        main {
+            max-width: 76rem;
+            margin: 0 auto;
+            padding: 1.25rem;
+        }
+        .intro {
+            color: #64748b;
+            margin-bottom: 1rem;
+            font-size: 0.92rem;
+        }
+        .list {
+            display: grid;
+            gap: 0.8rem;
+        }
+        .booking-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 0.9rem;
+            display: grid;
+            gap: 0.6rem;
+        }
+        .booking-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .booking-when {
+            font-weight: 700;
+            color: #113768;
+        }
+        .booking-meta {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.45rem 1rem;
+            font-size: 0.9rem;
+        }
+        .booking-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            min-width: 0;
+        }
+        .booking-meta-row span {
+            color: #64748b;
+            display: inline-block;
+            min-width: 86px;
+        }
+        .booking-meta-value {
+            color: #0f172a;
+            word-break: break-word;
+            min-width: 0;
+            flex: 1;
+        }
+        .btn-copy-mini {
+            height: 26px;
+            border-radius: 999px;
+            padding: 0 0.55rem;
+            font-size: 0.75rem;
+            line-height: 1;
+            border-color: #cbd5e1;
+            color: #334155;
+            background: #fff;
+            flex-shrink: 0;
+        }
+        .booking-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .btn-copy {
+            border-color: #113768;
+            color: #113768;
+        }
+        .btn-delete {
+            border-color: #dc2626;
+            color: #dc2626;
+        }
+        .empty {
+            padding: 1.2rem;
+            background: #fff;
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            color: #64748b;
+        }
+        @media (max-width: 700px) {
+            .booking-meta { grid-template-columns: 1fr; }
+            .booking-meta div span { min-width: 76px; }
+        }
+    </style>
+    <script>
+        (function () {
+            var AUTH_KEY = "putsad_admin_auth";
+            try {
+                if (sessionStorage.getItem(AUTH_KEY) !== "1") {
+                    window.location.replace("admin-login.html");
+                }
+            } catch (e) {
+                window.location.replace("admin-login.html");
+            }
+        })();
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <h1>Bokade tider</h1>
+            <div class="actions">
+                <a class="btn" href="admin-oversikt.html">Till adminöversikt</a>
+                <button type="button" class="btn" id="admin-logout">Logga ut</button>
+            </div>
+        </div>
+    </header>
+    <main id="innehall">
+        <p class="intro">Här visas bokningar som har bekräftats. Du kan kopiera kunduppgifter eller ta bort bokningar.</p>
+        <div id="bookings-list" class="list"></div>
+    </main>
+
+    <script src="js/admin-deleted-archive.js"></script>
+    <script>
+        (function () {
+            var AUTH_KEY = "putsad_admin_auth";
+            var STORAGE_KEY = "putsad_booked_times_v1";
+            var AREA_LABELS = {
+                "upplands vasby": "Upplands Väsby",
+                "sollentuna": "Sollentuna",
+                "taby": "Täby",
+                "vasteras": "Västerås",
+                "gaddeholm": "Gäddeholm",
+                "gaddeholm i vasteras": "Gäddeholm i Västerås",
+                "lidkoping": "Lidköping",
+                "kollandso": "Kållandsö",
+                "bjorkfors": "Björkfors",
+                "uppsala": "Uppsala"
+            };
+
+            var listEl = document.getElementById("bookings-list");
+            var logoutBtn = document.getElementById("admin-logout");
+
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", function () {
+                    try { sessionStorage.removeItem(AUTH_KEY); } catch (e) {}
+                    window.location.href = "putsad.html";
+                });
+            }
+
+            function readBookings() {
+                try {
+                    var raw = localStorage.getItem(STORAGE_KEY);
+                    var parsed = raw ? JSON.parse(raw) : [];
+                    return Array.isArray(parsed) ? parsed : [];
+                } catch (e) {
+                    return [];
+                }
+            }
+
+            function writeBookings(bookings) {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(bookings));
+                } catch (e) {}
+            }
+
+            function formatDate(dateKey) {
+                var m = String(dateKey || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+                if (!m) return dateKey || "-";
+                var d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+                if (isNaN(d.getTime())) return dateKey || "-";
+                return d.toLocaleDateString("sv-SE", { day: "numeric", month: "long", year: "numeric" });
+            }
+
+            function createdLabel(iso) {
+                if (!iso) return "-";
+                var d = new Date(iso);
+                if (isNaN(d.getTime())) return "-";
+                return d.toLocaleString("sv-SE");
+            }
+
+            function escapeHtml(value) {
+                return String(value || "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#39;");
+            }
+
+            function bookingCopyText(booking) {
+                var fullName = [booking.firstName || "", booking.lastName || ""].join(" ").replace(/\s+/g, " ").trim() || "-";
+                var area = AREA_LABELS[booking.area] || booking.area || "-";
+                return [
+                    "Datum: " + (formatDate(booking.date) || "-"),
+                    "Tid: " + (booking.time || "-"),
+                    "Namn: " + fullName,
+                    "Personnummer: " + (booking.personnummer || "-"),
+                    "Telefon: " + (booking.phone || "-"),
+                    "E-post: " + (booking.email || "-"),
+                    "Adress: " + (booking.address || "-"),
+                    "Område: " + area,
+                    "Pris: " + ((booking.price && /^\d+$/.test(String(booking.price))) ? Number(booking.price).toLocaleString("sv-SE") + " kr" : "-")
+                ].join("\n");
+            }
+
+            function getBookingFieldValue(booking, field) {
+                var fullName = [booking.firstName || "", booking.lastName || ""].join(" ").replace(/\s+/g, " ").trim() || "-";
+                var areaLabel = AREA_LABELS[booking.area] || booking.area || "-";
+                var priceLabel = (booking.price && /^\d+$/.test(String(booking.price)))
+                    ? Number(booking.price).toLocaleString("sv-SE") + " kr"
+                    : "-";
+                if (field === "date") return formatDate(booking.date) || "-";
+                if (field === "time") return booking.time || "-";
+                if (field === "name") return fullName;
+                if (field === "personnummer") return booking.personnummer || "-";
+                if (field === "phone") return booking.phone || "-";
+                if (field === "email") return booking.email || "-";
+                if (field === "address") return booking.address || "-";
+                if (field === "area") return areaLabel;
+                if (field === "price") return priceLabel;
+                if (field === "createdAt") return createdLabel(booking.createdAt);
+                return "-";
+            }
+
+            function copyToClipboard(text) {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    return navigator.clipboard.writeText(text);
+                }
+                return new Promise(function (resolve, reject) {
+                    try {
+                        var ta = document.createElement("textarea");
+                        ta.value = text;
+                        ta.setAttribute("readonly", "");
+                        ta.style.position = "absolute";
+                        ta.style.left = "-9999px";
+                        document.body.appendChild(ta);
+                        ta.select();
+                        var ok = document.execCommand("copy");
+                        document.body.removeChild(ta);
+                        if (ok) resolve();
+                        else reject(new Error("copy failed"));
+                    } catch (e) {
+                        reject(e);
+                    }
+                });
+            }
+
+            function render() {
+                var bookings = readBookings();
+                if (!bookings.length) {
+                    listEl.innerHTML = '<div class="empty">Inga bokade tider ännu.</div>';
+                    return;
+                }
+
+                listEl.innerHTML = bookings.map(function (booking, index) {
+                    var metaRows = [
+                        { label: "Namn", field: "name" },
+                        { label: "Personnr", field: "personnummer" },
+                        { label: "Telefon", field: "phone" },
+                        { label: "E-post", field: "email" },
+                        { label: "Adress", field: "address" },
+                        { label: "Område", field: "area" },
+                        { label: "Pris", field: "price" },
+                        { label: "Skapad", field: "createdAt" }
+                    ].map(function (row) {
+                        var value = getBookingFieldValue(booking, row.field);
+                        return (
+                            '<div class="booking-meta-row">' +
+                                '<span>' + escapeHtml(row.label + ":") + '</span>' +
+                                '<div class="booking-meta-value">' + escapeHtml(value) + '</div>' +
+                                '<button type="button" class="btn btn-copy-mini" data-action="copy-field" data-index="' + index + '" data-field="' + escapeHtml(row.field) + '">Kopiera</button>' +
+                            '</div>'
+                        );
+                    }).join("");
+                    return (
+                        '<article class="booking-card" data-index="' + index + '">' +
+                            '<div class="booking-top">' +
+                                '<div class="booking-when">' + escapeHtml(formatDate(booking.date)) + ' kl. ' + escapeHtml(booking.time || "-") + '</div>' +
+                                '<div class="booking-actions">' +
+                                    '<button type="button" class="btn btn-copy" data-action="copy" data-index="' + index + '">Kopiera uppgifter</button>' +
+                                    '<button type="button" class="btn btn-delete" data-action="delete" data-index="' + index + '">Ta bort</button>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="booking-meta">' +
+                                metaRows +
+                            '</div>' +
+                        '</article>'
+                    );
+                }).join("");
+            }
+
+            listEl.addEventListener("click", function (e) {
+                var btn = e.target.closest("button[data-action]");
+                if (!btn) return;
+                var action = btn.getAttribute("data-action");
+                var index = Number(btn.getAttribute("data-index"));
+                if (!isFinite(index) || index < 0) return;
+                var bookings = readBookings();
+                var booking = bookings[index];
+                if (!booking) return;
+
+                if (action === "copy") {
+                    copyToClipboard(bookingCopyText(booking))
+                        .then(function () {
+                            btn.textContent = "Kopierat!";
+                            setTimeout(function () {
+                                btn.textContent = "Kopiera uppgifter";
+                            }, 1400);
+                        })
+                        .catch(function () {
+                            alert("Det gick inte att kopiera uppgifterna.");
+                        });
+                    return;
+                }
+
+                if (action === "copy-field") {
+                    var field = String(btn.getAttribute("data-field") || "").trim();
+                    var value = getBookingFieldValue(booking, field);
+                    copyToClipboard(value)
+                        .then(function () {
+                            var original = btn.textContent;
+                            btn.textContent = "Kopierat!";
+                            setTimeout(function () {
+                                btn.textContent = original || "Kopiera";
+                            }, 1000);
+                        })
+                        .catch(function () {
+                            alert("Det gick inte att kopiera värdet.");
+                        });
+                    return;
+                }
+
+                if (action === "delete") {
+                    var ok = window.confirm("Ta bort den här bokningen?");
+                    if (!ok) return;
+                    if (typeof putsadPushDeleted === "function") {
+                        putsadPushDeleted("booking", booking);
+                    }
+                    bookings.splice(index, 1);
+                    writeBookings(bookings);
+                    render();
+                }
+            });
+
+            render();
+        })();
+    </script>
+</body>
+</html>
