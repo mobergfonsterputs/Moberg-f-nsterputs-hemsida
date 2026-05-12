@@ -272,7 +272,7 @@
             const normalizedSelectedTime = selectedSlots.some((slot) => slot.start === selectedTime) ? selectedTime : "";
 
             function buildStepUrl(step) {
-                if (step === 1) return embedded ? "sa-funkar-det.html#price-calc-heading" : "putsad.html#pris-kalkylator";
+                if (step === 1) return "putsad.html#pris-kalkylator";
                 if (step === 2) {
                     return "adress.html";
                 }
@@ -283,7 +283,6 @@
                     if (selectedDate) params.set("date", selectedKey);
                     if (normalizedSelectedTime) params.set("time", normalizedSelectedTime);
                     const q = params.toString();
-                    if (embedded) return "sa-funkar-det.html#inline-booking-anchor" + (q ? "?" + q : "");
                     return "boka-tid.html" + (q ? "?" + q : "");
                 }
                 if (step === 4) {
@@ -312,7 +311,7 @@
                     <div className="top-nav">
                         <a
                             className="back-link"
-                            href={embedded ? "#price-calc-heading" : "adress.html"}
+                            href={embedded ? "putsad.html#pris-kalkylator" : "adress.html"}
                             aria-label="Tillbaka"
                         >
                             <span className="back-link-icon" aria-hidden="true">
