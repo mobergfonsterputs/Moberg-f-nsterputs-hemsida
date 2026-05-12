@@ -4,10 +4,15 @@ html {
     /* Reserverar plats för scrollbar så headern inte flyttar vid sidbyte/kortare sida */
     scrollbar-gutter: stable;
     overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
     font-synthesis: none;
+    /* Samma bas som putsad.html: undvik annan systemfont i header/meny mellan sidor */
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #000000;
 }
 
 img,
