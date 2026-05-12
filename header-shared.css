@@ -1,4 +1,4 @@
-body > header {
+body > header.site-chrome-header {
     position: sticky !important;
     top: 0 !important;
     width: 100% !important;
@@ -11,7 +11,7 @@ body > header {
     -moz-osx-font-smoothing: grayscale !important;
 }
 
-body > header .header-inner {
+body > header.site-chrome-header .header-inner {
     width: min(1320px, calc(100% - 2.5rem)) !important;
     margin: 0 auto !important;
     display: flex !important;
@@ -19,7 +19,7 @@ body > header .header-inner {
     align-items: center !important;
 }
 
-body > header .logo-fallback {
+body > header.site-chrome-header .logo-fallback {
     font-family: "Inter", sans-serif !important;
     font-weight: 800 !important;
     font-size: 2rem !important;
@@ -28,7 +28,7 @@ body > header .logo-fallback {
     letter-spacing: -1px !important;
 }
 
-body > header nav ul {
+body > header.site-chrome-header nav ul {
     display: flex !important;
     list-style: none !important;
     gap: 2.8rem !important;
@@ -37,7 +37,7 @@ body > header nav ul {
     padding: 0 !important;
 }
 
-body > header nav a {
+body > header.site-chrome-header nav a {
     text-decoration: none !important;
     color: #000 !important;
     font-weight: 500 !important;
@@ -45,12 +45,12 @@ body > header nav a {
     font-family: "Inter", sans-serif !important;
 }
 
-body > header nav ul li > a:not(.btn-cta) {
+body > header.site-chrome-header nav ul li > a:not(.btn-cta) {
     position: relative !important;
     display: inline-block !important;
 }
 
-body > header nav ul li > a:not(.btn-cta)::after {
+body > header.site-chrome-header nav ul li > a:not(.btn-cta)::after {
     content: "" !important;
     position: absolute !important;
     left: 0 !important;
@@ -62,22 +62,22 @@ body > header nav ul li > a:not(.btn-cta)::after {
     opacity: 0 !important;
 }
 
-body > header nav ul li > a:not(.btn-cta):hover::after {
+body > header.site-chrome-header nav ul li > a:not(.btn-cta):hover::after {
     opacity: 1 !important;
 }
 
-body > header .nav-desktop {
+body > header.site-chrome-header .nav-desktop {
     display: flex !important;
     align-items: center !important;
 }
 
-body > header .header-mobile {
+body > header.site-chrome-header .header-mobile {
     display: none !important;
     align-items: center !important;
     gap: 0.65rem !important;
 }
 
-body > header .nav-toggle {
+body > header.site-chrome-header .nav-toggle {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -91,16 +91,16 @@ body > header .nav-toggle {
     border-radius: 10px !important;
 }
 
-body > header .nav-toggle:hover {
+body > header.site-chrome-header .nav-toggle:hover {
     background: transparent !important;
 }
 
-body > header .nav-toggle svg {
+body > header.site-chrome-header .nav-toggle svg {
     width: 24px !important;
     height: 24px !important;
 }
 
-body > header .mobile-menu-panel {
+body > header.site-chrome-header .mobile-menu-panel {
     display: none !important;
     position: absolute !important;
     left: 0 !important;
@@ -113,17 +113,17 @@ body > header .mobile-menu-panel {
     z-index: 999 !important;
 }
 
-body > header .mobile-menu-panel.is-open {
+body > header.site-chrome-header .mobile-menu-panel.is-open {
     display: block !important;
 }
 
-body > header .mobile-menu-inner {
+body > header.site-chrome-header .mobile-menu-inner {
     width: min(1320px, calc(100% - 2.5rem)) !important;
     margin: 0 auto !important;
     padding: 0.75rem 0 1.25rem !important;
 }
 
-body > header .mobile-menu-panel ul {
+body > header.site-chrome-header .mobile-menu-panel ul {
     list-style: none !important;
     display: flex !important;
     flex-direction: column !important;
@@ -132,16 +132,16 @@ body > header .mobile-menu-panel ul {
     padding: 0 !important;
 }
 
-body > header .mobile-menu-panel li {
+body > header.site-chrome-header .mobile-menu-panel li {
     text-align: center !important;
     border-bottom: 1px solid #000 !important;
 }
 
-body > header .mobile-menu-panel li:last-child {
+body > header.site-chrome-header .mobile-menu-panel li:last-child {
     border-bottom: none !important;
 }
 
-body > header .mobile-menu-panel a {
+body > header.site-chrome-header .mobile-menu-panel a {
     display: block !important;
     padding: 1rem 0.75rem !important;
     text-decoration: none !important;
@@ -154,7 +154,7 @@ body > header .mobile-menu-panel a {
     line-height: 1.3 !important;
 }
 
-body > header .mobile-menu-panel a:hover {
+body > header.site-chrome-header .mobile-menu-panel a:hover {
     background: transparent !important;
     text-decoration: underline !important;
     text-decoration-color: #113768 !important;
@@ -163,7 +163,7 @@ body > header .mobile-menu-panel a:hover {
     color: #0f172a !important;
 }
 
-body > header .btn-cta {
+body > header.site-chrome-header .btn-cta {
     background: #113768 !important;
     color: #fff !important;
     padding: 0.8rem 3.4rem !important;
@@ -176,11 +176,17 @@ body > header .btn-cta {
     display: inline-block !important;
 }
 
-body > header .btn-cta:hover {
+body > header.site-chrome-header .btn-cta:hover {
     background: #0d2c52;
 }
 
 @media (max-width: 900px) {
-    body > header .nav-desktop { display: none !important; }
-    body > header .header-mobile { display: flex !important; }
+    body > header.site-chrome-header .nav-desktop { display: none !important; }
+    body > header.site-chrome-header .header-mobile { display: flex !important; }
+}
+
+/* Tailwind CDN (boka-tid): undvik default button-styling som ändrar menyknappen */
+body > header.site-chrome-header button.nav-toggle {
+    -webkit-appearance: none !important;
+    appearance: none !important;
 }
