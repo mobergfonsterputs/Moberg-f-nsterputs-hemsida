@@ -1,15 +1,47 @@
 /**
- * Laddar headern från includes/header.html (single source of truth för markup).
- * Injicerar <header> i stället för <div data-site-header></div>.
- * Markerar aktiv nav-länk och initierar mobilmeny.
- *
- * Används: <div data-site-header></div><script src="js/site-header.js"></script>
+ * Gemensamt sidhuvud: injicerar <header> i <div data-site-header></div> direkt (ingen fetch — undviker fördröjning).
+ * Markup ska matcha includes/header.html (uppdatera båda vid ändring).
  */
 (function () {
     "use strict";
 
     var mount = document.querySelector("[data-site-header]");
     if (!mount) return;
+
+    /* ── Samma HTML som includes/header.html ───────────────────────── */
+    var HEADER_MARKUP =
+        '<header class="site-chrome-header">' +
+        '<div class="header-inner">' +
+        '<a href="putsad.html#hem" class="logo-fallback" id="site-logo">Moberg Fönsterputs</a>' +
+        '<nav class="nav-desktop" aria-label="Huvudmeny">' +
+        "<ul>" +
+        '<li><a href="putsad.html#hem">Hem</a></li>' +
+        '<li><a href="sa-funkar-det.html">Så funkar det</a></li>' +
+        '<li><a href="detta-ingar.html">Detta ingår</a></li>' +
+        '<li><a href="putsad.html#kontakt">Kontakt</a></li>' +
+        '<li><a href="berakna-pris.html" class="btn-cta">Boka puts</a></li>' +
+        "</ul>" +
+        "</nav>" +
+        '<div class="header-mobile">' +
+        '<a href="berakna-pris.html" class="btn-cta">Boka puts</a>' +
+        '<button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Öppna meny">' +
+        '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+        '<path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
+        "</svg>" +
+        "</button>" +
+        "</div>" +
+        "</div>" +
+        '<div class="mobile-menu-panel" id="mobile-menu-panel" role="navigation" aria-label="Mobilmeny">' +
+        '<div class="mobile-menu-inner">' +
+        "<ul>" +
+        '<li><a href="putsad.html#hem">Hem</a></li>' +
+        '<li><a href="sa-funkar-det.html">Så funkar det</a></li>' +
+        '<li><a href="detta-ingar.html">Detta ingår</a></li>' +
+        '<li><a href="putsad.html#kontakt">Kontakt</a></li>' +
+        "</ul>" +
+        "</div>" +
+        "</div>" +
+        "</header>";
 
     function pathnameFilename() {
         var pathname = window.location.pathname || "";
@@ -20,7 +52,6 @@
         return String(seg).toLowerCase();
     }
 
-    /** Filnamn utan .html, index → startsida */
     function pathStemFromFilename(filename) {
         var s = String(filename || "").toLowerCase();
         if (!s || s === "index.html" || s === "index") return "putsad";
@@ -36,7 +67,6 @@
         return String(window.location.hash || "").toLowerCase();
     }
 
-    /** True om denna nav-länk motsvarar aktuell sida (stöd för pretty URL och ankare på putsad). */
     function isCurrentNavLink(href) {
         try {
             var u = new URL(String(href || ""), window.location.href);
@@ -100,18 +130,10 @@
         });
     }
 
-    var headerUrl = new URL("includes/header.html", window.location.href).toString();
-    fetch(headerUrl)
-        .then(function (res) {
-            if (!res.ok) throw new Error("Kunde inte ladda header: " + res.status);
-            return res.text();
-        })
-        .then(function (html) {
-            var tmp = document.createElement("div");
-            tmp.innerHTML = html.trim();
-            var header = tmp.querySelector("header");
-            if (!header) throw new Error("Ingen <header> hittades i includes/header.html");
-            initHeader(header);
-        })
-        .catch(function () {});
+    try {
+        var tmp = document.createElement("div");
+        tmp.innerHTML = HEADER_MARKUP.trim();
+        var header = tmp.querySelector("header.site-chrome-header");
+        if (header) initHeader(header);
+    } catch (e) {}
 })();
