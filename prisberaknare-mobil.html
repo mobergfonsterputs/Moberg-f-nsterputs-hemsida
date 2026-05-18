@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=optional" rel="stylesheet">
-    <link rel="stylesheet" href="site-stable.css?v=3">
+    <link rel="stylesheet" href="site-stable.css?v=2">
     <style>
         :root {
             --bg: #f8fafc;
@@ -144,12 +144,11 @@
         }
 
     </style>
-    <link rel="stylesheet" href="header-shared.css?v=3">
+    <link rel="stylesheet" href="header-shared.css">
 </head>
 <body>
     <div data-site-header></div>
-    <script src="js/site-header.js"></script>
-    <main class="wrap">
+<main class="wrap">
         <section class="card" aria-labelledby="calc-title">
             <h1 id="calc-title">Mobil prisberäknare</h1>
             <p class="lead">Fyll i antal fönster så räknar vi ut ett pris direkt.</p>
@@ -297,5 +296,6 @@
             update();
         })();
     </script>
+    <script src="site-header.js"></script>
 </body>
 </html>

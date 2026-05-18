@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=optional" rel="stylesheet">
-    <link rel="stylesheet" href="site-stable.css?v=3">
+    <link rel="stylesheet" href="site-stable.css?v=2">
     <link rel="stylesheet" href="footer-shared.css?v=24">
     <style>
         :root {
@@ -129,19 +129,16 @@
         }
 
     </style>
-    <link rel="stylesheet" href="header-shared.css?v=3">
+    <link rel="stylesheet" href="header-shared.css">
 </head>
 <body>
     <div data-site-header></div>
-    <script src="js/site-header.js"></script>
-
 <main class="terms-page" id="innehall">
-        <header class="terms-hero">
+        <section class="terms-hero">
             <h1>Allmänna villkor - Moberg fönsterputs</h1>
             <p class="lead">Dessa villkor beskriver hur tjänsten fungerar, vad som gäller för pris och betalning samt ansvar för både kund och utförare.</p>
-        </header>
-
-        <section class="terms-section" aria-labelledby="section-1">
+        </section>
+<section class="terms-section" aria-labelledby="section-1">
             <div class="terms-section-head"><h2 id="section-1">1. Tjänsten</h2></div>
             <div class="terms-items">
                 <article class="term-item">
@@ -340,6 +337,7 @@
             yearEl.textContent = String(new Date().getFullYear());
         })();
 </script>
+    <script src="site-header.js"></script>
 </body>
 </html>
 

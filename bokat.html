@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=optional" rel="stylesheet">
-    <link rel="stylesheet" href="site-stable.css?v=3">
+    <link rel="stylesheet" href="site-stable.css?v=2">
     <link rel="stylesheet" href="footer-shared.css?v=24">
     <style>
         :root {
@@ -273,12 +273,10 @@
         }
 
     </style>
-    <link rel="stylesheet" href="header-shared.css?v=3">
+    <link rel="stylesheet" href="header-shared.css">
 </head>
 <body>
     <div data-site-header></div>
-    <script src="js/site-header.js"></script>
-
 <main class="booking-complete" id="innehall">
         <div class="booking-complete-icons" aria-hidden="true">
             <svg class="booking-complete-check" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -302,7 +300,7 @@
 
     <div id="pdf-template-shell" class="pdf-template-shell" aria-hidden="true">
         <article class="pdf-template" id="pdf-template">
-            <header class="pdf-header">
+            <section class="pdf-header">
                 <div class="pdf-brand">
                     <h1 class="pdf-company-name">Moberg Fönsterputs</h1>
                     <div class="pdf-contact">
@@ -310,9 +308,8 @@
                         <span>072 942 14 05</span>
                     </div>
                 </div>
-            </header>
-
-            <h2 class="pdf-title">Bokningsbekräftelse</h2>
+            </section>
+<h2 class="pdf-title">Bokningsbekräftelse</h2>
 
             <section class="pdf-section">
                 <h3 class="pdf-section-title">Bokningsdetaljer</h3>
@@ -633,5 +630,6 @@
             }
         })();
     </script>
+    <script src="site-header.js"></script>
 </body>
 </html>

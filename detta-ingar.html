@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=optional" rel="stylesheet">
-    <link rel="stylesheet" href="site-stable.css?v=3">
+    <link rel="stylesheet" href="site-stable.css?v=2">
     <link rel="stylesheet" href="footer-shared.css?v=24">
     <style>
         body {
@@ -251,12 +251,11 @@
         }
 
     </style>
-    <link rel="stylesheet" href="header-shared.css?v=3">
+    <link rel="stylesheet" href="header-shared.css">
 </head>
 <body>
     <div data-site-header></div>
-    <script src="js/site-header.js"></script>
-    <main id="innehall">
+<main id="innehall">
         <section class="intro-panel snap-panel" aria-label="Intro">
             <div class="intro-panel-head">
                 <h1 class="page-title">Du kommer att få...</h1>
@@ -384,5 +383,6 @@
             yearEl.textContent = String(new Date().getFullYear());
         })();
     </script>
+    <script src="site-header.js"></script>
 </body>
 </html>
